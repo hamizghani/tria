@@ -54,7 +54,7 @@
 </head>
 <body>
   <nav>
-    <a href="{% url 'landing' %}">Home</a>
+    <a href="{% url 'home' %}">Home</a>
     <a href="{% url 'about:about_page' %}">About</a>
     <a href="{% url 'dances:dance_list' %}">Dances</a>
   </nav>
@@ -67,7 +67,7 @@
   <form action="{% url 'dances:dance_assessment' dance.id %}" method="get" style="display: inline;">
     <button type="submit">Try Again</button>
   </form>
-  <form action="{% url 'landing' %}" method="get" style="display: inline;">
+  <form action="{% url 'home' %}" method="get" style="display: inline;">
     <button type="submit">Home</button>
   </form>
 </body>

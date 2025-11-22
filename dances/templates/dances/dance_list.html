@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daftar Tarian - Tria</title>
+  <title>Dances List</title>
   <style>
     body {
       background-color: white;
       color: black;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-          Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
       margin: 0;
       padding: 1rem;
     }
@@ -30,89 +30,80 @@
     }
     h1 {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
-    .dance-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
     }
-    .dance-item {
-      border: 2px solid #ff6f00;
+    li {
+      border: 2px solid #d62e00;
       border-radius: 12px;
-      width: 280px;
       padding: 1rem;
-      box-shadow: 0 2px 8px rgba(255, 111, 0, 0.2);
-      transition: box-shadow 0.3s ease;
+      transition: border-color 0.3s ease;
       background-color: #fff;
+      box-shadow: 0 2px 8px rgba(214, 46, 0, 0.1);
     }
-    .dance-item:hover {
-      box-shadow: 0 4px 16px rgba(255, 111, 0, 0.4);
+    li:hover {
+      border-color: #ff6f00;
+      box-shadow: 0 4px 14px rgba(255, 111, 0, 0.3);
+    }
+    a.dance-link {
+      text-decoration: none;
+      color: #d62e00;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    a.dance-link:hover {
+      color: #ff6f00;
     }
     .dance-image {
       width: 100%;
-      height: 160px;
-      background-color: #eee;
-      border-radius: 8px;
-      margin-bottom: 1rem;
+      height: 150px;
       object-fit: cover;
-    }
-    .dance-name {
-      font-size: 1.3rem;
-      font-weight: 700;
+      border-radius: 8px;
       margin-bottom: 0.5rem;
-      color: #d62e00;
     }
     .dance-description {
       font-size: 0.95rem;
       color: #333;
-      margin-bottom: 1rem;
-      height: 54px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      min-height: 3rem;
     }
-    .dance-link {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background-color: #d62e00;
-      color: white;
-      border-radius: 24px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-    .dance-link:hover {
-      background-color: #ff6f00;
-    }
-
     @media (max-width: 600px) {
-      .dance-item {
-        width: 100%;
+      body {
+        padding: 0.5rem;
+      }
+      ul {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
   <nav>
-    <a href="{% url 'landing' %}">Home</a>
+    <a href="{% url 'home' %}">Home</a>
     <a href="{% url 'about:about_page' %}">About</a>
     <a href="{% url 'dances:dance_list' %}">Dances</a>
   </nav>
-  <h1>Daftar Tarian Tradisional Indonesia</h1>
-  <div class="dance-list">
+  <h1>List of Dances</h1>
+  <ul>
     {% for dance in dances %}
-      <div class="dance-item">
-        {% if dance.image_url %}
-          <img src="{{ dance.image_url }}" alt="{{ dance.name }}" class="dance-image" />
-        {% else %}
-          <div class="dance-image"></div>
-        {% endif %}
-        <div class="dance-name">{{ dance.name }}</div>
-        <div class="dance-description">{{ dance.description }}</div>
-        <a href="{% url 'dances:dance_detail' dance.id %}" class="dance-link">Lihat Detail</a>
-      </div>
+    <li>
+      {% if dance.image_url %}
+      <img src="{{ dance.image_url }}" alt="{{ dance.name }}" class="dance-image" />
+      {% endif %}
+      <a href="{% url 'dances:dance_detail' dance.id %}" class="dance-link">{{ dance.name }}</a>
+      <p class="dance-description">{{ dance.description }}</p>
+      <a href="{% url 'dances:dance_detail' dance.id %}" style="background-color: #d62e00; color: white; padding: 0.5rem 1rem; border-radius: 20px; text-decoration: none; font-weight: 600;">Belajar</a>
+    </li>
     {% endfor %}
-  </div>
+  </ul>
 </body>
 </html>

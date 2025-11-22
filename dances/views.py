@@ -16,24 +16,24 @@ DANCES = [
         "name": "Tari Janger",
         "description": "Tari Janger adalah tari tradisional dari Bali yang menampilkan gerakan dinamis dan ceria.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
-        "youtube_id": "",
-        "image_url": ""
+        "youtube_id": "3ka7bd-ECsI",
+        "image_url": "https://img.antarafoto.com/cache/1200x800/2021/07/01/pagelaran-tari-janger-muda-mudi-bali-uq4u-dom.webp"
     },
     {
         "id": 3,
         "name": "Tari Bungong Jeumpa",
         "description": "Tari Bungong Jeumpa adalah tari tradisional Aceh yang melambangkan keindahan bunga Jeumpa.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
-        "youtube_id": "",
-        "image_url": ""
+        "youtube_id": "W3PRdCxocM0",
+        "image_url": "https://www.kelaspintar.id/_next/image?url=https%3A%2F%2Fblog2.kelaspintar.id%2Fblog%2Fwp-content%2Fuploads%2F2021%2F12%2Ftari-bungong-jeumpa.jpg&w=3840&q=75"
     },
     {
         "id": 4,
         "name": "Tari Lenggang Nyai",
         "description": "Tari Lenggang Nyai adalah tari dari Betawi yang menggambarkan gerakan wanita dengan anggun.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
-        "youtube_id": "",
-        "image_url": ""
+        "youtube_id": "U1ycqGXJ1fI",
+        "image_url": "https://www.senibudayabetawi.com/wp-content/uploads/2021/12/large-maxresdefault-1-4d2a0786063540dff664d84bfe0d9d07-2.jpg"
     },
     {
         "id": 5,
@@ -41,7 +41,7 @@ DANCES = [
         "description": "Tari Piring adalah tarian tradisional Minangkabau yang menggunakan piring sebagai properti.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
         "youtube_id": "",
-        "image_url": ""
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe3dCdunJCq8gLwWCdbiWBeqI1VVKZYxH8aw&s"
     },
     {
         "id": 6,
@@ -49,7 +49,7 @@ DANCES = [
         "description": "Tari Serimpi adalah tari klasik Yogyakarta yang penuh dengan gerakan lemah gemulai.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
         "youtube_id": "",
-        "image_url": ""
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn-HmkUeHFdSytX9MQ4YMQ8Ggtee8TKTlQFg&s"
     },
     {
         "id": 7,
@@ -57,7 +57,7 @@ DANCES = [
         "description": "Tari Saman dari Aceh terkenal dengan gerakan cepat dan kompak.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
         "youtube_id": "",
-        "image_url": ""
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOqlApZqamkNQq2qamDw9xfm28YlT8cmSXZA&s"
     },
     {
         "id": 8,
@@ -65,7 +65,7 @@ DANCES = [
         "description": "Tari Reog Ponorogo adalah pertunjukan tari dengan topeng besar dari Jawa Timur.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
         "youtube_id": "",
-        "image_url": ""
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl7aU7RshzmXtYoXIhgmlyVEZ639AoaB8-CA&s"
     },
     {
         "id": 9,
@@ -73,7 +73,7 @@ DANCES = [
         "description": "Tari Topeng Betawi menampilkan gerakan yang ceria dengan topeng khas Betawi.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
         "youtube_id": "",
-        "image_url": ""
+        "image_url": "https://bisniswisata.co.id/wp-content/uploads/2019/08/tari-topeng-betawi-1.jpg"
     },
     {
         "id": 10,
@@ -81,7 +81,7 @@ DANCES = [
         "description": "Tari Gambyong adalah tari klasik dari Jawa Tengah dengan gerakan anggun.",
         "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
         "youtube_id": "",
-        "image_url": ""
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Gambyong_Langenkusuma_Pj_DSC_1322.JPG"
     }
 ]
 
