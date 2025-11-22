@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tria - Learn Traditional Indonesian Dance</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            background-color: #d62e00; /* Red from logo */
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        nav a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        nav a:hover {
+            color: #ff6f00; /* Orange from logo */
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        main h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            body {
+                font-size: 1.2rem;
+                height: auto;
+            }
+            header {
+                padding: 0.5rem;
+            }
+            nav a {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+                background-color: #d62e00;
+                border-radius: 15px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            }
+            main {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="{% url 'landing' %}">Home</a>
+        <a href="{% url 'about:about_page' %}">About</a>
+        <a href="{% url 'dances:dance_list' %}">Dances</a>
+    </nav>
+</header>
+<main>
+    <h1>Welcome to Tria</h1>
+</main>
+</body>
+</html>
