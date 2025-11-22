@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'accounts',  #authentication and accounts
     'dances',    # Daftar Tarian
     'articles',  # Artikel
-    'studios',   # Daftar Sanggar Tari
-    'core',
+    # Removed studios app to fix missing module error
+    # 'studios',   # Daftar Sanggar Tari
+    # Removed core app to fix missing module error
+    # 'core',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'tria.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'tria' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,77 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dances</title>
-    <style>
-        body {
-            background-color: white;
-            color: black;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            margin: 0;
-            padding: 1rem;
-        }
-        nav a {
-            color: #d62e00; /* red */
-            margin-right: 1rem;
-            text-decoration: none;
-            font-weight: 700;
-        }
-        nav a:hover {
-            color: #ff6f00; /* orange */
-        }
-        h1 {
-            margin-bottom: 1rem;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            background-color: #ff6f00; /* orange */
-            margin-bottom: 0.5rem;
-            padding: 0.75rem;
-            border-radius: 12px;
-        }
-        a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 600px) {
-            body {
-                padding: 0.5rem;
-                font-size: 1rem;
-            }
-            li {
-                border-radius: 20px;
-                padding: 1rem;
-            }
-            nav a {
-                padding: 0.5rem;
-                border-radius: 20px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daftar Tarian - Tria</title>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      margin: 0;
+      padding: 1rem;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    nav a {
+      color: #d62e00;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    nav a:hover {
+      color: #ff6f00;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .dance-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .dance-item {
+      border: 2px solid #ff6f00;
+      border-radius: 12px;
+      width: 280px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(255, 111, 0, 0.2);
+      transition: box-shadow 0.3s ease;
+      background-color: #fff;
+    }
+    .dance-item:hover {
+      box-shadow: 0 4px 16px rgba(255, 111, 0, 0.4);
+    }
+    .dance-image {
+      width: 100%;
+      height: 160px;
+      background-color: #eee;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      object-fit: cover;
+    }
+    .dance-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #d62e00;
+    }
+    .dance-description {
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 1rem;
+      height: 54px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .dance-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #d62e00;
+      color: white;
+      border-radius: 24px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .dance-link:hover {
+      background-color: #ff6f00;
+    }
+
+    @media (max-width: 600px) {
+      .dance-item {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-<nav>
+  <nav>
     <a href="{% url 'landing' %}">Home</a>
     <a href="{% url 'about:about_page' %}">About</a>
-</nav>
-
-<h1>Traditional Indonesian Dances</h1>
-<ul>
+    <a href="{% url 'dances:dance_list' %}">Dances</a>
+  </nav>
+  <h1>Daftar Tarian Tradisional Indonesia</h1>
+  <div class="dance-list">
     {% for dance in dances %}
-    <li><a href="{% url 'dances:dance_detail' dance.id %}">{{ dance.name }}</a></li>
+      <div class="dance-item">
+        {% if dance.image_url %}
+          <img src="{{ dance.image_url }}" alt="{{ dance.name }}" class="dance-image" />
+        {% else %}
+          <div class="dance-image"></div>
+        {% endif %}
+        <div class="dance-name">{{ dance.name }}</div>
+        <div class="dance-description">{{ dance.description }}</div>
+        <a href="{% url 'dances:dance_detail' dance.id %}" class="dance-link">Lihat Detail</a>
+      </div>
     {% endfor %}
-</ul>
+  </div>
 </body>
 </html>
