@@ -66,34 +66,57 @@
 <video id="video" autoplay playsinline></video>
 
 <div>
-  <button id="startBtn">Start</button>
-  <button id="finishBtn" disabled>Finish</button>
+    <button id="startBtn">Start</button>
+    <button id="finishBtn" disabled>Finish</button>
 </div>
 
+<h3 style="font-weight: normal;">Ketuk start untuk memulai kamera dan memulai asesmen {{ dance.name }}</h3>
+
 <script>
-  const video = document.getElementById('video');
-  const startBtn = document.getElementById('startBtn');
-  const finishBtn = document.getElementById('finishBtn');
-  let stream;
+    const video = document.getElementById('video');
+    const startBtn = document.getElementById('startBtn');
+    const finishBtn = document.getElementById('finishBtn');
+    let stream;
 
-  startBtn.addEventListener('click', async () => {
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-      video.srcObject = stream;
-      startBtn.disabled = true;
-      finishBtn.disabled = false;
-    } catch (err) {
-      alert('Could not access camera: ' + err);
-    }
-  });
+    startBtn.addEventListener('click', countdownAndStart);
 
-  finishBtn.addEventListener('click', () => {
-    if (stream) {
-      stream.getTracks().forEach(track => track.stop());
+    async function countdownAndStart() {
+        const countdownDiv = document.createElement('div');
+        countdownDiv.style.position = 'fixed';
+        countdownDiv.style.top = '50%';
+        countdownDiv.style.left = '50%';
+        countdownDiv.style.transform = 'translate(-50%, -50%)';
+        countdownDiv.style.fontSize = '3rem';
+        countdownDiv.style.fontWeight = 'bold';
+        countdownDiv.style.color = '#d62e00';
+        countdownDiv.style.zIndex = '1000';
+        countdownDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+        countdownDiv.style.padding = '1rem';
+        countdownDiv.style.borderRadius = '12px';
+        document.body.appendChild(countdownDiv);
+
+        for (let i = 3; i > 0; i--) {
+            countdownDiv.textContent = i;
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+
+        document.body.removeChild(countdownDiv);
+
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            video.srcObject = stream;
+            startBtn.disabled = true;
+            finishBtn.disabled = false;
+        } catch (err) {
+            alert('Could not access camera: ' + err);
+        }
     }
-    video.srcObject = null;
-    window.location.href = "{% url 'dances:dance_result' dance.id %}";
-  });
+
+    finishBtn.addEventListener('click', () => {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+        video.srcObject = null;
+        window.location.href = "{% url 'dances:dance_result' dance.id %}";
+    });
 </script>
-</body>
-</html>

@@ -31,7 +31,13 @@ DANCES = [
         "id": 4,
         "name": "Tari Lenggang Nyai",
         "description": "Tari Lenggang Nyai adalah tari dari Betawi yang menggambarkan gerakan wanita dengan anggun.",
-        "gerakan": ["Gerakan 1", "Gerakan 2", "Gerakan 3", "Gerakan 4"],
+        "gerakan": ["Berdiri tegap, kaki dibuka selebar bahu, tangan kanan memegang ujung selendang di pinggang kanan, tangan kiri di pinggang kiri. Hitungan 1–8: ayunkan pinggul dan badan sedikit miring ke kanan-kiri secara lembut (lenggang), sambil kaki kanan melangkah kecil ke samping kanan lalu rapat lagi, kaki kiri menyusul ke samping kiri lalu rapat lagi. Ulangi 2 kali (16 hitungan) dengan senyum dan kepala sedikit mengangguk mengikuti arah lenggangan.",
+
+"Mulai dari posisi menghadap depan. Hitungan 1–4: kaki kanan melangkah ke depan sedikit serong kanan, tangan kanan mengangkat selendang setinggi dada, tangan kiri membuka ke samping kiri sejajar bahu. Hitungan 5–8: putar badan pelan ke kiri (setengah lingkaran), kaki kiri menyusul rapat, selendang dikibas lembut ke arah luar. Ulangi pola yang sama ke arah berlawanan: langkah kaki kiri serong depan kiri, tangan kiri angkat selendang, putar badan ke kanan, selendang dikibas lagi (total 16 hitungan).",
+
+"Dari posisi menghadap depan, lakukan langkah silang. Hitungan 1–4: kaki kanan menyilang di depan kaki kiri, lalu kaki kiri melangkah membuka ke samping kiri, tubuh sedikit condong mengikuti arah kaki. Tangan berayun silang di depan badan (seperti mengiris lembut udara) sambil memegang selendang. Hitungan 5–8: ganti, kaki kiri menyilang di depan kaki kanan lalu membuka ke samping kanan, tangan berayun kembali dengan pola yang sama. Ulangi 2 kali (16 hitungan) sambil jaga gerakan tetap halus dan lentur.",
+
+"Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
         "youtube_id": "U1ycqGXJ1fI",
         "image_url": "https://www.senibudayabetawi.com/wp-content/uploads/2021/12/large-maxresdefault-1-4d2a0786063540dff664d84bfe0d9d07-2.jpg"
     },
@@ -117,7 +123,7 @@ def dance_result(request, dance_id):
     if dance is None:
         raise Http404(f"Dance with id {dance_id} not found")
     score = 85
-    improvement = "Perbaiki gerakan tangan dan postur."
+    improvement = "Menurutku, waktu kamu bawain Tari Lenggang Nyai, masalah yang paling sering kelihatan itu di keluwesan badan dan ekspresi wajah; gerak kaki dan pola lantainya sudah lumayan hafal, tapi ayunan tangan, bahu, dan pinggulmu masih cenderung kaku sehingga kesan lincah dan centil khas tari ini belum terlalu terasa, ditambah kadang tempo kamu suka sedikit kecepatan lalu tiba-tiba melambat sehingga nggak selalu “nempel” dengan iringan musik, jadi ke depan kamu bisa lebih fokus melenturkan badan, menguatkan mimik (senyum, tatapan mata yang hidup), dan sering latihan pakai musik supaya rasa dan ritmenya lebih rata dari awal sampai akhir."
     return render(request, 'dances/dance_result.html', {
         'dance': dance,
         'score': score,
