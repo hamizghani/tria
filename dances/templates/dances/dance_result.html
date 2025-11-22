@@ -1,74 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ dance.name }} - Assessment Result</title>
-  <style>
-    body {
-      background-color: white;
-      color: black;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-          Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      margin: 0;
-      padding: 1rem;
-      text-align: center;
-    }
-    nav a {
-      color: #d62e00;
-      margin-right: 1rem;
-      text-decoration: none;
-      font-weight: 700;
-    }
-    nav a:hover {
-      color: #ff6f00;
-    }
-    h1 {
-      margin-bottom: 1rem;
-    }
-    .score {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-    }
-    .improvement {
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-    }
-    button {
-      background-color: #d62e00;
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1.2rem;
-      border-radius: 25px;
-      cursor: pointer;
-      margin: 0 0.5rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #ff6f00;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ dance.name }} - Assessment Result</title>
+    <style>
+        :root {
+            --tria-red: #e53935;
+            --tria-orange: #ff9800;
+            --tria-orange-soft: #fff3e0;
+            --tria-border: #f0f0f0;
+            --tria-text: #222222;
+            --tria-muted: #555555;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--tria-text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR ---------------------------------------------------- */
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--tria-border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .nav-logo {
+            height: 36px;
+            width: 36px;
+            object-fit: contain;
+        }
+
+        .nav-title {
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-link {
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+        }
+
+        .nav-link:hover {
+            background-color: var(--tria-orange-soft);
+            color: var(--tria-red);
+            transform: translateY(-1px);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            background: linear-gradient(135deg, #c62828, #fb8c00);
+            color: #ffffff;
+        }
+
+        /* PAGE ------------------------------------------------------ */
+
+        .page {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 3rem 1.25rem 3.5rem 1.25rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 0.96rem;
+            color: var(--tria-muted);
+            margin-bottom: 2rem;
+        }
+
+        .result-card {
+            background-color: #ffffff;
+            border-radius: 1.2rem;
+            border: 1px solid var(--tria-border);
+            padding: 1.6rem 1.8rem;
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .score-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--tria-muted);
+        }
+
+        .score-value {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin: 0.3rem 0 0.4rem 0;
+            background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .improvement {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--tria-muted);
+        }
+
+        .result-note {
+            font-size: 0.9rem;
+            color: var(--tria-muted);
+            margin-bottom: 1.4rem;
+        }
+
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1.6rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease,
+                        box-shadow 0.2s ease, transform 0.1s ease,
+                        border-color 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
+            color: #ffffff;
+            box-shadow: 0 8px 18px rgba(229, 57, 53, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #c62828, #fb8c00);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(229, 57, 53, 0.3);
+        }
+
+        .btn-outline {
+            background-color: #ffffff;
+            color: var(--tria-red);
+            border-color: rgba(229, 57, 53, 0.3);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--tria-orange-soft);
+            border-color: var(--tria-red);
+            transform: translateY(-1px);
+        }
+
+        form {
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding-inline: 1rem;
+                padding-top: 2.4rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <nav>
-    <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'about:about_page' %}">About</a>
-    <a href="{% url 'dances:dance_list' %}">Dances</a>
-  </nav>
+    {% include 'partials/navbar.html' %}
 
-  <h1>{{ dance.name }} - Assessment Result</h1>
+    <main class="page">
+        <h1 class="section-title">{{ dance.name }} – Assessment Result</h1>
+        <p class="section-subtitle">
+            Berikut adalah hasil asesmen gerakan tari <strong>{{ dance.name }}</strong> yang baru saja kamu lakukan.
+        </p>
 
-  <div class="score">Score: {{ score }}%</div>
-  <div class="improvement">Improvement: {{ improvement }}</div>
+        <section class="result-card">
+            <div class="score-label">Skor kamu</div>
+            <div class="score-value">{{ score }}%</div>
+            <div class="improvement">Improvement: {{ improvement }}</div>
+            <p class="result-note">
+                Gunakan hasil ini sebagai panduan untuk mengetahui bagian mana yang perlu
+                lebih sering dilatih. Kamu selalu bisa mengulang asesmen untuk melihat
+                perkembanganmu.
+            </p>
 
-  <form action="{% url 'dances:dance_assessment' dance.id %}" method="get" style="display: inline;">
-    <button type="submit">Try Again</button>
-  </form>
-  <form action="{% url 'home' %}" method="get" style="display: inline;">
-    <button type="submit">Home</button>
-  </form>
+            <div class="result-actions">
+                <form action="{% url 'dances:dance_assessment' dance.id %}" method="get">
+                    <button type="submit" class="btn btn-primary">Try Again</button>
+                </form>
+                <form action="{% url 'dances:dance_list' %}" method="get">
+                    <button type="submit" class="btn btn-outline">Dances</button>
+                </form>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
