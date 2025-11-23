@@ -7,5 +7,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='landing.html'), name='home'),
     path('about/', include('about.urls')),
     path('dances/', include('dances.urls')),
+    path('daftarsanggar/', include('daftarsanggar.urls')),
     path('', include(('authentication.urls', 'authentication'), namespace='authentication')),
 ]
