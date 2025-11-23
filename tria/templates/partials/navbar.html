@@ -1,0 +1,14 @@
+{% load static %}
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="{% url 'home' %}" class="nav-brand">
+            <img src="{% static 'images/tria.png' %}" alt="Tria logo" class="nav-logo" />
+            <span class="nav-title">Tria</span>
+        </a>
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="{% url 'about:about_page' %}" class="nav-link">About</a>
+            <a href="{% url 'dances:dance_list' %}" class="nav-link nav-cta">Dances</a>
+        </div>
+    </div>
+</nav>
