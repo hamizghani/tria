@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'dances',    # Daftar Tarian
     'articles',  # Artikel
     # Removed studios app to fix missing module error
