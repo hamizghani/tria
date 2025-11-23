@@ -10,5 +10,14 @@
             <a href="{% url 'about:about_page' %}" class="nav-link">About</a>
             <a href="{% url 'dances:dance_list' %}" class="nav-link nav-cta">Tarian</a>
         </div>
+        <div class="nav-actions">
+            {% if user.is_authenticated %}
+                <a href="#" class="nav-link">Hi, {{ user.username }}</a>
+                <a href="{% url 'authentication:logout' %}" class="nav-link nav-cta">Logout</a>
+            {% else %}
+                <a href="{% url 'authentication:login' %}" class="nav-link">Login</a>
+                <a href="{% url 'authentication:register' %}" class="nav-link nav-cta">Register</a>
+            {% endif %}
+        </div>
     </div>
 </nav>
