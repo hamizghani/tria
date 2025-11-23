@@ -40,10 +40,7 @@ INSTALLED_APPS = [
     'accounts',  #authentication and accounts
     'dances',    # Daftar Tarian
     'articles',  # Artikel
-    # Removed studios app to fix missing module error
-    # 'studios',   # Daftar Sanggar Tari
-    # Removed core app to fix missing module error
-    # 'core',
+    'daftarsanggar',  # Daftar Sanggar
 ]
 
 MIDDLEWARE = [

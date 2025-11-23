@@ -1,0 +1,43 @@
+{% extends 'daftarsanggar/base.html' %}
+{% load static %}
+{% block content %}
+<div class="text-center max-w-2xl mx-auto mb-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Sanggar Tari Indonesia</h1>
+    <p class="text-gray-500 leading-relaxed">
+        Pilih sanggar tari terbaik untuk mengembangkan bakatmu. 
+        Setiap sanggar memiliki spesialisasi dan pengajar profesional.
+    </p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {% for sanggar in sanggars %}
+    
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden group">
+        
+        <div class="h-48 bg-gray-200 overflow-hidden relative">
+            <img 
+                src="{% static 'daftarsanggar/img/' %}{{ sanggar.image }}" 
+                alt="{{ sanggar.nama_sanggar }}" 
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+                onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'"
+            >
+            <div class="absolute inset-0 bg-black bg-opacity-10 group-hover:bg-opacity-0 transition"></div>
+        </div>
+        
+        <div class="p-5 flex flex-col flex-grow">
+            <h2 class="text-lg font-bold text-gray-900 mb-2 leading-tight">
+                {{ sanggar.nama_sanggar }}
+            </h2>
+            
+            <p class="text-sm text-gray-500 mb-6 line-clamp-3 flex-grow">
+                {{ sanggar.description }}
+            </p>
+            
+            <a href="{% url 'detail' sanggar.sanggar_id %}" class="inline-block text-center w-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-sm font-semibold py-2.5 px-6 rounded-full shadow-md hover:shadow-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:-translate-y-0.5">
+                Lihat Detail
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
