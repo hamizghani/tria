@@ -1,32 +1,476 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Tria</title>
+    <style>
+        :root {
+            --tria-red: #e53935;
+            --tria-orange: #ff9800;
+            --tria-orange-soft: #fff3e0;
+            --tria-border: #f0f0f0;
+            --tria-text: #222222;
+            --tria-muted: #555555;
+        }
 
-{% block meta %}
-<title>Login</title>
-{% endblock meta %}
+        * {
+            box-sizing: border-box;
+        }
 
-{% block content %}
-<div class="login">
-  <h1>Login</h1>
+        body {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%);
+            color: var(--tria-text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-  <form method="POST" action="">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input class="btn login_btn" type="submit" value="Login" /></td>
-      </tr>
-    </table>
-  </form>
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %} Don't have an account yet?
-  <a href="{% url 'main:register' %}">Register Now</a>
-</div>
+        /* NAVBAR */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--tria-border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
 
-{% endblock content %}
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .nav-logo {
+            height: 36px;
+            width: 36px;
+            object-fit: contain;
+        }
+
+        .nav-title {
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-link {
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+        }
+
+        .nav-link:hover {
+            background-color: var(--tria-orange-soft);
+            color: var(--tria-red);
+            transform: translateY(-1px);
+        }
+
+        /* AUTH CONTAINER */
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.25rem;
+        }
+
+        .auth-card {
+            background-color: #ffffff;
+            border-radius: 1.2rem;
+            border: 1px solid var(--tria-border);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circle accent */
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--tria-orange-soft), transparent);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            background-color: var(--tria-orange-soft);
+            color: var(--tria-red);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .auth-title {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+            background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-subtitle {
+            font-size: 0.95rem;
+            color: var(--tria-muted);
+            line-height: 1.5;
+        }
+
+        /* MESSAGES */
+        .messages {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .message {
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .message.error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
+        .message.info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #90caf9;
+        }
+
+        /* FORM */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--tria-text);
+        }
+
+        .form-input {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--tria-border);
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--tria-orange);
+            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-input:hover {
+            border-color: rgba(255, 152, 0, 0.4);
+        }
+
+        .form-help {
+            font-size: 0.82rem;
+            color: var(--tria-muted);
+            line-height: 1.4;
+        }
+
+        .form-error {
+            font-size: 0.85rem;
+            color: var(--tria-red);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .form-error::before {
+            content: "⚠";
+            font-size: 1rem;
+        }
+
+        .form-submit {
+            background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.85rem 1.5rem;
+            border-radius: 999px;
+            border: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(229, 57, 53, 0.25);
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-submit::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .form-submit:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .form-submit:hover {
+            background: linear-gradient(135deg, #c62828, #fb8c00);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(229, 57, 53, 0.35);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--tria-border);
+            font-size: 0.9rem;
+            color: var(--tria-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-link {
+            color: var(--tria-red);
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .auth-link:hover {
+            color: var(--tria-orange);
+            text-decoration: underline;
+        }
+
+        /* Welcome decoration */
+        .welcome-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .auth-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .auth-title {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.35rem 0.6rem;
+            }
+        }
+
+        /* Hide Django's default table layout */
+        table {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="{% url 'home' %}" class="nav-brand">
+                <img src="{% static 'images/tria.png' %}" alt="Tria logo" class="nav-logo" />
+                <span class="nav-title">Tria</span>
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'about:about_page' %}" class="nav-link">About</a>
+                <a href="{% url 'dances:dance_list' %}" class="nav-link">Dances</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="welcome-icon">💃</div>
+                <div class="auth-badge">Masuk ke Tria</div>
+                <h1 class="auth-title">Selamat Datang Kembali</h1>
+                <p class="auth-subtitle">Masuk untuk melanjutkan belajar tarian tradisional Indonesia</p>
+            </div>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" action="" class="auth-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}" class="form-label">
+                        Username
+                    </label>
+                    <input 
+                        type="text" 
+                        name="{{ form.username.name }}" 
+                        id="{{ form.username.id_for_label }}"
+                        class="form-input"
+                        placeholder="Masukkan username kamu"
+                        required
+                        autofocus
+                    />
+                    {% if form.username.errors %}
+                        {% for error in form.username.errors %}
+                        <span class="form-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}" class="form-label">
+                        Password
+                    </label>
+                    <input 
+                        type="password" 
+                        name="{{ form.password.name }}" 
+                        id="{{ form.password.id_for_label }}"
+                        class="form-input"
+                        placeholder="Masukkan password kamu"
+                        required
+                    />
+                    {% if form.password.errors %}
+                        {% for error in form.password.errors %}
+                        <span class="form-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.non_field_errors %}
+                <div class="form-group">
+                    {% for error in form.non_field_errors %}
+                    <span class="form-error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <button type="submit" class="form-submit">
+                    Masuk ke Tria
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Belum punya akun? 
+                <a href="{% url 'authentication:register' %}" class="auth-link">Daftar sekarang</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden table for Django form compatibility -->
+    <div style="display: none;">
+        {{ form.as_table }}
+    </div>
+</body>
+</html>

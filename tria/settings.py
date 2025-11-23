@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     'dances',    # Daftar Tarian
     'articles',  # Artikel
+    'authentication',  # Authentication (login/register)
     # Removed studios app to fix missing module error
     # 'studios',   # Daftar Sanggar Tari
     # Removed core app to fix missing module error
