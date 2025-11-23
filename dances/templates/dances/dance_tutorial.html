@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ dance.name }} - Tutorial</title>
+    <style>
+        :root {
+            --tria-red: #e53935;
+            --tria-orange: #ff9800;
+            --tria-orange-soft: #fff3e0;
+            --tria-border: #f0f0f0;
+            --tria-text: #222222;
+            --tria-muted: #555555;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--tria-text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR ---------------------------------------------------- */
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--tria-border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .nav-logo {
+            height: 36px;
+            width: 36px;
+            object-fit: contain;
+        }
+
+        .nav-title {
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-link {
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+        }
+
+        .nav-link:hover {
+            background-color: var(--tria-orange-soft);
+            color: var(--tria-red);
+            transform: translateY(-1px);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            background: linear-gradient(135deg, #c62828, #fb8c00);
+            color: #ffffff;
+        }
+
+        /* PAGE ------------------------------------------------------ */
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.25rem 3.5rem 1.25rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 0 0 0.4rem 0;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 0.96rem;
+            color: var(--tria-muted);
+            margin-bottom: 2rem;
+        }
+
+        .tutorial-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+            gap: 1.8rem;
+            align-items: flex-start;
+        }
+
+        .video-wrapper {
+            background-color: #ffffff;
+            border-radius: 1.2rem;
+            border: 1px solid var(--tria-border);
+            padding: 1.2rem 1.2rem 1.4rem 1.2rem;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .youtube-video {
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 340px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .video-note {
+            font-size: 0.85rem;
+            color: var(--tria-muted);
+            text-align: center;
+        }
+
+        .steps-card {
+            background-color: #ffffff;
+            border-radius: 1.2rem;
+            border: 1px solid var(--tria-border);
+            padding: 1.2rem 1.4rem;
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.04);
+        }
+
+        .steps-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        ol.gerakan-list {
+            padding-left: 1.1rem;
+            margin-bottom: 1.2rem;
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: var(--tria-muted);
+        }
+
+        ol.gerakan-list li {
+            margin-bottom: 0.4rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1.6rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease,
+                        box-shadow 0.2s ease, transform 0.1s ease,
+                        border-color 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
+            color: #ffffff;
+            box-shadow: 0 8px 18px rgba(229, 57, 53, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #c62828, #fb8c00);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(229, 57, 53, 0.3);
+        }
+
+        @media (max-width: 900px) {
+            .tutorial-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding-inline: 1rem;
+                padding-top: 2.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include "partials/navbar.html" %}
+
+    <main class="page">
+        <h1 class="section-title">{{ dance.name }} – Tutorial</h1>
+        <p class="section-subtitle">
+            Tonton video tutorial dan ikuti daftar gerakan di bawah ini untuk memahami alur
+            <strong>{{ dance.name }}</strong> dari awal hingga akhir.
+        </p>
+
+        <section class="tutorial-layout">
+            <article class="video-wrapper">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/{{ dance.youtube_id }}" allowfullscreen></iframe>
+                </div>
+                <p class="video-note">
+                    Gunakan tombol jeda dan ulangi bagian yang sulit sampai gerakan terasa nyaman.
+                </p>
+            </article>
+
+            <article class="steps-card">
+                <h2 class="steps-title">Urutan gerakan</h2>
+                <ol class="gerakan-list">
+                    {% for g in dance.gerakan %}
+                        <li>{{ g }}</li>
+                    {% endfor %}
+                </ol>
+
+                <form action="{% url 'dances:dance_assessment' dance.id %}" method="get">
+                    <button type="submit" class="btn btn-primary">Mulai Assesmen</button>
+                </form>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
