@@ -19,6 +19,11 @@ SECRET_KEY = 'django-insecure-5q0&nu!d9$=(sw3#jhosn_&!mtu-@g09by3i)tjtm*5k+kguf!
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 DEBUG = True
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://muhammad-hamiz-tria.pbp.cs.ui.ac.id',
+    'http://muhammad-hamiz-tria.pbp.cs.ui.ac.id',  # jika ada http
+]
+
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
