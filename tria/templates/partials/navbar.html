@@ -8,7 +8,10 @@
         <div class="nav-links">
             <a href="{% url 'home' %}" class="nav-link">Home</a>
             <a href="{% url 'about:about_page' %}" class="nav-link">About</a>
-            <a href="{% url 'dances:dance_list' %}" class="nav-link nav-cta">Tarian</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dances:dance_list' %}" class="nav-link nav-cta">Tarian</a>
+                <a href="{% url 'index' %}" class="nav-link nav-cta ml-4">Daftar Sanggar</a>
+            {% endif %}
         </div>
         <div class="nav-actions">
             {% if user.is_authenticated %}

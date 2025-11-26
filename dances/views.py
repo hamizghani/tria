@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
 # Updated list of 10 Indonesian dances with images and youtube placeholders
 DANCES = [
@@ -91,6 +92,7 @@ DANCES = [
     }
 ]
 
+@login_required
 def dance_list(request):
     return render(request, 'dances/dance_list.html', {'dances': DANCES})
 
