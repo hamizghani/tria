@@ -13,44 +13,52 @@
         --tria-muted: #555555;
     }
 
-    /* Container utama yang membagi 2 kolom & membatasi tinggi agar tidak scroll body */
+    /* WRAPPER UTAMA: Mengunci tinggi layar agar tidak scroll body */
     .split-wrapper {
         display: flex;
         width: 100%;
-        /* Mengambil tinggi layar dikurangi perkiraan tinggi navbar (misal 60-80px) 
-           agar pas satu layar tanpa scroll browser */
-        height: calc(100vh - 80px); 
+        /* Sesuaikan 70px dengan tinggi navbar kamu */
+        height: calc(100vh - 70px);
         overflow: hidden;
         background: #fff;
     }
 
-    /* --- KOLOM KIRI (GAMBAR) --- */
+    /* --- KOLOM KIRI: GAMBAR (FIXED ORANGE BORDER & FILL) --- */
     .image-panel {
-        flex: 1; /* Mengambil 50% lebar - bisa diubah flex: 1.5 untuk lebih lebar */
+        flex: 1.3; /* Lebar porsi gambar */
         position: relative;
-        background-color: #f8f8f8;
         overflow: hidden;
+
+        /* KUNCI 1: Border Orange Tetap */
+        border: 8px solid var(--tria-orange);
+        /* background cadangan saat gambar loading */
+        background-color: var(--tria-orange-soft);
     }
 
     .image-panel img {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Gambar akan full memenuhi area tanpa gepeng */
+        /* KUNCI 2: 'cover' memaksa gambar mengisi penuh container tanpa sisa ruang.
+           Catatan: Bagian pinggir gambar mungkin akan terpotong agar pas. */
+        object-fit: cover;
         display: block;
     }
 
-    /* --- KOLOM KANAN (KONTEN) --- */
+    /* --- KOLOM KANAN: KONTEN --- */
     .content-panel {
-        flex: 1; /* Mengambil sisa ruang */
-        padding: 2.5rem 3rem;
-        overflow-y: auto; /* HANYA bagian ini yang scroll jika konten panjang */
+        flex: 1; /* Lebar porsi konten */
+        padding: 2.5rem;
+        overflow-y: auto; /* Hanya kolom ini yang scroll */
+        background: #fff;
         display: flex;
         flex-direction: column;
+        /* Tambahkan border kiri tipis sebagai pemisah dengan border oranye */
+        border-left: 1px solid var(--tria-border);
     }
 
-    /* Styling Konten */
+    /* Styling Typography & Komponen */
     .sanggar-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
         font-weight: 800;
         margin: 0 0 0.5rem 0;
         color: var(--tria-text);
@@ -58,191 +66,179 @@
     }
 
     .sanggar-subtitle {
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: var(--tria-muted);
-        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
         border-bottom: 1px solid var(--tria-border);
-        padding-bottom: 1.5rem;
     }
 
     .sanggar-description {
-        font-size: 1rem;
+        font-size: 0.95rem;
         line-height: 1.7;
-        color: var(--tria-muted);
+        color: var(--tria-text);
+        margin-bottom: 2rem;
+        white-space: pre-line;
+    }
+
+    /* Contact Card Compact */
+    .contact-card {
+        background: #f9f9f9;
+        border: 1px solid #eee;
+        padding: 1.2rem;
+        border-radius: 12px;
         margin-bottom: 2rem;
     }
 
-    /* Contact Box yang dirapikan */
-    .contact-box {
-        background: var(--tria-orange-soft); /* Sedikit beda biar pop-up */
-        border: 1px solid rgba(255, 152, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 1rem;
-        margin-bottom: 2.5rem;
-    }
-
-    .contact-item {
+    .contact-row {
         display: flex;
         align-items: center;
         margin-bottom: 0.8rem;
+        font-size: 0.9rem;
         color: var(--tria-text);
-        font-weight: 500;
     }
 
-    .contact-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 0.75rem;
+    .contact-row i {
+        width: 24px;
         color: var(--tria-orange);
+        margin-right: 8px;
+        text-align: center;
     }
 
     .wa-btn {
         display: block;
-        text-align: center;
         background: #25D366;
         color: white;
+        text-align: center;
         padding: 0.8rem;
-        margin-top: 1.2rem;
         border-radius: 8px;
         font-weight: 700;
         text-decoration: none;
+        margin-top: 1rem;
         transition: 0.2s;
+        font-size: 0.9rem;
+    }
+    .wa-btn:hover { background: #1ebe59; color: #fff; transform: translateY(-2px); }
+    .wa-disabled { background: #ccc; cursor: default; }
+    .wa-disabled:hover { transform: none; background: #ccc; }
+
+    /* Reviews Compact */
+    .reviews-list {
+        display: grid;
+        gap: 1rem;
     }
 
-    .wa-btn:hover {
-        background: #1ebe59;
-        color: white;
-    }
-
-    .wa-disabled {
-        background: #ccc;
-        cursor: not-allowed;
-    }
-
-    /* Reviews */
-    .review-section {
-        margin-top: auto; /* Dorong ke bawah kalau konten sedikit */
-    }
-    
-    .review-title {
-        font-size: 1.4rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-    }
-
-    .review-card {
-        padding: 1rem;
-        border-radius: 0.8rem;
+    .review-item {
         border: 1px solid var(--tria-border);
-        margin-bottom: 0.8rem;
+        border-radius: 10px;
+        padding: 1rem;
         background: #fff;
     }
-
-    .review-user {
-        font-weight: 700;
-        color: var(--tria-text);
-        font-size: 0.9rem;
-        margin-bottom: 0.3rem;
+    .review-header {
         display: flex;
         align-items: center;
-    }
-    
-    .review-avatar {
-        width: 24px;
-        height: 24px;
-        background: var(--tria-orange);
-        color: white;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 8px;
-        font-size: 0.7rem;
-    }
-
-    .review-text {
+        margin-bottom: 0.5rem;
         font-size: 0.9rem;
+        font-weight: 700;
+    }
+    .review-avatar {
+        width: 28px; height: 28px;
+        background: var(--tria-orange);
+        color: #fff;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        margin-right: 8px;
+        font-size: 0.75rem;
+    }
+    .review-body {
+        font-size: 0.85rem;
         color: var(--tria-muted);
         font-style: italic;
-        margin: 0;
     }
 
-    /* Responsiveness: Kalau di HP balik jadi stack */
+    /* Responsive untuk Mobile */
     @media (max-width: 768px) {
         .split-wrapper {
             flex-direction: column;
-            height: auto; /* Biarkan scroll normal di HP */
+            height: auto; /* Balik ke scroll biasa di HP */
             overflow: visible;
         }
         .image-panel {
-            height: 300px; /* Tinggi gambar fix di HP */
+            height: 350px; /* Tinggi fix untuk gambar di HP */
             flex: none;
+            /* Di HP border oranye mungkin terlalu tebal, bisa dikurangi kalau mau */
+            border-width: 4px; 
         }
         .content-panel {
-            padding: 1.5rem;
             overflow: visible;
+            padding: 1.5rem;
+            border-left: none;
         }
     }
 </style>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <div class="split-wrapper">
 
     <div class="image-panel">
-        <img 
+        <img
             src="{% if '.png' in sanggar.image|lower %}{% static sanggar.image %}{% else %}{{ sanggar.image }}{% endif %}"
             alt="{{ sanggar.nama_sanggar }}"
-            onerror="this.src='https://via.placeholder.com/640x800?text=No+Image'"
+            onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'"
         />
     </div>
 
     <div class="content-panel">
-        
+
         <div>
             <h1 class="sanggar-title">{{ sanggar.nama_sanggar }}</h1>
-            <p class="sanggar-subtitle">
-                Kenali sejarah dan karakteristik <strong>{{ sanggar.nama_sanggar }}</strong>
-            </p>
-
-            <p class="sanggar-description">{{ sanggar.description }}</p>
+            <p class="sanggar-subtitle">Profil Lengkap & Informasi Sewa</p>
         </div>
 
-        <div class="contact-box">
-            <div class="contact-item">
-                <span class="contact-icon">📞</span> {{ sanggar.phone_number }}
+        <div class="contact-card">
+            <div class="contact-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{ sanggar.location }}</span>
             </div>
-            <div class="contact-item">
-                <span class="contact-icon">✉️</span> {{ sanggar.email }}
+            <div class="contact-row">
+                <i class="fas fa-phone"></i>
+                <span>{{ sanggar.phone_number }}</span>
             </div>
-            <div class="contact-item">
-                <span class="contact-icon">📍</span> {{ sanggar.location }}
+            <div class="contact-row">
+                <i class="fas fa-envelope"></i>
+                <span>{{ sanggar.email }}</span>
             </div>
 
             {% if sanggar.wa_link %}
-                <a href="{{ sanggar.wa_link }}" target="_blank" class="wa-btn">Chat via WhatsApp</a>
+                <a href="{{ sanggar.wa_link }}" target="_blank" class="wa-btn">
+                    <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                </a>
             {% else %}
                 <div class="wa-btn wa-disabled">WhatsApp Tidak Tersedia</div>
             {% endif %}
         </div>
 
-        <div class="review-section">
-            <h2 class="review-title">Ulasan Pengunjung</h2>
-            
-            {% for review in sanggar.reviews %}
-            <div class="review-card">
-                <div class="review-user">
-                    <div class="review-avatar">{{ review.user|slice:":1" }}</div>
-                    {{ review.user }}
+        <div>
+            <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Tentang Sanggar</h3>
+            <p class="sanggar-description">{{ sanggar.description }}</p>
+        </div>
+
+        <div>
+            <h3 style="font-weight: 700; margin-bottom: 1rem;">Ulasan Pengunjung</h3>
+            <div class="reviews-list">
+                {% for review in sanggar.reviews %}
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-avatar">{{ review.user|slice:":1" }}</div>
+                        {{ review.user }}
+                    </div>
+                    <div class="review-body">“{{ review.comment }}”</div>
                 </div>
-                <p class="review-text">“{{ review.comment }}”</p>
+                {% empty %}
+                <p style="color: #999; font-size: 0.9rem;">Belum ada ulasan.</p>
+                {% endfor %}
             </div>
-            {% empty %}
-            <p style="color:var(--tria-muted); font-size: 0.9rem;">Belum ada ulasan.</p>
-            {% endfor %}
         </div>
 
     </div>
