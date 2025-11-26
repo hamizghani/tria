@@ -141,6 +141,7 @@
             margin: 0.3rem 0 0.4rem 0;
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             -webkit-background-clip: text;
+            background-clip: text;
             color: transparent;
         }
     
@@ -205,8 +206,8 @@
 {% include 'partials/navbar.html' %}
 
 <main class="page">
-    <h1 class="section-title" style="text-align:center">{{ dance.name }} – Hasil Asesmen</h1>
-    <p class="section-subtitle" style="text-align:center">
+    <h1 class="section-title" style="text-align: center;">{{ dance.name }} – Hasil Asesmen</h1>
+    <p class="section-subtitle" style="text-align: center;">
         Berikut adalah hasil asesmen gerakan tari <strong>{{ dance.name }}</strong>.
     </p>
 
@@ -218,21 +219,21 @@
             Rincian Nilai Per Aspek
         </h3>
     
-        <table id="scoreTable" style="width:100%; margin-top:1rem; border-collapse: collapse;">
+        <table id="scoreTable" style="width: 100%; margin-top: 1rem; border-collapse: collapse;">
             <thead>
                 <tr style="background-color: var(--tria-orange-soft);">
-                    <th style="text-align:left; padding:12px;">Aspek Gerakan</th>
-                    <th style="text-align:right; padding:12px;">Skor</th>
+                    <th style="text-align: left; padding: 12px;">Aspek Gerakan</th>
+                    <th style="text-align: right; padding: 12px;">Skor</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
     
-        <h3 style="margin-top: 2rem; text-align:center; color: var(--tria-muted);">
+        <h3 style="margin-top: 2rem; text-align: center; color: var(--tria-muted);">
             Feedback Asesmen
         </h3>
     
-        <ul id="feedbackContainer" style="padding:0; list-style:none; margin-top:1rem;"></ul>
+        <ul id="feedbackContainer" style="padding: 0; list-style: none; margin-top: 1rem;"></ul>
     
         <div class="result-actions" style="margin-top: 2rem;">
             <form action="{% url 'dances:dance_assessment' dance.id %}" method="get">
@@ -248,29 +249,20 @@
 <script>
     const data = JSON.parse(sessionStorage.getItem("dance_result_api"));
 
-    const aspectNames = [
-        "Keluwesan Pinggul",
-        "Kewer Tangan",
-        "Kuda-kuda (Mendak)",
-        "Power Hentakan Kaki",
-        "Variasi Pinggul",
-        "Konsistensi Kewer Tangan",
-        "Stabilitas Kuda-kuda"
-    ];
-
     if (data) {
         document.getElementById("scoreDisplay").textContent = data.average_score + "%";
 
         const tbody = document.querySelector("#scoreTable tbody");
         tbody.innerHTML = "";
 
+        // Generate Sub Gerakan 1 - 15 dynamically
         data.score.forEach((score, i) => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td style="padding:10px; border-bottom:1px solid var(--tria-border);">
-                    ${aspectNames[i]}
+                <td style="padding: 10px; border-bottom: 1px solid var(--tria-border);">
+                    Sub Gerakan ${i + 1}
                 </td>
-                <td style="padding:10px; border-bottom:1px solid var(--tria-border); text-align:right;">
+                <td style="padding: 10px; border-bottom: 1px solid var(--tria-border); text-align: right;">
                     <strong>${score}</strong>
                 </td>
             `;

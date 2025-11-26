@@ -14,6 +14,15 @@
             --tria-text: #222222;
             --tria-muted: #555555;
         }
+
+        /* accent class for inline orange text - darker, richer gradient */
+        .accent {
+            background: linear-gradient(135deg, var(--tria-red), #e65100);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
     
         * {
             box-sizing: border-box;
@@ -33,7 +42,7 @@
             color: inherit;
         }
     
-        /* NAVBAR – match landing */
+        /* NAVBAR */
         .navbar {
             background-color: #ffffff;
             border-bottom: 1px solid #f3eee7;
@@ -101,16 +110,11 @@
             color: #ffffff;
         }
     
-        /* PAGE SHELL -------------------------------------------------- */
-    
+        /* PAGE */
         .page {
             max-width: 1100px;
             margin: 2.5rem auto 3.5rem auto;
-            padding: 2.5rem 2rem 3rem 2rem;
-            background-color: #ffffff;
-            border-radius: 2rem;
-            border: 1px solid var(--tria-border);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+            padding: 0 1rem;
         }
     
         .section-title {
@@ -129,76 +133,69 @@
             max-width: 640px;
             line-height: 1.6;
         }
-    
-        .assessment-layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.3fr);
-            gap: 1.8rem;
-            align-items: flex-start;
-        }
-    
-        .video-card,
-        .assessment-card {
-            background: linear-gradient(135deg, #ffffff, #fffdf8);
+
+        /* VIDEO CONTAINER - Full width dengan border */
+        .video-container {
+            background-color: #ffffff;
             border-radius: 1.4rem;
             border: 1px solid var(--tria-border);
-            padding: 1.4rem 1.5rem 1.6rem 1.5rem;
+            overflow: hidden;
             box-shadow: 0 14px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
         }
-    
-        .video-card {
-            text-align: center;
-        }
-    
+
         video {
             width: 100%;
-            max-width: 460px;
-            border-radius: 1.2rem;
-            border: 3px solid rgba(229, 57, 53, 0.85);
-            margin-bottom: 1rem;
-            box-shadow: 0 18px 40px rgba(229, 57, 53, 0.25);
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            background-color: #000000;
         }
-    
-        .video-note {
-            font-size: 0.86rem;
-            color: var(--tria-muted);
+
+        /* CONTROLS CONTAINER */
+        .controls-container {
+            background-color: #ffffff;
+            border-radius: 1.4rem;
+            border: 1px solid var(--tria-border);
+            padding: 1.8rem 2rem;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
         }
-    
-        .assessment-heading {
-            font-size: 1.15rem;
+
+        .controls-left {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .timer-display {
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            color: var(--tria-red);
+            min-width: 120px;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--tria-orange-soft), #ffffff);
+            border-radius: 12px;
+            border: 2px solid var(--tria-border);
         }
     
-        .assessment-text {
-            font-size: 0.96rem;
-            color: var(--tria-muted);
-            margin-bottom: 1.1rem;
-            line-height: 1.6;
-        }
-    
-        .hint-text {
-            font-size: 0.86rem;
-            color: var(--tria-muted);
-            margin-top: 0.9rem;
-        }
-    
-        /* BUTTONS – same style everywhere ---------------------------- */
-    
+        /* BUTTONS */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.7rem 1.6rem;
+            padding: 0.85rem 2rem;
             border-radius: 999px;
             border: 1px solid transparent;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease,
-                        box-shadow 0.2s ease, transform 0.1s ease,
-                        border-color 0.2s ease;
-            margin-right: 0.6rem;
+            transition: all 0.2s ease;
         }
     
         .btn-primary {
@@ -209,8 +206,8 @@
     
         .btn-primary:hover:not(:disabled) {
             background: linear-gradient(135deg, #c62828, #fb8c00);
-            transform: translateY(-1px);
-            box-shadow: 0 10px 24px rgba(229, 57, 53, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(229, 57, 53, 0.35);
         }
     
         .btn-outline {
@@ -222,7 +219,7 @@
         .btn-outline:hover:not(:disabled) {
             background-color: var(--tria-orange-soft);
             border-color: var(--tria-red);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
     
         .btn:disabled {
@@ -231,21 +228,96 @@
             box-shadow: none;
             transform: none;
         }
+
+        /* LOADING OVERLAY */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .loading-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--tria-red);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--tria-orange-soft);
+            border-top: 5px solid var(--tria-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* COUNTDOWN OVERLAY */
+        .countdown-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--tria-red);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
     
-        @media (max-width: 900px) {
-            .assessment-layout {
-                grid-template-columns: minmax(0, 1fr);
-            }
-    
+        @media (max-width: 768px) {
             video {
-                max-width: 100%;
+                height: 350px;
+            }
+
+            .controls-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .controls-left {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .timer-display {
+                width: 100%;
+            }
+
+            .countdown-overlay {
+                font-size: 4rem;
+                padding: 1.5rem 2.5rem;
             }
         }
     
         @media (max-width: 600px) {
             .page {
-                padding-inline: 1.4rem;
-                padding-top: 2.3rem;
+                padding-inline: 1rem;
+            }
+
+            video {
+                height: 280px;
             }
         }
     </style>    
@@ -254,68 +326,47 @@
 {% include 'partials/navbar.html' %}
 
 <main class="page">
-    <h1 class="section-title">{{ dance.name }} – Mulai Asesmen</h1>
+    <h1 class="section-title"><span class="accent">{{ dance.name }}</span> – Mulai Asesmen</h1>
     <p class="section-subtitle">
         Gunakan kamera perangkatmu untuk merekam gerakan saat menarikan
         <strong>{{ dance.name }}</strong>. Tria akan membantu mengevaluasi hasilnya.
     </p>
 
-    <section class="assessment-layout">
-        <article class="video-card">
-            <video id="video" autoplay playsinline></video>
-            <p class="video-note">
-                Pastikan tubuhmu terlihat jelas di layar dan ruanganmu memiliki pencahayaan yang cukup.
-            </p>
-        </article>
+    <!-- VIDEO FULL WIDTH -->
+    <div class="video-container">
+        <video id="video" autoplay playsinline></video>
+    </div>
 
-        <article class="assessment-card">
-            <h2 class="assessment-heading">Langkah asesmen</h2>
-            <p class="assessment-text">
-                Tekan tombol <strong>Start</strong> untuk menyalakan kamera dan bersiap
-                melakukan gerakan tarian. Setelah kamu menyelesaikan koreografi,
-                tekan <strong>Finish</strong> untuk menghentikan asesmen dan melihat hasil.
-            </p>
-
-            <div>
-                <button id="startBtn" class="btn btn-primary">Start</button>
-                <button id="finishBtn" class="btn btn-outline" disabled>Finish</button>
-            </div>
-
-            <p class="hint-text">
-                Setelah hitungan mundur selesai, kamera akan menyala secara otomatis.
-                Kamu bisa mengulang asesmen kapan saja jika belum puas dengan hasilnya.
-            </p>
-        </article>
-    </section>
-
-    <h3 style="font-weight: normal; text-align: center; margin-top: 2rem; color: var(--tria-muted);">
-        Ketuk <strong>Start</strong> untuk memulai kamera dan memulai asesmen {{ dance.name }}.
-    </h3>
+    <!-- CONTROLS: START, FINISH, TIMER -->
+    <div class="controls-container">
+        <div class="controls-left">
+            <button id="startBtn" class="btn btn-primary">Start</button>
+            <button id="finishBtn" class="btn btn-outline" disabled>Finish</button>
+        </div>
+        <div class="timer-display" id="timer">00:00</div>
+    </div>
 </main>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Menganalisis Gerakmu...</div>
+</div>
 
 <script>
     const video = document.getElementById('video');
     const startBtn = document.getElementById('startBtn');
     const finishBtn = document.getElementById('finishBtn');
+    const timerDisplay = document.getElementById('timer');
     let stream;
+    let timerInterval;
+    let seconds = 0;
 
     startBtn.addEventListener('click', countdownAndStart);
 
     async function countdownAndStart() {
         const countdownDiv = document.createElement('div');
-        countdownDiv.style.position = 'fixed';
-        countdownDiv.style.top = '50%';
-        countdownDiv.style.left = '50%';
-        countdownDiv.style.transform = 'translate(-50%, -50%)';
-        countdownDiv.style.fontSize = '3rem';
-        countdownDiv.style.fontWeight = 'bold';
-        countdownDiv.style.color = '#e53935';
-        countdownDiv.style.zIndex = '1000';
-        countdownDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-        countdownDiv.style.padding = '1rem 1.8rem';
-        countdownDiv.style.borderRadius = '16px';
-        countdownDiv.style.boxShadow = '0 12px 26px rgba(0,0,0,0.15)';
-        countdownDiv.style.textAlign = 'center';
+        countdownDiv.className = 'countdown-overlay';
         document.body.appendChild(countdownDiv);
 
         for (let i = 3; i > 0; i--) {
@@ -330,17 +381,36 @@
             video.srcObject = stream;
             startBtn.disabled = true;
             finishBtn.disabled = false;
+
+            // Start timer
+            seconds = 0;
+            timerDisplay.textContent = '00:00';
+            timerInterval = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                timerDisplay.textContent = 
+                    `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+
         } catch (err) {
             alert('Could not access camera: ' + err);
         }
     }
 
     finishBtn.addEventListener('click', async () => {
+        // Stop camera
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
         }
         video.srcObject = null;
 
+        // Stop timer
+        if (timerInterval) {
+            clearInterval(timerInterval);
+        }
+
+        // Show loading overlay
         document.getElementById("loadingOverlay").style.display = "flex";
 
         try {
@@ -355,14 +425,7 @@
             document.getElementById("loadingOverlay").style.display = "none";
         }
     });
-
-
 </script>
-<div id="loadingOverlay"
-     style="position:fixed; top:0; left:0; width:100%; height:100%;
-            background:white; display:none; align-items:center; justify-content:center;
-            z-index:9999; font-size:2rem; font-weight:700; color:#e53935;">
-    Menganalisis Gerakmu...
-</div>
+
 </body>
 </html>
