@@ -112,7 +112,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST009",
         "nama_sanggar": "Forever Dance Center",
-        "image": "https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/foreverdance.png",
         "phone_number": "0812-9642-0360",
         "location": "Jl. Pulomas Timur 2, Jakarta Timur",
         "email": "ForeverDanceCenter@gmail.com",
@@ -125,7 +125,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST010",
         "nama_sanggar": "Kinarya GSP",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tari_Saman_from_Aceh.jpg/640px-Tari_Saman_from_Aceh.jpg",
+        "image": "daftarsanggar/img/kinaryagsp.png",
         "phone_number": "0858-8419-3546",
         "location": "Jl. Wijaya I No. 381A, Jaksel",
         "email": "info@kinarya.id",
@@ -138,7 +138,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST011",
         "nama_sanggar": "Steps Dance Academy",
-        "image": "https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/stepsdance.png",
         "phone_number": "(021) 25554454",
         "location": "fX Sudirman 7th Floor, Jakarta Pusat",
         "email": "stepsdancefx@gmail.com",
@@ -151,7 +151,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST012",
         "nama_sanggar": "Sanggar Betawi Setu Babakan",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ondel-ondel_at_Jalan_Jaksa_Festival.jpg/640px-Ondel-ondel_at_Jalan_Jaksa_Festival.jpg",
+        "image": "daftarsanggar/img/sanggarbetawi.png",
         "phone_number": "(021) 78893258",
         "location": "Perkampungan Budaya Betawi Setu Babakan",
         "email": "betawi@setubabakan.or.id",
@@ -164,7 +164,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST013",
         "nama_sanggar": "Ballet Sumber Cipta",
-        "image": "https://images.unsplash.com/photo-1517559139268-96359eb38c4d?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/balletsumbercipta.png",
         "phone_number": "(021) 7659876",
         "location": "Jl. Ciputat Raya No. 1, Pondok Pinang",
         "email": "info@ballet.id",
@@ -178,7 +178,7 @@ HARDCODED_SANGGARS = [
         "sanggar_id": "ST014",
 
         "nama_sanggar": "Sanggar Kinang Putra",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Tari_Topeng.jpg/640px-Tari_Topeng.jpg",
+        "image": "daftarsanggar/img/kinangputra.png",
         "phone_number": "0813-8080-1234",
         "location": "Jl. Putri Tunggal, Cimanggis",
         "email": "kinangputra@yahoo.com",
@@ -191,7 +191,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST015",
         "nama_sanggar": "Gema Citra Nusantara",
-        "image": "https://images.unsplash.com/photo-1522851888496-e10df23684a0?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/gemacitra.png",
         "phone_number": "(021) 725 3573",
         "location": "Jl. Wolter Monginsidi No. 78, Jaksel",
         "email": "info@gcn-indonesia.com",
@@ -204,7 +204,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST016",
         "nama_sanggar": "Interlude Dance Studio",
-        "image": "https://images.unsplash.com/photo-1621976498727-9e5d6d808c4d?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/interludedance.png",
         "phone_number": "0877-7155-2016",
         "location": "BSD City, Tangerang Selatan",
         "email": "-",
@@ -217,7 +217,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST017",
         "nama_sanggar": "Genecela Dance Centre",
-        "image": "https://images.unsplash.com/photo-1551695405-02117565c589?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/geneceladance.png",
         "phone_number": "(021) 58302528",
         "location": "Jl. Meruya Ilir No. 88, Jakarta Barat",
         "email": "gdc@genecela.com",
@@ -230,7 +230,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST018",
         "nama_sanggar": "Sanggar Bintang Asti",
-        "image": "https://images.unsplash.com/photo-1628108426027-e9a623089d7b?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/bintangasti.png",
         "phone_number": "0857-1600-7521",
         "location": "Pulo Gadung, Jakarta Timur",
         "email": "-",
@@ -243,7 +243,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST019",
         "nama_sanggar": "Sanggar Ananda Kawula Muda",
-        "image": "https://images.unsplash.com/photo-1518116520779-79883907797e?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/kawulamuda.png",
         "phone_number": "0819-7761-1919",
         "location": "Jl. Dr. Saharjo No. 45, Manggarai",
         "email": "akawulamuda@gmail.com",
@@ -256,7 +256,7 @@ HARDCODED_SANGGARS = [
     {
         "sanggar_id": "ST020",
         "nama_sanggar": "Sanggar Ratna Sari",
-        "image": "https://images.unsplash.com/photo-1613963795550-934c99859267?q=80&w=800&auto=format&fit=crop",
+        "image": "daftarsanggar/img/ratnasari.png",
         "phone_number": "-",
         "location": "Cimanggis, Depok",
         "email": "-",
