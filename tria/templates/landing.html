@@ -109,7 +109,10 @@
         /* HERO ------------------------------------------------------ */
 
         .hero {
+            overflow-x: hidden;
+            scroll-behavior: smooth;  /* <- add this */
             margin-top: 3rem;
+            scrollbar-width: none;
         }
 
         .hero-top {
@@ -216,15 +219,19 @@
         .hero-gallery {
             display: flex;
             gap: 1rem;
-            overflow-x: auto;
+            /* user cannot scroll manually */
+            overflow-x: hidden;
             scroll-behavior: smooth;
             padding-bottom: 0.3rem;
-            scrollbar-width: thin;
+
+            /* hide any scrollbar completely */
+            scrollbar-width: none;
         }
 
         .hero-gallery::-webkit-scrollbar {
-            height: 6px;
+            display: none;
         }
+
 
         .hero-gallery::-webkit-scrollbar-thumb {
             background-color: rgba(0, 0, 0, 0.18);
@@ -750,5 +757,39 @@
             </div>
         </section>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const gallery = document.querySelector('.hero-gallery');
+          if (!gallery) return;
+      
+          let rafId;
+      
+          function autoScroll() {
+            const maxScroll = gallery.scrollWidth - gallery.clientWidth;
+      
+            if (gallery.scrollLeft >= maxScroll - 1) {
+              // reset smoothly back to start
+              gallery.scrollLeft = 0;
+            } else {
+              gallery.scrollLeft += 0.5; // speed: px per frame (increase for faster scroll)
+            }
+      
+            rafId = requestAnimationFrame(autoScroll);
+          }
+      
+          // start auto-scroll
+          rafId = requestAnimationFrame(autoScroll);
+      
+          // OPTIONAL: pause when user hovers, resume when mouse leaves
+          gallery.addEventListener('mouseenter', () => {
+            if (rafId) cancelAnimationFrame(rafId);
+          });
+      
+          gallery.addEventListener('mouseleave', () => {
+            rafId = requestAnimationFrame(autoScroll);
+          });
+        });
+      </script>
+      
 </body>
 </html>
