@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ dance.name }} - Assessment Result</title>
+
     <style>
         :root {
             --tria-red: #e53935;
@@ -13,11 +14,11 @@
             --tria-text: #222222;
             --tria-muted: #555555;
         }
-
+    
         * {
             box-sizing: border-box;
         }
-
+    
         body {
             background-color: #ffffff;
             color: var(--tria-text);
@@ -26,14 +27,14 @@
             margin: 0;
             padding: 0;
         }
-
+    
         a {
             text-decoration: none;
             color: inherit;
         }
-
+    
         /* NAVBAR ---------------------------------------------------- */
-
+    
         .navbar {
             background-color: #ffffff;
             border-bottom: 1px solid var(--tria-border);
@@ -41,7 +42,7 @@
             top: 0;
             z-index: 50;
         }
-
+    
         .nav-inner {
             max-width: 1100px;
             margin: 0 auto;
@@ -51,76 +52,76 @@
             justify-content: space-between;
             gap: 1rem;
         }
-
+    
         .nav-brand {
             display: flex;
             align-items: center;
             gap: 0.6rem;
         }
-
+    
         .nav-logo {
             height: 36px;
             width: 36px;
             object-fit: contain;
         }
-
+    
         .nav-title {
             font-weight: 700;
             letter-spacing: 0.03em;
             font-size: 1.1rem;
         }
-
+    
         .nav-links {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             font-size: 0.95rem;
         }
-
+    
         .nav-link {
             padding: 0.4rem 0.75rem;
             border-radius: 999px;
             transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
         }
-
+    
         .nav-link:hover {
             background-color: var(--tria-orange-soft);
             color: var(--tria-red);
             transform: translateY(-1px);
         }
-
+    
         .nav-cta {
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             color: #ffffff;
             font-weight: 600;
         }
-
+    
         .nav-cta:hover {
             background: linear-gradient(135deg, #c62828, #fb8c00);
             color: #ffffff;
         }
-
+    
         /* PAGE ------------------------------------------------------ */
-
+    
         .page {
             max-width: 700px;
             margin: 0 auto;
             padding: 3rem 1.25rem 3.5rem 1.25rem;
         }
-
+    
         .section-title {
             font-size: 1.8rem;
             margin: 0 0 0.5rem 0;
             text-align: center;
         }
-
+    
         .section-subtitle {
             text-align: center;
             font-size: 0.96rem;
             color: var(--tria-muted);
             margin-bottom: 2rem;
         }
-
+    
         .result-card {
             background-color: #ffffff;
             border-radius: 1.2rem;
@@ -129,14 +130,14 @@
             box-shadow: 0 16px 34px rgba(0, 0, 0, 0.06);
             text-align: center;
         }
-
+    
         .score-label {
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: var(--tria-muted);
         }
-
+    
         .score-value {
             font-size: 2.4rem;
             font-weight: 800;
@@ -145,26 +146,14 @@
             -webkit-background-clip: text;
             color: transparent;
         }
-
-        .improvement {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            color: var(--tria-muted);
-        }
-
-        .result-note {
-            font-size: 0.9rem;
-            color: var(--tria-muted);
-            margin-bottom: 1.4rem;
-        }
-
+    
         .result-actions {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 0.6rem;
         }
-
+    
         .btn {
             display: inline-flex;
             align-items: center;
@@ -179,35 +168,31 @@
                         box-shadow 0.2s ease, transform 0.1s ease,
                         border-color 0.2s ease;
         }
-
+    
         .btn-primary {
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             color: #ffffff;
             box-shadow: 0 8px 18px rgba(229, 57, 53, 0.25);
         }
-
+    
         .btn-primary:hover {
             background: linear-gradient(135deg, #c62828, #fb8c00);
             transform: translateY(-1px);
             box-shadow: 0 10px 24px rgba(229, 57, 53, 0.3);
         }
-
+    
         .btn-outline {
             background-color: #ffffff;
             color: var(--tria-red);
             border-color: rgba(229, 57, 53, 0.3);
         }
-
+    
         .btn-outline:hover {
             background-color: var(--tria-orange-soft);
             border-color: var(--tria-red);
             transform: translateY(-1px);
         }
-
-        form {
-            margin: 0;
-        }
-
+    
         @media (max-width: 600px) {
             .page {
                 padding-inline: 1rem;
@@ -215,35 +200,101 @@
             }
         }
     </style>
+    
 </head>
 <body>
-    {% include 'partials/navbar.html' %}
 
-    <main class="page">
-        <h1 class="section-title">{{ dance.name }} – Assessment Result</h1>
-        <p class="section-subtitle">
-            Berikut adalah hasil asesmen gerakan tari <strong>{{ dance.name }}</strong> yang baru saja kamu lakukan.
-        </p>
+{% include 'partials/navbar.html' %}
 
-        <section class="result-card">
-            <div class="score-label">Skor kamu</div>
-            <div class="score-value">{{ score }}%</div>
-            <div class="improvement">Improvement: {{ improvement }}</div>
-            <p class="result-note">
-                Gunakan hasil ini sebagai panduan untuk mengetahui bagian mana yang perlu
-                lebih sering dilatih. Kamu selalu bisa mengulang asesmen untuk melihat
-                perkembanganmu.
-            </p>
+<main class="page">
+    <h1 class="section-title" style="text-align:center">{{ dance.name }} – Assessment Result</h1>
+    <p class="section-subtitle" style="text-align:center">
+        Berikut adalah hasil asesmen gerakan tari <strong>{{ dance.name }}</strong>.
+    </p>
 
-            <div class="result-actions">
-                <form action="{% url 'dances:dance_assessment' dance.id %}" method="get">
-                    <button type="submit" class="btn btn-primary">Try Again</button>
-                </form>
-                <form action="{% url 'dances:dance_list' %}" method="get">
-                    <button type="submit" class="btn btn-outline">Dances</button>
-                </form>
-            </div>
-        </section>
-    </main>
+    <section class="result-card">
+        <div class="score-label">Skor Rata-Rata Kamu</div>
+        <div id="scoreDisplay" class="score-value">0%</div>
+    
+        <h3 style="margin-top: 1.5rem; text-align: center; color: var(--tria-muted);">
+            Rincian Nilai Per Aspek
+        </h3>
+    
+        <table id="scoreTable" style="width:100%; margin-top:1rem; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: var(--tria-orange-soft);">
+                    <th style="text-align:left; padding:12px;">Aspek Gerakan</th>
+                    <th style="text-align:right; padding:12px;">Skor</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    
+        <h3 style="margin-top: 2rem; text-align:center; color: var(--tria-muted);">
+            Feedback Asesmen
+        </h3>
+    
+        <ul id="feedbackContainer" style="padding:0; list-style:none; margin-top:1rem;"></ul>
+    
+        <div class="result-actions" style="margin-top: 2rem;">
+            <form action="{% url 'dances:dance_assessment' dance.id %}" method="get">
+                <button type="submit" class="btn btn-primary">Try Again</button>
+            </form>
+            <form action="{% url 'dances:dance_list' %}" method="get">
+                <button type="submit" class="btn btn-outline">Dances</button>
+            </form>
+        </div>
+    </section>    
+</main>
+
+<script>
+    const data = JSON.parse(sessionStorage.getItem("dance_result_api"));
+
+    const aspectNames = [
+        "Keluwesan Pinggul",
+        "Kewer Tangan",
+        "Kuda-kuda (Mendak)",
+        "Power Hentakan Kaki",
+        "Variasi Pinggul",
+        "Konsistensi Kewer Tangan",
+        "Stabilitas Kuda-kuda"
+    ];
+
+    if (data) {
+        document.getElementById("scoreDisplay").textContent = data.average_score + "%";
+
+        const tbody = document.querySelector("#scoreTable tbody");
+        tbody.innerHTML = "";
+
+        data.score.forEach((score, i) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td style="padding:10px; border-bottom:1px solid var(--tria-border);">
+                    ${aspectNames[i]}
+                </td>
+                <td style="padding:10px; border-bottom:1px solid var(--tria-border); text-align:right;">
+                    <strong>${score}</strong>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        const feedbackContainer = document.getElementById("feedbackContainer");
+        feedbackContainer.innerHTML = "";
+
+        data.feedback.forEach((text, i) => {
+            const box = document.createElement("li");
+            box.style.background = "var(--tria-orange-soft)";
+            box.style.borderLeft = "5px solid var(--tria-orange)";
+            box.style.padding = "12px 14px";
+            box.style.borderRadius = "12px";
+            box.style.marginBottom = "10px";
+            box.innerHTML = `<strong>${i + 1}.</strong> ${text}`;
+            feedbackContainer.appendChild(box);
+        });
+    }
+</script>
+
+
 </body>
 </html>
