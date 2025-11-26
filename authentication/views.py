@@ -52,3 +52,12 @@ def logout(request):
     auth_logout(request)
     messages.success(request, 'Kamu berhasil logout. Sampai jumpa lagi!')
     return redirect('home')
+
+
+@login_required
+def profile(request):
+    """Simple profile page showing user info and a logout action."""
+    context = {
+        'user': request.user,
+    }
+    return render(request, 'profile.html', context)

@@ -1,4 +1,31 @@
 {% load static %}
+<style>
+    /* Scoped navbar override: make logout button red and prominent */
+    .nav-logout {
+        background: linear-gradient(135deg,#e53935,#ff9800);
+        color: #ffffff !important;
+        font-weight: 700;
+        border-radius: 6px;
+        padding: 0.45rem 0.9rem;
+        box-shadow: 0 8px 20px rgba(229,57,53,0.18);
+        display: inline-block;
+    }
+    .nav-logout:hover { transform: translateY(-2px); }
+    /* simple avatar used across site (kept minimal so it works on pages without extra CSS) */
+    .nav-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        background: linear-gradient(135deg,#e53935,#ff9800);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.95rem;
+    }
+</style>
+
 <nav class="navbar">
     <div class="nav-inner">
         <a href="{% url 'home' %}" class="nav-brand">
@@ -15,8 +42,11 @@
         </div>
         <div class="nav-actions">
             {% if user.is_authenticated %}
-                <a href="#" class="nav-link">Hi, {{ user.username }}</a>
-                <a href="{% url 'authentication:logout' %}" class="nav-link nav-cta">Logout</a>
+                {# user icon linking to profile; logout removed from navbar per request #}
+                <a href="{% url 'authentication:profile' %}" class="nav-link" title="Profile" style="display:flex;align-items:center;gap:0.55rem;">
+                    <div class="nav-avatar">{{ user.username|slice:":1"|upper }}</div>
+                    <span class="muted" style="font-weight:600;color:inherit;">{{ user.username }}</span>
+                </a>
             {% else %}
                 <a href="{% url 'authentication:login' %}" class="nav-link">Login</a>
                 <a href="{% url 'authentication:register' %}" class="nav-link nav-cta">Register</a>

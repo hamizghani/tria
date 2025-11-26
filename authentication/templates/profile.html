@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+    <style>
+        :root { --tria-red: #e53935; --tria-orange: #ff9800; --muted: #666; }
+        .profile-container { max-width:900px; margin:2.5rem auto; padding:1rem }
+        .card { background:#fff; border:1px solid #f0e0d8; border-radius:12px; padding:1.25rem; box-shadow:0 10px 30px rgba(0,0,0,0.04) }
+        .profile-header { display:flex; align-items:center; gap:1rem }
+        .avatar { width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--tria-red),var(--tria-orange));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.4rem }
+        .meta { font-weight:700 }
+        .muted { color:var(--muted) }
+        .logout-btn { display:inline-block;margin-top:1rem;background:linear-gradient(135deg,var(--tria-red),var(--tria-orange));color:#fff;padding:0.7rem 1rem;border-radius:8px;font-weight:700;border:none;cursor:pointer }
+        .logout-btn:hover { opacity:0.95 }
+        .logout-form { margin-top:1rem }
+        @media (max-width:720px){ .profile-container{margin:1rem;padding:0.75rem} }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main class="profile-container">
+        <div class="card">
+            <div class="profile-header">
+                <div class="avatar">{{ user.username|slice:":1"|upper }}</div>
+                <div>
+                    <div class="meta">{{ user.get_full_name|default:user.username }}</div>
+                    <div class="muted">{{ user.email }}</div>
+                </div>
+            </div>
+
+            <p class="muted" style="margin-top:1rem">Kelola akunmu dan keluar dari Tria di halaman ini.</p>
+
+            <div class="logout-form">
+                <form method="post" action="{% url 'authentication:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
