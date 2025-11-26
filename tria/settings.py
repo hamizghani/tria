@@ -19,7 +19,12 @@ SECRET_KEY = 'django-insecure-5q0&nu!d9$=(sw3#jhosn_&!mtu-@g09by3i)tjtm*5k+kguf!
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1","https://muhammad-hamiz-tria.pbp.cs.ui.ac.id/"]  
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    # add your deployment host (no scheme, no trailing slash)
+    "muhammad-hamiz-tria.pbp.cs.ui.ac.id",
+]
 
 
 # Application definition
