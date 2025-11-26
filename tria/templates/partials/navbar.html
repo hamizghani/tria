@@ -1,6 +1,6 @@
 {% load static %}
 <style>
-    /* Scoped navbar override: make logout button red and prominent */
+    /* Existing scoped styles you already had */
     .nav-logout {
         background: linear-gradient(135deg,#e53935,#ff9800);
         color: #ffffff !important;
@@ -11,7 +11,7 @@
         display: inline-block;
     }
     .nav-logout:hover { transform: translateY(-2px); }
-    /* simple avatar used across site (kept minimal so it works on pages without extra CSS) */
+
     .nav-avatar {
         width: 34px;
         height: 34px;
@@ -24,6 +24,220 @@
         font-weight: 700;
         font-size: 0.95rem;
     }
+
+    /* === MOBILE NAV ADDITIONS === */
+
+    /* Layout base (if not already in your global CSS) */
+    .navbar {
+        background-color: #ffffff;
+        border-bottom: 1px solid #f3eee7;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+    .nav-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        position: relative;
+    }
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+        color: inherit;
+    }
+    .nav-logo {
+        height: 36px;
+        width: 36px;
+        object-fit: contain;
+    }
+    .nav-title {
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        font-size: 1.1rem;
+    }
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .nav-link {
+        padding: 0.4rem 0.75rem;
+        border-radius: 999px;
+        text-decoration: none;
+        color: inherit;
+        font-size: 0.95rem;
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    }
+    .nav-link:hover {
+        background-color: #fff1df;
+        color: #e53935;
+        transform: translateY(-1px);
+    }
+    .nav-cta {
+        background: linear-gradient(135deg, #e53935, #ff9800);
+        color: #ffffff;
+        font-weight: 600;
+    }
+    .nav-cta:hover {
+        background: linear-gradient(135deg, #c62828, #fb8c00);
+        color: #ffffff;
+    }
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    /* Wrapper for links + actions (used for mobile dropdown) */
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    /* Hamburger button */
+    .nav-toggle {
+        display: none; /* shown only on mobile */
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0.25rem;
+        margin-left: auto;
+    }
+    .nav-toggle-line {
+        width: 22px;
+        height: 2px;
+        border-radius: 999px;
+        background-color: #333;
+        display: block;
+        position: relative;
+        transition: background 0.2s ease;
+    }
+    .nav-toggle-line::before,
+    .nav-toggle-line::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 22px;
+        height: 2px;
+        border-radius: 999px;
+        background-color: #333;
+        transition: transform 0.2s ease, top 0.2s ease, bottom 0.2s ease;
+    }
+    .nav-toggle-line::before {
+        top: -6px;
+    }
+    .nav-toggle-line::after {
+        bottom: -6px;
+    }
+    .nav-toggle.is-open .nav-toggle-line {
+        background-color: transparent;
+    }
+    .nav-toggle.is-open .nav-toggle-line::before {
+        top: 0;
+        transform: rotate(45deg);
+    }
+    .nav-toggle.is-open .nav-toggle-line::after {
+        bottom: 0;
+        transform: rotate(-45deg);
+    }
+
+    /* Desktop: center Home / About / Tarian / Daftar Sanggar */
+@media (min-width: 769px) {
+    .nav-inner {
+        justify-content: flex-start;   /* brand on the left, menu takes the rest */
+    }
+
+    /* hide hamburger on desktop */
+    .nav-toggle {
+        display: none;
+    }
+
+    /* nav-menu becomes a normal flex row between logo and right edge */
+    .nav-menu {
+        position: static;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        padding: 0;
+        background: transparent;
+        border-bottom: none;
+        gap: 0; /* we’ll handle spacing inside */
+    }
+
+    /* THIS is the trick: links block sits in the middle */
+    .nav-links {
+        display: flex;
+        gap: 0.75rem;
+        margin: 0 auto;     /* pushes it to the center of nav-menu */
+    }
+
+    /* profile/login section stays right */
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-left: auto;  /* pushes actions to the far right */
+    }
+}
+
+    /* === RESPONSIVE BEHAVIOUR === */
+    @media (max-width: 768px) {
+        .nav-inner {
+            align-items: center;
+        }
+
+        /* show hamburger */
+        .nav-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* hide menu by default on mobile */
+        .nav-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-bottom: 1px solid #f3eee7;
+            padding: 0.75rem 1.5rem 1rem 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.35rem;
+            display: none;
+        }
+        .nav-menu.is-open {
+            display: flex;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .nav-actions {
+            flex-direction: column;
+            width: 100%;
+            align-items: stretch;
+            margin-top: 0.35rem;
+        }
+
+        .nav-actions .nav-link,
+        .nav-links .nav-link {
+            width: 100%;
+            text-align: left;
+        }
+    }
 </style>
 
 <nav class="navbar">
@@ -32,25 +246,53 @@
             <img src="{% static 'images/tria.png' %}" alt="Tria logo" class="nav-logo" />
             <span class="nav-title">TRIA</span>
         </a>
-        <div class="nav-links">
-            <a href="{% url 'home' %}" class="nav-link">Home</a>
-            <a href="{% url 'about:about_page' %}" class="nav-link">About</a>
-            {% if user.is_authenticated %}
-                <a href="{% url 'dances:dance_list' %}" class="nav-link nav-cta">Tarian</a>
-                <a href="{% url 'index' %}" class="nav-link nav-cta ml-4">Daftar Sanggar</a>
-            {% endif %}
-        </div>
-        <div class="nav-actions">
-            {% if user.is_authenticated %}
-                {# user icon linking to profile; logout removed from navbar per request #}
-                <a href="{% url 'authentication:profile' %}" class="nav-link" title="Profile" style="display:flex;align-items:center;gap:0.55rem;">
-                    <div class="nav-avatar">{{ user.username|slice:":1"|upper }}</div>
-                    <span class="muted" style="font-weight:600;color:inherit;">{{ user.username }}</span>
-                </a>
-            {% else %}
-                <a href="{% url 'authentication:login' %}" class="nav-link">Login</a>
-                <a href="{% url 'authentication:register' %}" class="nav-link nav-cta">Register</a>
-            {% endif %}
+
+        <!-- HAMBURGER BUTTON (visible on mobile) -->
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation">
+            <span class="nav-toggle-line"></span>
+        </button>
+
+        <!-- MENU: links + actions grouped together -->
+        <div class="nav-menu">
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'about:about_page' %}" class="nav-link">About</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dances:dance_list' %}" class="nav-link nav-cta">Tarian</a>
+                    <a href="{% url 'index' %}" class="nav-link nav-cta">Daftar Sanggar</a>
+                {% endif %}
+            </div>
+
+            <div class="nav-actions">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'authentication:profile' %}"
+                       class="nav-link"
+                       title="Profile"
+                       style="display:flex;align-items:center;gap:0.55rem;">
+                        <div class="nav-avatar">{{ user.username|slice:":1"|upper }}</div>
+                        <span class="muted" style="font-weight:600;color:inherit;">
+                            {{ user.username }}
+                        </span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'authentication:login' %}" class="nav-link">Login</a>
+                    <a href="{% url 'authentication:register' %}" class="nav-link nav-cta">Register</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('.nav-menu');
+
+        if (!toggle || !menu) return;
+
+        toggle.addEventListener('click', function () {
+            menu.classList.toggle('is-open');
+            toggle.classList.toggle('is-open');
+        });
+    });
+</script>
