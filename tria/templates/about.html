@@ -169,6 +169,58 @@
             margin-bottom: 0.8rem;
         }
 
+        /* NEW: Meet the Creators ----------------------------------- */
+
+        .team-section-title {
+            font-size: 1.8rem;
+            margin: 0 0 0.7rem 0;
+            text-align: center;
+        }
+
+        .team-subtitle {
+            text-align: center;
+            font-size: 0.96rem;
+            color: var(--tria-muted);
+            max-width: 620px;
+            margin: 0 auto 1.6rem auto;
+            line-height: 1.6;
+        }
+
+        .team-image-wrapper {
+            border-radius: 1.4rem;
+            overflow: hidden;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+            margin: 0 auto 1.7rem auto;
+        }
+
+        .team-image {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .team-meta {
+            text-align: center;
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--tria-red);
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+
+        .team-members {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--tria-muted);
+            margin-top: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .team-members strong {
+            color: var(--tria-text);
+        }
+
         @media (max-width: 600px) {
             .page {
                 padding-inline: 1rem;
@@ -178,13 +230,19 @@
             .section-title {
                 font-size: 1.6rem;
             }
+
+            .team-section-title {
+                font-size: 1.55rem;
+            }
         }
     </style>
 </head>
 <body>
+    {% load static %}
     {% include 'partials/navbar.html' %}
 
     <main class="page">
+        <!-- Existing "Tentang Tria" section -->
         <section class="section">
             <div class="pill">Tentang Tria</div>
             <h1 class="section-title">Menghubungkan generasi muda dengan tarian tradisional Indonesia</h1>
@@ -217,6 +275,31 @@
                     <li>Menjadikan tarian daerah sebagai bagian dari identitas, bukan sekadar tontonan.</li>
                 </ul>
             </article>
+        </section>
+
+        <!-- NEW: Meet the Tria Creators -->
+        <section class="section">
+            <div class="team-meta">Meet the Tria Creators</div>
+            <h2 class="team-section-title">Tim Little Vietnam</h2>
+            <p class="team-subtitle">
+                Di balik Tria, ada sekelompok mahasiswa yang percaya bahwa teknologi bisa menjadi
+                jembatan antara generasi muda dan warisan budaya Indonesia. Kami merancang Tria
+                agar bukan hanya jadi alat belajar, tetapi juga ruang untuk merayakan identitas
+                dan kebanggaan sebagai orang Indonesia.
+            </p>
+
+            <div class="team-image-wrapper">
+                <img src="{% static 'images/team.png' %}"
+                     alt="Tim Little Vietnam, para kreator TRIA"
+                     class="team-image" />
+            </div>
+
+            <p class="team-members">
+                <strong>Tim Little Vietnam</strong> terdiri dari:<br />
+                Muhammad Hamiz Ghani Ayusha · Lessyarta Kamali Sopamena Pirade ·
+                Ammar Muhammad Rafif · I Gusti Ngurah Agung Airlangga Putra ·
+                Fidel Akilah
+            </p>
         </section>
     </main>
 </body>
