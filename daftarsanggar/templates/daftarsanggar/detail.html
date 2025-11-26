@@ -13,69 +13,91 @@
         --tria-muted: #555555;
     }
 
-    .page-center {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 1rem 1.25rem 3.5rem 1.25rem;
-    }  
+    /* Container utama yang membagi 2 kolom & membatasi tinggi agar tidak scroll body */
+    .split-wrapper {
+        display: flex;
+        width: 100%;
+        /* Mengambil tinggi layar dikurangi perkiraan tinggi navbar (misal 60-80px) 
+           agar pas satu layar tanpa scroll browser */
+        height: calc(100vh - 80px); 
+        overflow: hidden;
+        background: #fff;
+    }
 
+    /* --- KOLOM KIRI (GAMBAR) --- */
+    .image-panel {
+        flex: 1; /* Mengambil 50% lebar - bisa diubah flex: 1.5 untuk lebih lebar */
+        position: relative;
+        background-color: #f8f8f8;
+        overflow: hidden;
+    }
+
+    .image-panel img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Gambar akan full memenuhi area tanpa gepeng */
+        display: block;
+    }
+
+    /* --- KOLOM KANAN (KONTEN) --- */
+    .content-panel {
+        flex: 1; /* Mengambil sisa ruang */
+        padding: 2.5rem 3rem;
+        overflow-y: auto; /* HANYA bagian ini yang scroll jika konten panjang */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Styling Konten */
     .sanggar-title {
-        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 800;
         margin: 0 0 0.5rem 0;
-        font-size: 2rem;
-        font-weight: 700;
+        color: var(--tria-text);
+        line-height: 1.2;
     }
 
     .sanggar-subtitle {
-        text-align: center;
-        font-size: 0.97rem;
+        font-size: 1rem;
+        color: var(--tria-muted);
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--tria-border);
+        padding-bottom: 1.5rem;
+    }
+
+    .sanggar-description {
+        font-size: 1rem;
+        line-height: 1.7;
         color: var(--tria-muted);
         margin-bottom: 2rem;
     }
 
-    .sanggar-image {
-        width: 100%;
-        max-width: 640px;
-        height: auto;
-        display: block;
-        margin: 0 auto 1.3rem auto;
-        border-radius: 1rem;
-        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .sanggar-description {
-        max-width: 700px;
-        margin: 0 auto 2rem auto;
-        font-size: 1rem;
-        line-height: 1.7;
-        color: var(--tria-muted);
-    }
-
+    /* Contact Box yang dirapikan */
     .contact-box {
-        border: 1px solid var(--tria-border);
-        padding: 1.4rem 1.6rem;
+        background: var(--tria-orange-soft); /* Sedikit beda biar pop-up */
+        border: 1px solid rgba(255, 152, 0, 0.2);
+        padding: 1.5rem;
         border-radius: 1rem;
-        max-width: 700px;
-        margin: 0 auto 2rem auto;
+        margin-bottom: 2.5rem;
     }
 
     .contact-item {
         display: flex;
         align-items: center;
-        margin-bottom: 0.7rem;
+        margin-bottom: 0.8rem;
         color: var(--tria-text);
+        font-weight: 500;
     }
 
     .contact-icon {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         background: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-right: 0.75rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         color: var(--tria-orange);
     }
 
@@ -84,140 +106,146 @@
         text-align: center;
         background: #25D366;
         color: white;
-        padding: 0.75rem 1.2rem;
-        margin-top: 1rem;
-        border-radius: 999px;
-        font-weight: 600;
-        transition: 0.2s ease;
-        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+        padding: 0.8rem;
+        margin-top: 1.2rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.2s;
     }
 
     .wa-btn:hover {
         background: #1ebe59;
-        transform: translateY(-2px);
+        color: white;
     }
 
     .wa-disabled {
-        background: #e0e0e0;
-        color: #9e9e9e;
+        background: #ccc;
         cursor: not-allowed;
     }
 
+    /* Reviews */
+    .review-section {
+        margin-top: auto; /* Dorong ke bawah kalau konten sedikit */
+    }
+    
     .review-title {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         font-weight: 700;
         margin-bottom: 1rem;
-        text-align: center;
-    }
-
-    .reviews-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1rem;
-        max-width: 850px;
-        margin: 0 auto;
     }
 
     .review-card {
-        padding: 1.2rem;
-        border-radius: 1rem;
+        padding: 1rem;
+        border-radius: 0.8rem;
         border: 1px solid var(--tria-border);
+        margin-bottom: 0.8rem;
+        background: #fff;
     }
 
     .review-user {
+        font-weight: 700;
+        color: var(--tria-text);
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
         display: flex;
         align-items: center;
-        margin-bottom: 0.5rem;
     }
-
+    
     .review-avatar {
-        width: 38px;
-        height: 38px;
+        width: 24px;
+        height: 24px;
+        background: var(--tria-orange);
+        color: white;
         border-radius: 50%;
-        background: #fff;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: var(--tria-red);
-        font-weight: 700;
-        margin-right: 0.6rem;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        text-transform: uppercase;
+        margin-right: 8px;
+        font-size: 0.7rem;
     }
 
     .review-text {
+        font-size: 0.9rem;
         color: var(--tria-muted);
         font-style: italic;
+        margin: 0;
+    }
+
+    /* Responsiveness: Kalau di HP balik jadi stack */
+    @media (max-width: 768px) {
+        .split-wrapper {
+            flex-direction: column;
+            height: auto; /* Biarkan scroll normal di HP */
+            overflow: visible;
+        }
+        .image-panel {
+            height: 300px; /* Tinggi gambar fix di HP */
+            flex: none;
+        }
+        .content-panel {
+            padding: 1.5rem;
+            overflow: visible;
+        }
     }
 </style>
 
-<div class="page-center">
+<div class="split-wrapper">
 
-    <!-- TITLE -->
-    <h1 class="sanggar-title">{{ sanggar.nama_sanggar }}</h1>
-    <p class="sanggar-subtitle">
-        Kenali sejarah dan karakteristik <strong>{{ sanggar.nama_sanggar }}</strong>
-        sebelum menghubungi sanggar secara langsung.
-    </p>
-
-    <!-- IMAGE -->
-    <img 
-        class="sanggar-image"
-        src="{% if '.png' in sanggar.image|lower %}{% static sanggar.image %}{% else %}{{ sanggar.image }}{% endif %}"
-        alt="{{ sanggar.nama_sanggar }}"
-        onerror="this.src='https://via.placeholder.com/640x400?text=No+Image'"
-    />
-
-    <!-- DESCRIPTION -->
-    <p class="sanggar-description">{{ sanggar.description }}</p>
-
-    <!-- CONTACT BOX -->
-    <div class="contact-box">
-        <div class="contact-item">
-            <div class="contact-icon">
-                📞
-            </div>
-            {{ sanggar.phone_number }}
-        </div>
-
-        <div class="contact-item">
-            <div class="contact-icon">
-                ✉️
-            </div>
-            {{ sanggar.email }}
-        </div>
-
-        <div class="contact-item">
-            <div class="contact-icon">
-                📍
-            </div>
-            {{ sanggar.location }}
-        </div>
-
-        {% if sanggar.wa_link %}
-            <a href="{{ sanggar.wa_link }}" target="_blank" class="wa-btn">Chat via WhatsApp</a>
-        {% else %}
-            <div class="wa-btn wa-disabled">WhatsApp Tidak Tersedia</div>
-        {% endif %}
+    <div class="image-panel">
+        <img 
+            src="{% if '.png' in sanggar.image|lower %}{% static sanggar.image %}{% else %}{{ sanggar.image }}{% endif %}"
+            alt="{{ sanggar.nama_sanggar }}"
+            onerror="this.src='https://via.placeholder.com/640x800?text=No+Image'"
+        />
     </div>
 
-    <!-- REVIEWS -->
-    <h2 class="review-title">Ulasan Pengunjung</h2>
+    <div class="content-panel">
+        
+        <div>
+            <h1 class="sanggar-title">{{ sanggar.nama_sanggar }}</h1>
+            <p class="sanggar-subtitle">
+                Kenali sejarah dan karakteristik <strong>{{ sanggar.nama_sanggar }}</strong>
+            </p>
 
-    <div class="reviews-grid">
-        {% for review in sanggar.reviews %}
-        <div class="review-card">
-            <div class="review-user">
-                <div class="review-avatar">{{ review.user|slice:":1" }}</div>
-                <strong>{{ review.user }}</strong>
-            </div>
-            <p class="review-text">“{{ review.comment }}”</p>
+            <p class="sanggar-description">{{ sanggar.description }}</p>
         </div>
-        {% empty %}
-        <p class="text-center" style="color:var(--tria-muted);">Belum ada ulasan.</p>
-        {% endfor %}
-    </div>
 
+        <div class="contact-box">
+            <div class="contact-item">
+                <span class="contact-icon">📞</span> {{ sanggar.phone_number }}
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">✉️</span> {{ sanggar.email }}
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📍</span> {{ sanggar.location }}
+            </div>
+
+            {% if sanggar.wa_link %}
+                <a href="{{ sanggar.wa_link }}" target="_blank" class="wa-btn">Chat via WhatsApp</a>
+            {% else %}
+                <div class="wa-btn wa-disabled">WhatsApp Tidak Tersedia</div>
+            {% endif %}
+        </div>
+
+        <div class="review-section">
+            <h2 class="review-title">Ulasan Pengunjung</h2>
+            
+            {% for review in sanggar.reviews %}
+            <div class="review-card">
+                <div class="review-user">
+                    <div class="review-avatar">{{ review.user|slice:":1" }}</div>
+                    {{ review.user }}
+                </div>
+                <p class="review-text">“{{ review.comment }}”</p>
+            </div>
+            {% empty %}
+            <p style="color:var(--tria-muted); font-size: 0.9rem;">Belum ada ulasan.</p>
+            {% endfor %}
+        </div>
+
+    </div>
 </div>
 
 {% endblock %}
