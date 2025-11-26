@@ -13,211 +13,235 @@
         --tria-muted: #555555;
     }
 
-    .page-center {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 1rem 1.25rem 3.5rem 1.25rem;
+    /* WRAPPER UTAMA: Mengunci tinggi layar agar tidak scroll body */
+    .split-wrapper {
+        display: flex;
+        width: 100%;
+        /* Sesuaikan 70px dengan tinggi navbar kamu */
+        height: calc(100vh - 70px);
+        overflow: hidden;
+        background: #fff;
     }
 
+    /* --- KOLOM KIRI: GAMBAR (FIXED ORANGE BORDER & FILL) --- */
+    .image-panel {
+        flex: 1.3; /* Lebar porsi gambar */
+        position: relative;
+        overflow: hidden;
+
+        /* KUNCI 1: Border Orange Tetap */
+        border: 8px solid var(--tria-orange);
+        /* background cadangan saat gambar loading */
+        background-color: var(--tria-orange-soft);
+    }
+
+    .image-panel img {
+        width: 100%;
+        height: 100%;
+        /* KUNCI 2: 'cover' memaksa gambar mengisi penuh container tanpa sisa ruang.
+           Catatan: Bagian pinggir gambar mungkin akan terpotong agar pas. */
+        object-fit: cover;
+        display: block;
+    }
+
+    /* --- KOLOM KANAN: KONTEN --- */
+    .content-panel {
+        flex: 1; /* Lebar porsi konten */
+        padding: 2.5rem;
+        overflow-y: auto; /* Hanya kolom ini yang scroll */
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        /* Tambahkan border kiri tipis sebagai pemisah dengan border oranye */
+        border-left: 1px solid var(--tria-border);
+    }
+
+    /* Styling Typography & Komponen */
     .sanggar-title {
-        text-align: center;
-        margin: 0 0 0.5rem 0;
         font-size: 2rem;
-        font-weight: 700;
+        font-weight: 800;
+        margin: 0 0 0.5rem 0;
+        color: var(--tria-text);
+        line-height: 1.2;
     }
 
     .sanggar-subtitle {
-        text-align: center;
-        font-size: 0.97rem;
+        font-size: 0.95rem;
         color: var(--tria-muted);
-        margin-bottom: 2rem;
-    }
-
-    .sanggar-image {
-        width: 100%;
-        max-width: 640px;
-        height: auto;
-        display: block;
-        margin: 0 auto 1.3rem auto;
-        border-radius: 1rem;
-        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--tria-border);
     }
 
     .sanggar-description {
-        max-width: 700px;
-        margin: 0 auto 2rem auto;
-        font-size: 1rem;
+        font-size: 0.95rem;
         line-height: 1.7;
-        color: var(--tria-muted);
+        color: var(--tria-text);
+        margin-bottom: 2rem;
+        white-space: pre-line;
     }
 
-    .contact-box {
-        border: 1px solid var(--tria-border);
-        padding: 1.4rem 1.6rem;
-        border-radius: 1rem;
-        max-width: 700px;
-        margin: 0 auto 2rem auto;
+    /* Contact Card Compact */
+    .contact-card {
+        background: #f9f9f9;
+        border: 1px solid #eee;
+        padding: 1.2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
     }
 
-    .contact-item {
+    .contact-row {
         display: flex;
         align-items: center;
-        margin-bottom: 0.7rem;
+        margin-bottom: 0.8rem;
+        font-size: 0.9rem;
         color: var(--tria-text);
     }
 
-    .contact-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 0.75rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    .contact-row i {
+        width: 24px;
         color: var(--tria-orange);
+        margin-right: 8px;
+        text-align: center;
     }
 
     .wa-btn {
         display: block;
-        text-align: center;
         background: #25D366;
         color: white;
-        padding: 0.75rem 1.2rem;
-        margin-top: 1rem;
-        border-radius: 999px;
-        font-weight: 600;
-        transition: 0.2s ease;
-        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
-    }
-
-    .wa-btn:hover {
-        background: #1ebe59;
-        transform: translateY(-2px);
-    }
-
-    .wa-disabled {
-        background: #e0e0e0;
-        color: #9e9e9e;
-        cursor: not-allowed;
-    }
-
-    .review-title {
-        font-size: 1.6rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
         text-align: center;
+        padding: 0.8rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        margin-top: 1rem;
+        transition: 0.2s;
+        font-size: 0.9rem;
     }
+    .wa-btn:hover { background: #1ebe59; color: #fff; transform: translateY(-2px); }
+    .wa-disabled { background: #ccc; cursor: default; }
+    .wa-disabled:hover { transform: none; background: #ccc; }
 
-    .reviews-grid {
+    /* Reviews Compact */
+    .reviews-list {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 1rem;
-        max-width: 850px;
-        margin: 0 auto;
     }
 
-    .review-card {
-        padding: 1.2rem;
-        border-radius: 1rem;
+    .review-item {
         border: 1px solid var(--tria-border);
+        border-radius: 10px;
+        padding: 1rem;
+        background: #fff;
     }
-
-    .review-user {
+    .review-header {
         display: flex;
         align-items: center;
         margin-bottom: 0.5rem;
-    }
-
-    .review-avatar {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--tria-red);
+        font-size: 0.9rem;
         font-weight: 700;
-        margin-right: 0.6rem;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        text-transform: uppercase;
     }
-
-    .review-text {
+    .review-avatar {
+        width: 28px; height: 28px;
+        background: var(--tria-orange);
+        color: #fff;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        margin-right: 8px;
+        font-size: 0.75rem;
+    }
+    .review-body {
+        font-size: 0.85rem;
         color: var(--tria-muted);
         font-style: italic;
     }
+
+    /* Responsive untuk Mobile */
+    @media (max-width: 768px) {
+        .split-wrapper {
+            flex-direction: column;
+            height: auto; /* Balik ke scroll biasa di HP */
+            overflow: visible;
+        }
+        .image-panel {
+            height: 350px; /* Tinggi fix untuk gambar di HP */
+            flex: none;
+            /* Di HP border oranye mungkin terlalu tebal, bisa dikurangi kalau mau */
+            border-width: 4px; 
+        }
+        .content-panel {
+            overflow: visible;
+            padding: 1.5rem;
+            border-left: none;
+        }
+    }
 </style>
 
-<div class="page-center">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- TITLE -->
-    <h1 class="sanggar-title">{{ sanggar.nama_sanggar }}</h1>
-    <p class="sanggar-subtitle">
-        Kenali sejarah dan karakteristik <strong>{{ sanggar.nama_sanggar }}</strong>
-        sebelum menghubungi sanggar secara langsung.
-    </p>
+<div class="split-wrapper">
 
-    <!-- IMAGE -->
-    <img 
-        class="sanggar-image"
-        src="{% if '.png' in sanggar.image|lower %}{% static sanggar.image %}{% else %}{{ sanggar.image }}{% endif %}"
-        alt="{{ sanggar.nama_sanggar }}"
-        onerror="this.src='https://via.placeholder.com/640x400?text=No+Image'"
-    />
-
-    <!-- DESCRIPTION -->
-    <p class="sanggar-description">{{ sanggar.description }}</p>
-
-    <!-- CONTACT BOX -->
-    <div class="contact-box">
-        <div class="contact-item">
-            <div class="contact-icon">
-                📞
-            </div>
-            {{ sanggar.phone_number }}
-        </div>
-
-        <div class="contact-item">
-            <div class="contact-icon">
-                ✉️
-            </div>
-            {{ sanggar.email }}
-        </div>
-
-        <div class="contact-item">
-            <div class="contact-icon">
-                📍
-            </div>
-            {{ sanggar.location }}
-        </div>
-
-        {% if sanggar.wa_link %}
-            <a href="{{ sanggar.wa_link }}" target="_blank" class="wa-btn">Chat via WhatsApp</a>
-        {% else %}
-            <div class="wa-btn wa-disabled">WhatsApp Tidak Tersedia</div>
-        {% endif %}
+    <div class="image-panel">
+        <img
+            src="{% if '.png' in sanggar.image|lower %}{% static sanggar.image %}{% else %}{{ sanggar.image }}{% endif %}"
+            alt="{{ sanggar.nama_sanggar }}"
+            onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'"
+        />
     </div>
 
-    <!-- REVIEWS -->
-    <h2 class="review-title">Ulasan Pengunjung</h2>
+    <div class="content-panel">
 
-    <div class="reviews-grid">
-        {% for review in sanggar.reviews %}
-        <div class="review-card">
-            <div class="review-user">
-                <div class="review-avatar">{{ review.user|slice:":1" }}</div>
-                <strong>{{ review.user }}</strong>
-            </div>
-            <p class="review-text">“{{ review.comment }}”</p>
+        <div>
+            <h1 class="sanggar-title">{{ sanggar.nama_sanggar }}</h1>
+            <p class="sanggar-subtitle">Profil Lengkap & Informasi Sewa</p>
         </div>
-        {% empty %}
-        <p class="text-center" style="color:var(--tria-muted);">Belum ada ulasan.</p>
-        {% endfor %}
-    </div>
 
+        <div class="contact-card">
+            <div class="contact-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{ sanggar.location }}</span>
+            </div>
+            <div class="contact-row">
+                <i class="fas fa-phone"></i>
+                <span>{{ sanggar.phone_number }}</span>
+            </div>
+            <div class="contact-row">
+                <i class="fas fa-envelope"></i>
+                <span>{{ sanggar.email }}</span>
+            </div>
+
+            {% if sanggar.wa_link %}
+                <a href="{{ sanggar.wa_link }}" target="_blank" class="wa-btn">
+                    <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                </a>
+            {% else %}
+                <div class="wa-btn wa-disabled">WhatsApp Tidak Tersedia</div>
+            {% endif %}
+        </div>
+
+        <div>
+            <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Tentang Sanggar</h3>
+            <p class="sanggar-description">{{ sanggar.description }}</p>
+        </div>
+
+        <div>
+            <h3 style="font-weight: 700; margin-bottom: 1rem;">Ulasan Pengunjung</h3>
+            <div class="reviews-list">
+                {% for review in sanggar.reviews %}
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-avatar">{{ review.user|slice:":1" }}</div>
+                        {{ review.user }}
+                    </div>
+                    <div class="review-body">“{{ review.comment }}”</div>
+                </div>
+                {% empty %}
+                <p style="color: #999; font-size: 0.9rem;">Belum ada ulasan.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
 </div>
 
 {% endblock %}
