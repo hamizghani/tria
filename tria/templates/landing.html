@@ -349,7 +349,10 @@
             vertical-align: baseline;
             margin-left: 0.25rem;
             overflow: hidden;
-            height: 1.15em;
+            /* increased to accommodate descenders like 'j', 'g', 'y' */
+            height: 1.4em;
+            line-height: 1.4em;
+            padding-bottom: 0.05em;
         }
 
         .rotator-text {
@@ -358,6 +361,7 @@
             transition: opacity 0.32s ease, transform 0.32s ease;
             will-change: opacity, transform;
             min-width: 10ch;
+            line-height: 1.4em;
         }
 
         .hero-subtitle {
@@ -370,7 +374,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.85rem;
-            margin-top: 0.5rem;
+            margin-top: 0.7rem;
         }
 
         .btn {
@@ -939,10 +943,6 @@
                         <span class="hero-rotator"><span class="rotator-text">Dimana Aja</span></span>
                     </h1>
                     
-                    <p class="hero-subtitle">
-                        Tria menghubungkanmu dengan tarian tradisional dari berbagai daerah di Indonesia,
-                        lengkap dengan video, langkah gerak, dan asesmen gerakan yang membantu kamu berkembang.
-                    </p>
 
                     <div class="hero-actions">
                         <a href="{% url 'dances:dance_list' %}" class="btn btn-primary">
