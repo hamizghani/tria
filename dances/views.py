@@ -58,7 +58,7 @@ DANCES = [
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
         "youtube_id": "U1ycqGXJ1fI",
-        "image_url": "https://travelinkmagz.com/wp-content/uploads/2020/04/JKT_Tari-topeng-betawi_1500x720px_1-1030x494.jpg"
+        "image_url": "https://i.ibb.co.com/39BkHzbw/Screenshot-2025-11-27-at-00-23-13.png"
     },
     {
         "id": 5,
