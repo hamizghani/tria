@@ -167,19 +167,61 @@
         .steps-title {
             font-size: 1.05rem;
             font-weight: 600;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
         }
 
-        ol.gerakan-list {
-            padding-left: 1.1rem;
-            margin-bottom: 1.2rem;
-            font-size: 0.98rem;
-            line-height: 1.6;
+        /* NEW: step bubbles ----------------------------------------- */
+
+        .steps-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .step-item {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--tria-red);
+            background: linear-gradient(135deg, var(--tria-orange-soft), #ffffff);
+            border: 1px solid rgba(229, 57, 53, 0.35);
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .step-bubble {
+            background-color: #ffffff;
+            border-radius: 0.9rem;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid var(--tria-border);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
             color: var(--tria-muted);
+            margin-bottom: 0.15rem;
         }
 
-        ol.gerakan-list li {
-            margin-bottom: 0.4rem;
+        .step-text {
+            font-size: 0.95rem;
+            color: var(--tria-muted);
+            line-height: 1.6;
         }
 
         .btn {
@@ -229,8 +271,8 @@
     <main class="page">
         <h1 class="section-title">{{ dance.name }} – Tutorial</h1>
         <p class="section-subtitle">
-            Tonton video tutorial dan ikuti daftar gerakan di bawah ini untuk memahami alur
-            <strong>{{ dance.name }}</strong> dari awal hingga akhir.
+            Tonton video tutorial dan ikuti setiap “bubble” langkah di sampingnya
+            untuk memahami alur <strong>{{ dance.name }}</strong> dari awal hingga akhir.
         </p>
 
         <section class="tutorial-layout">
@@ -245,11 +287,20 @@
 
             <article class="steps-card">
                 <h2 class="steps-title">Urutan gerakan</h2>
-                <ol class="gerakan-list">
+
+                <div class="steps-list">
                     {% for g in dance.gerakan %}
-                        <li>{{ g }}</li>
+                    <div class="step-item">
+                        <div class="step-number">{{ forloop.counter }}</div>
+                        <div class="step-bubble">
+                            <div class="step-label">Langkah {{ forloop.counter }}</div>
+                            <div class="step-text">
+                                {{ g }}
+                            </div>
+                        </div>
+                    </div>
                     {% endfor %}
-                </ol>
+                </div>
 
                 <form action="{% url 'dances:dance_assessment' dance.id %}" method="get">
                     <button type="submit" class="btn btn-primary">Mulai Assesmen</button>
