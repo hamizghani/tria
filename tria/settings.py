@@ -17,7 +17,8 @@ SECRET_KEY = 'django-insecure-5q0&nu!d9$=(sw3#jhosn_&!mtu-@g09by3i)tjtm*5k+kguf!
 
 # SECURITY WARNING: don't run with debug turned on in production!
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
-DEBUG = True
+# In production set PRODUCTION=true in the environment. DEBUG follows PRODUCTION.
+DEBUG = not PRODUCTION
 
 CSRF_TRUSTED_ORIGINS = [
     'https://muhammad-hamiz-tria.pbp.cs.ui.ac.id',
@@ -148,6 +149,16 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+# Security settings for production (only enabled when PRODUCTION=True)
+if PRODUCTION:
+    # Ensure cookies are only sent over HTTPS
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+
+    # If the app is behind a proxy (e.g., a load balancer) that terminates TLS,
+    # make sure Django knows the original scheme. Adjust header name if needed.
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

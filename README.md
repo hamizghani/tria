@@ -1,167 +1,69 @@
-TRIA - Tari Nusantara AI
+TRIA
 
 📖 Deskripsi Projek
-TRIA (Tari Nusantara AI) adalah aplikasi berbasis Artificial Intelligence dan Computer Vision yang berfungsi sebagai media pembelajaran interaktif sekaligus konservasi digital seni tari tradisional Indonesia. Aplikasi ini memanfaatkan teknologi pose estimation dan motion tracking untuk menganalisis gerakan tubuh pengguna secara real-time serta memberikan umpan balik terhadap ketepatan, ritme, dan ekspresi gerak dibandingkan dengan data maestro tari.
-🎯 Tujuan Utama
+TRIA adalah aplikasi berbasis Artificial Intelligence dan Computer Vision yang berfungsi sebagai media pembelajaran interaktif sekaligus konservasi digital seni tari tradisional Indonesia. Aplikasi ini memanfaatkan teknologi pose estimation dan motion tracking untuk menganalisis gerakan tubuh pengguna secara real-time serta memberikan umpan balik terhadap ketepatan, ritme, dan ekspresi gerak dibandingkan dengan data maestro tari.
 
+🎯 Tujuan Utama
 Konservasi Digital - Mendokumentasikan gerakan tarian tradisional Indonesia dalam format data digital terstruktur
 Pembelajaran Interaktif - Menyediakan akses belajar tari tradisional berkualitas yang terjangkau dan mudah diakses
 Pemberdayaan Ekonomi - Menciptakan kanal digital bagi pelaku budaya untuk memonetisasi keahlian mereka
 
+Fitur utama
+- Katalog tarian tradisional lengkap dengan detail dan tutorial
+- Penilaian berbasis kamera menggunakan pose estimation dan scoring otomatis
+- Direktori sanggar dengan informasi kontak dan lokasi
+- Akun pengguna (registrasi/login/profil) dan manajemen sesi
+- Halaman hasil dan progres dengan umpan balik sub-gerakan
 
-✨ Fitur Utama
-1. 🎭 Daftar Tarian
+Stack Teknologi
 
-Katalog lengkap tarian tradisional Indonesia dari berbagai daerah
-Informasi detail tentang sejarah, filosofi, dan makna setiap tarian
-Metadata budaya yang komprehensif
-Filter berdasarkan daerah asal, tingkat kesulitan, dan kategori
+- Backend: Python + Django (proyek ini menggunakan Django 5.x)
+- Database: SQLite untuk pengembangan lokal; PostgreSQL direkomendasikan untuk produksi
+- Frontend: Template Django, JavaScript vanilla, CSS (menggunakan variabel CSS dan gaya mirip Tailwind pada beberapa bagian)
+- AI / CV: Integrasi MediaPipe / OpenPose untuk pose estimation, OpenCV untuk pemrosesan video, TensorFlow / PyTorch untuk model penilaian
+- Antrian tugas (opsional): Celery + Redis untuk pemrosesan background (mis. video atau tugas model)
+- Deployment: WSGI (gunicorn), Docker (opsional), berkas statis via `collectstatic` / WhiteNoise atau web server (nginx)
 
-2. 🤖 AI Motion Tracking
+Panduan singkat — Pengembangan lokal
 
-Deteksi pose real-time menggunakan MediaPipe/OpenPose
-Analisis gerakan berbasis 30+ keypoints tubuh
-Perbandingan gerakan dengan data maestro
-Feedback instan terhadap akurasi gerakan
+1. Buat dan aktifkan virtual environment
 
-3. 📊 Model Movement
+```powershell
+python -m venv env
+env\Scripts\Activate.ps1    # PowerShell pada Windows
+```
 
-Database gerakan tari yang terstandarisasi
-Pose vectors dan spatial-temporal data
-Sistem scoring berbasis AI
-Arsip gerak nasional yang terstruktur
+2. Pasang dependensi
 
-4. 🏛️ Daftar Sanggar
+```powershell
+pip install -r requirements.txt
+```
 
-Direktori sanggar tari di seluruh Indonesia
-Profil lengkap termasuk lokasi, kontak, dan spesialisasi
-Integrasi dengan sistem pembelajaran
-Review dan rating dari pengguna
+3. Terapkan migrasi dan buat superuser
 
-5. ℹ️ About & Informasi
-
-Tentang proyek TRIA dan visi misi
-Tim pengembang dan kontributor
-Dokumentasi teknologi yang digunakan
-Panduan penggunaan aplikasi
-
-
-🛠️ Teknologi yang Digunakan
-Backend
-
-Django 4.x - Web framework Python
-Django REST Framework - API development
-PostgreSQL - Database relasional
-Celery - Task queue untuk processing video
-Redis - Caching dan message broker
-
-AI/ML Stack
-
-MediaPipe - Pose estimation
-OpenPose (PyTorch) - Motion tracking
-TensorFlow - AI scoring engine
-OpenCV - Video processing
-NumPy - Numerical computing
-scikit-learn - Machine learning utilities
-
-Frontend (Terpisah)
-
-Django - framework untuk web
-Tailwind CSS - Styling
-
-Infrastructure
-
-Docker - Containerization
-AWS/Google Cloud - Cloud hosting
-GitHub Actions - CI/CD
-
-
-📦 Instalasi
-Prerequisites
-
-Python 3.9+
-PostgreSQL 13+
-Redis 6+
-virtualenv atau conda
-
-Setup Lokal
-
-Clone Repository
-
-bashgit clone https://github.com/yourusername/tria-backend.git
-cd tria-backend
-
-Buat Virtual Environment
-
-bashpython -m venv venv
-source venv/bin/activate  # Linux/Mac
-# atau
-venv\Scripts\activate  # Windows
-
-Install Dependencies
-
-bashpip install -r requirements.txt
-
-Setup Environment Variables
-
-bashcp .env.example .env
-# Edit .env dengan konfigurasi database dan API keys
-
-Setup Database
-
-bashpython manage.py migrate
+```powershell
+python manage.py migrate
 python manage.py createsuperuser
+```
 
-Load Initial Data
+4. Jalankan server pengembangan
 
-bashpython manage.py loaddata fixtures/tarian.json
-python manage.py loaddata fixtures/sanggar.json
+```powershell
+python manage.py runserver
+```
 
-Jalankan Development Server
+Buka http://127.0.0.1:8000 di peramban Anda.
 
-bashpython manage.py runserver
+Catatan deployment
+- Tetapkan `PRODUCTION=true` (atau pastikan `DEBUG=False`) dan atur `ALLOWED_HOSTS` serta `CSRF_TRUSTED_ORIGINS` ke domain Anda (sertakan scheme, mis. `https://contoh.com`).
+- Jalankan `python manage.py collectstatic --noinput` dan layani folder `staticfiles/` melalui web server (nginx) atau gunakan WhiteNoise untuk deployment sederhana.
+- Jika TLS diakhiri oleh load balancer / reverse proxy, pastikan header `X-Forwarded-Proto: https` diteruskan dan sesuaikan `SECURE_PROXY_SSL_HEADER` di pengaturan Django.
 
+Struktur repositori (secara ringkas)
+- `tria/` — pengaturan proyek dan titik masuk (settings.py, urls.py)
+- `dances/` — katalog tarian, tampilan assessment dan tutorial
+- `daftarsanggar/` — direktori sanggar dan halaman detail
+- `authentication/` — login, register, profil dan template terkait
+- `main/`, `articles/` dan aplikasi pendukung lainnya
 
-🧪 Testing
-bash# Run semua tests
-python manage.py test
-
-# Test specific app
-python manage.py test apps.tarian
-
-# Run dengan coverage
-coverage run --source='.' manage.py test
-coverage report
-
-🚀 Deployment
-Docker Deployment
-bash# Build image
-docker build -t tria-backend .
-
-👥 Tim Pengembang
-Tim Little Vietnam
-
-Muhammad Hamiz Ghani Ayusha
-Lessyarta Kamali Sopamena Pirade
-Ammar Muhammad Rafif
-I Gusti Ngurah Agung Airlangga Putra
-Fidel Akilah
-
-Pembimbing: Prof. Siti Aminah (Universitas Indonesia)
-
-📄 Lisensi
-Project ini dikembangkan untuk BUDAYAGO 2025 dengan kategori Pelestarian dan Konservasi Budaya.
-© 2025 Tim Little Vietnam - Universitas Indonesia
-
-
-
-🙏 Acknowledgments
-
-Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi
-Universitas Indonesia
-Komunitas sanggar tari nusantara
-MediaPipe & OpenPose communities
-Semua kontributor dan pendukung proyek TRIA
-
-
-Made with ❤️ for Indonesian Traditional Dance Preservation
+Contributor TEAM (Little Vietnam)
