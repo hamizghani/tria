@@ -138,11 +138,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# URL used to serve static files.
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# During development, Django will look for static files in the directories
+# listed here (e.g. your app-level `tria/static/` folder).
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    BASE_DIR / 'tria' / 'static',
 ]
+
+# Directory where `collectstatic` will gather all static files for production.
+# Configure your webserver (nginx, Apache) to serve files from this directory
+# at the URL path defined by `STATIC_URL`.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
