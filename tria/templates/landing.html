@@ -8,8 +8,8 @@
         :root {
             --tria-red: #e53935;
             --tria-orange: #ff9800;
-            --tria-orange-soft: #fff3e0;
-            --tria-border: #f0f0f0;
+            --tria-soft-bg: #fff7ec;
+            --tria-border: #f0e4d6;
             --tria-text: #222222;
             --tria-muted: #555555;
         }
@@ -19,12 +19,12 @@
         }
 
         body {
-            background-color: #ffffff;
-            color: var(--tria-text);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             margin: 0;
             padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: #ffffff;
+            color: var(--tria-text);
         }
 
         a {
@@ -32,11 +32,10 @@
             color: inherit;
         }
 
-        /* NAVBAR ---------------------------------------------------- */
-
+        /* NAVBAR (matches other pages that use .navbar/.nav-inner) */
         .navbar {
             background-color: #ffffff;
-            border-bottom: 1px solid var(--tria-border);
+            border-bottom: 1px solid #f3eee7;
             position: sticky;
             top: 0;
             z-index: 50;
@@ -45,7 +44,7 @@
         .nav-inner {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0.75rem 1.25rem;
+            padding: 0.75rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -84,97 +83,80 @@
         }
 
         .nav-link:hover {
-            background-color: var(--tria-orange-soft);
+            background-color: #fff1df;
             color: var(--tria-red);
             transform: translateY(-1px);
         }
 
         .nav-cta {
-            background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
+            background: #111111;
             color: #ffffff;
             font-weight: 600;
         }
 
         .nav-cta:hover {
-            background: linear-gradient(135deg, #c62828, #fb8c00);
-            color: #ffffff;
+            background: #000000;
         }
 
-        /* PAGE LAYOUT ----------------------------------------------- */
+        /* PAGE WRAPPER --------------------------------------------- */
 
         .page {
             max-width: 1100px;
             margin: 0 auto;
-            /* slightly more top padding so hero sits lower */
-            padding: 3.75rem 1.25rem 3.5rem 1.25rem;
+            padding: 2.5rem 1.5rem 3.5rem 1.5rem;
         }
 
-        /* HERO SECTION ---------------------------------------------- */
+        /* HERO ------------------------------------------------------ */
 
         .hero {
-            display: grid;
-            grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
-            gap: 2.5rem;
-            align-items: center;
-            margin-bottom: 3rem;
+            margin-top: 3rem;
         }
 
-        .hero-text-badge {
-            display: inline-flex;
+        .hero-top {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.4rem;
-            background-color: var(--tria-orange-soft);
-            color: var(--tria-red);
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            text-align: center;
+            gap: 0.9rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            margin-bottom: 0.9rem;
+            color: var(--tria-muted);
         }
 
-        .hero-heading {
-            font-size: 2.35rem;
+        .hero-title {
+            font-size: 2.4rem;
             line-height: 1.2;
-            margin: 0 0 0.8rem 0;
         }
 
-        .hero-heading span {
+        .hero-title span {
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             -webkit-background-clip: text;
             color: transparent;
         }
 
         .hero-subtitle {
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: var(--tria-muted);
             max-width: 540px;
-            margin-bottom: 1.4rem;
-        }
-
-        .hero-meta {
-            font-size: 0.9rem;
-            color: var(--tria-muted);
-            margin-bottom: 1.6rem;
-        }
-
-        .hero-meta strong {
-            color: var(--tria-red);
         }
 
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 0.75rem;
-            margin-bottom: 1rem;
+            margin-top: 0.4rem;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.6rem 1.3rem;
+            padding: 0.7rem 1.6rem;
             border-radius: 999px;
             border: 1px solid transparent;
             font-size: 0.95rem;
@@ -188,181 +170,129 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             color: #ffffff;
-            box-shadow: 0 8px 18px rgba(229, 57, 53, 0.25);
+            box-shadow: 0 10px 24px rgba(229, 57, 53, 0.3);
         }
 
         .btn-primary:hover {
             background: linear-gradient(135deg, #c62828, #fb8c00);
             transform: translateY(-1px);
-            box-shadow: 0 10px 24px rgba(229, 57, 53, 0.3);
         }
 
-        .btn-outline {
+        .btn-ghost {
             background-color: #ffffff;
             color: var(--tria-red);
-            border-color: rgba(229, 57, 53, 0.3);
+            border-color: rgba(229, 57, 53, 0.35);
         }
 
-        .btn-outline:hover {
-            background-color: var(--tria-orange-soft);
-            border-color: var(--tria-red);
+        .btn-ghost:hover {
+            background-color: #fff0e0;
             transform: translateY(-1px);
         }
 
-        .hero-note {
+        .hero-meta {
             font-size: 0.85rem;
             color: var(--tria-muted);
+            margin-top: 0.1rem;
         }
 
-        .hero-visual {
-            position: relative;
-            padding: 1.5rem;
+        .hero-meta strong {
+            color: var(--tria-red);
         }
 
-        .hero-card {
-            background-color: #ffffff;
-            border-radius: 1.25rem;
-            border: 1px solid var(--tria-border);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
-            padding: 1.4rem 1.5rem;
-            position: relative;
+        /* HERO GALLERY --------------------------------------------- */
+
+        /* NEW: Flowblox-style image strip --------------------------------- */
+
+        .hero-gallery-wrapper {
+            margin-top: 1.9rem;
+            /* make the strip “stick out” left/right like Flowblox */
+            margin-inline: -2.25rem;
+            padding: 0.9rem 2.25rem 1.1rem 2.25rem;
+            border-radius: 2.2rem;
+            background: radial-gradient(circle at 0% 0%, #ffe4c6, #ffeade);
             overflow: hidden;
         }
 
-        .hero-card-tag {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--tria-red);
-            margin-bottom: 0.3rem;
-            font-weight: 600;
+        .hero-gallery {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 0.3rem;
+            scrollbar-width: thin;
         }
 
-        .hero-card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+        .hero-gallery::-webkit-scrollbar {
+            height: 6px;
         }
 
-        .hero-card-text {
-            font-size: 0.9rem;
-            color: var(--tria-muted);
-            margin-bottom: 0.8rem;
-        }
-
-        .hero-card-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 0.6rem 0;
-            font-size: 0.88rem;
-        }
-
-        .hero-card-list li::before {
-            content: "•";
-            color: var(--tria-orange);
-            margin-right: 0.4rem;
-        }
-
-        .hero-pill {
-            position: absolute;
-            inset: auto auto 1.1rem 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--tria-orange-soft), #ffffff);
+        .hero-gallery::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.18);
             border-radius: 999px;
-            padding: 0.45rem 0.9rem;
-            font-size: 0.8rem;
-            color: var(--tria-muted);
-            border: 1px solid var(--tria-border);
-            display: inline-flex;
-            gap: 0.35rem;
-            align-items: center;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
         }
 
-        .hero-pill span {
-            font-weight: 600;
-            color: var(--tria-red);
+        /* just pure image tiles */
+        .hero-strip-image {
+            flex: 0 0 210px;
+            height: 150px;
+            border-radius: 1.4rem;
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
         }
 
-        .hero-accent-circle {
-            position: absolute;
-            inset: 0 auto auto 55%;
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle at 30% 30%, var(--tria-orange), var(--tria-red));
-            opacity: 0.15;
-            filter: blur(4px);
-            transform: translate(-20%, -20%);
-            pointer-events: none;
-        }
 
-        /* NEW: big logo on the right side for desktop */
-        .hero-logo-mark {
-            position: absolute;
-            right: -5px;
-            top: 50%;
-            transform: translateY(-50%);
-            max-width: 150px;
-            opacity: 0.12;
-            filter: saturate(120%);
-            pointer-events: none;
-        }
-
-        /* FEATURES -------------------------------------------------- */
+        /* SECTION TITLES ------------------------------------------- */
 
         .section {
-            margin-bottom: 3rem;
+            margin-top: 3.2rem;
         }
 
-        .section-header {
-            margin-bottom: 1.25rem;
+        .section-heading {
+            text-align: center;
+            margin-bottom: 1.7rem;
         }
 
         .section-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin: 0 0 0.4rem 0;
         }
 
         .section-subtitle {
-            font-size: 0.98rem;
+            font-size: 0.96rem;
             color: var(--tria-muted);
             max-width: 620px;
+            margin: 0 auto;
         }
+
+        /* FEATURES (3 small cards) --------------------------------- */
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.25rem;
+            gap: 1.3rem;
         }
 
         .feature-card {
+            border-radius: 1.2rem;
             background-color: #ffffff;
-            border-radius: 1rem;
             border: 1px solid var(--tria-border);
-            padding: 1rem 1.1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
+            padding: 1.1rem 1.3rem;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.04);
         }
 
-        .feature-pill {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 999px;
-            padding: 0.25rem 0.6rem;
-            font-size: 0.7rem;
-            font-weight: 600;
+        .feature-label {
+            font-size: 0.78rem;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--tria-red);
-            background-color: var(--tria-orange-soft);
-            align-self: flex-start;
+            letter-spacing: 0.11em;
+            color: var(--tria-muted);
+            margin-bottom: 0.4rem;
         }
 
         .feature-title {
-            font-size: 1rem;
+            font-size: 1.02rem;
             font-weight: 600;
+            margin-bottom: 0.3rem;
         }
 
         .feature-text {
@@ -370,86 +300,132 @@
             color: var(--tria-muted);
         }
 
-        /* HOW IT WORKS ---------------------------------------------- */
+        /* IMAGE FEATURE GRID (big tiles) --------------------------- */
 
-        .how-grid {
+        .image-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
-            gap: 1.5rem;
+            grid-template-columns: 2fr 1.4fr;
+            gap: 1.3rem;
+            margin-top: 1.5rem;
         }
 
-        .how-steps {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            gap: 0.75rem;
+        .image-grid-row {
+            display: contents;
         }
 
-        .how-step {
-            display: grid;
-            grid-template-columns: auto minmax(0, 1fr);
-            gap: 0.7rem;
-            align-items: flex-start;
+        .image-tile {
+            border-radius: 1.4rem;
+            overflow: hidden;
+            position: relative;
+            min-height: 220px;
+            background: #f7f1e6;
         }
 
-        .how-step-number {
-            width: 26px;
-            height: 26px;
-            border-radius: 999px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            display: inline-flex;
+        .image-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-tile-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+        }
+
+        .image-tile-content {
+            position: absolute;
+            left: 1.2rem;
+            right: 1.2rem;
+            bottom: 1.2rem;
+            color: #ffffff;
+        }
+
+        .image-tile-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+
+        .image-tile-text {
+            font-size: 0.88rem;
+            opacity: 0.9;
+        }
+
+        .image-tile--plain {
+            background: #f8f3eb;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.78rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--tria-orange-soft), #ffffff);
+            padding: 1.2rem 1.5rem;
+            text-align: left;
         }
 
-        .how-step-title {
-            font-size: 0.95rem;
+        .image-tile--plain .image-tile-content {
+            position: static;
+            color: var(--tria-text);
+        }
+
+        .image-tile--plain .image-tile-title {
+            margin-bottom: 0.3rem;
+        }
+
+        .image-tile--plain .image-tile-text {
+            color: var(--tria-muted);
+        }
+
+        /* BENEFITS -------------------------------------------------- */
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+
+        .benefit-card {
+            border-radius: 1.1rem;
+            border: 1px solid var(--tria-border);
+            background-color: #ffffff;
+            padding: 1rem 1.1rem;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.03);
+        }
+
+        .benefit-title {
+            font-size: 0.98rem;
             font-weight: 600;
-            margin-bottom: 0.1rem;
+            margin-bottom: 0.25rem;
         }
 
-        .how-step-text {
+        .benefit-text {
             font-size: 0.88rem;
             color: var(--tria-muted);
         }
 
-        .how-card {
-            border-radius: 1rem;
-            padding: 1rem 1.1rem;
-            border: 1px dashed rgba(229, 57, 53, 0.35);
-            background: radial-gradient(circle at 0% 0%, #fff8e1, #ffffff);
-            font-size: 0.9rem;
-        }
-
-        .how-card strong {
-            color: var(--tria-red);
-        }
-
-        /* CTA ------------------------------------------------------- */
+        /* CTA BANNER ------------------------------------------------ */
 
         .cta-banner {
-            border-radius: 1.2rem;
-            padding: 1.25rem 1.4rem;
+            margin-top: 3rem;
+            border-radius: 1.6rem;
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             color: #ffffff;
+            padding: 1.5rem 1.7rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 0.9rem;
+            gap: 0.8rem;
         }
 
         .cta-text-main {
             font-size: 1.1rem;
             font-weight: 600;
+            margin-bottom: 0.1rem;
         }
 
         .cta-text-sub {
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             opacity: 0.9;
         }
 
@@ -463,7 +439,7 @@
             background-color: #ffffff;
             color: var(--tria-red);
             border-radius: 999px;
-            padding: 0.5rem 1.2rem;
+            padding: 0.55rem 1.3rem;
             font-size: 0.9rem;
             font-weight: 600;
             border: none;
@@ -477,67 +453,55 @@
         .btn-cta-ghost {
             background-color: transparent;
             border-radius: 999px;
-            padding: 0.45rem 1.1rem;
+            padding: 0.5rem 1.2rem;
             font-size: 0.9rem;
             font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.7);
             color: #ffffff;
             cursor: pointer;
         }
 
         .btn-cta-ghost:hover {
-            background-color: rgba(255, 255, 255, 0.12);
+            background-color: rgba(255, 255, 255, 0.16);
         }
 
         /* RESPONSIVE ------------------------------------------------ */
 
-        @media (max-width: 900px) {
-            .hero {
+        @media (max-width: 980px) {
+            .image-grid {
                 grid-template-columns: minmax(0, 1fr);
             }
+        }
 
-            .hero-visual {
-                order: -1;
-            }
-
-            .nav-inner {
-                padding-inline: 1rem;
-            }
-
+        @media (max-width: 900px) {
             .features-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            .how-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            /* hide big side logo on tablet & below */
-            .hero-logo-mark {
-                display: none;
+            .benefits-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        @media (max-width: 600px) {
-            .nav-links {
-                font-size: 0.9rem;
-            }
-
-            .hero-heading {
-                font-size: 1.9rem;
-            }
-
+        @media (max-width: 720px) {
             .page {
-                padding-inline: 1rem;
-                padding-top: 2.5rem;
+                padding: 2rem 1.1rem 3rem 1.1rem;
+            }
+
+            .hero {
+                padding: 2.1rem 1.4rem 2.4rem 1.4rem;
+            }
+
+            .hero-title {
+                font-size: 2.0rem;
             }
 
             .features-grid {
                 grid-template-columns: minmax(0, 1fr);
             }
 
-            .cta-banner {
-                align-items: flex-start;
+            .benefits-grid {
+                grid-template-columns: minmax(0, 1fr);
             }
         }
     </style>
@@ -545,166 +509,221 @@
 <body>
     {% include 'partials/navbar.html' %}
 
-    {% load static %}
-
     <main class="page">
         <!-- HERO -->
         <section class="hero">
-            <div>
-                <div class="hero-text-badge">
-                    Belajar tarian Nusantara · Langkah demi langkah
-                </div>
-                <h1 class="hero-heading">
-                    Kuasai <span>tarian tradisional Indonesia</span> dengan cara yang menyenangkan.
+            <div class="hero-top">
+                <div class="hero-eyebrow">Belajar tarian Nusantara dengan cara modern</div>
+                <h1 class="hero-title">
+                    Pelajari Tarian Tradisional,<br />
+                    <span>Dengan Panduan yang Jelas & Menyenangkan.</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Tria membantu kamu mempelajari tarian tradisional Indonesia dengan panduan
-                    gerakan yang jelas, penjelasan budaya yang kaya, serta dukungan teknologi
-                    yang memudahkan latihan mandiri di rumah.
-                </p>
-                <p class="hero-meta">
-                    Dirancang untuk <strong>pelajar</strong>, <strong>komunitas seni</strong>, dan
-                    <strong>pecinta budaya Indonesia</strong> yang ingin belajar dengan terstruktur.
+                    Tria menghubungkanmu dengan tarian tradisional dari berbagai daerah di Indonesia,
+                    lengkap dengan video, langkah gerak, dan asesmen gerakan yang membantu kamu berkembang.
                 </p>
 
                 <div class="hero-actions">
-                    <a href="{% url 'authentication:login' %}" class="btn btn-primary">
-                        Jelajahi daftar tarian
+                    <a href="{% url 'dances:dance_list' %}" class="btn btn-primary">
+                        Jelajahi semua tarian
                     </a>
-                    <a href="{% url 'about:about_page' %}" class="btn btn-outline">
-                        Pelajari lebih lanjut tentang Tria
+                    <a href="{% url 'about:about_page' %}" class="btn btn-ghost">
+                        Pelajari cerita di balik Tria
                     </a>
                 </div>
-                <p class="hero-note">
-                    Mulai dari dasar: kenali pola langkah, ritme musik, hingga ekspresi gerak yang
-                    menjadi identitas setiap tarian tradisional.
+                <p class="hero-meta">
+                    Cocok untuk <strong>pelajar</strong>, <strong>komunitas seni</strong>, dan
+                    <strong>sekolah</strong> yang ingin menjaga dan merayakan warisan budaya Indonesia.
                 </p>
             </div>
 
-            <div class="hero-visual">
-                <div class="hero-accent-circle"></div>
-                <article class="hero-card">
-                    <div class="hero-card-tag">Latihan Tarian</div>
-                    <h2 class="hero-card-title">Sesi belajar: Tarian daerah pertama kamu</h2>
-                    <p class="hero-card-text">
-                        Lihat urutan gerakan secara bertahap, baca penjelasan singkat makna gerak,
-                        lalu ulangi latihan sampai kamu merasa percaya diri.
-                    </p>
-                    <ul class="hero-card-list">
-                        <li>Video gerakan per bagian (awal, tengah, penutup)</li>
-                        <li>Highlight posisi tangan, kaki, dan arah pandangan</li>
-                        <li>Catatan tempo dan hitungan sederhana untuk pemula</li>
-                    </ul>
-                    
-                </article>
-
-                <!-- Decorative Tria logo on right side for web -->
-                <img src="{% static 'images/tria.png' %}" alt="Tria logo" class="hero-logo-mark" />
-            </div>
+            <!-- Horizontal gallery ala Flowblox -->
+            <div class="hero-gallery-wrapper">
+                <div class="hero-gallery">
+                    <img
+                        src="https://momopururu.com/wp-content/uploads/2022/06/20211218171844_IMG_8553-01-01-scaled-1024x768.jpeg"
+                        alt="Tari Kecak · Bali"
+                        class="hero-strip-image"
+                    />
+                    <img
+                        src="https://img.antarafoto.com/cache/1200x800/2021/07/01/pagelaran-tari-janger-muda-mudi-bali-uq4u-dom.webp"
+                        alt="Tari Janger · Bali"
+                        class="hero-strip-image"
+                    />
+                    <img
+                        src="https://www.kelaspintar.id/_next/image?url=https%3A%2F%2Fblog2.kelaspintar.id%2Fblog%2Fwp-content%2Fuploads%2F2021%2F12%2Ftari-bungong-jeumpa.jpg&w=3840&q=75"
+                        alt="Tari Bungong Jeumpa · Aceh"
+                        class="hero-strip-image"
+                    />
+                    <img
+                        src="https://www.senibudayabetawi.com/wp-content/uploads/2021/12/large-maxresdefault-1-4d2a0786063540dff664d84bfe0d9d07-2.jpg"
+                        alt="Lenggang Nyai · Betawi"
+                        class="hero-strip-image"
+                    />
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe3dCdunJCq8gLwWCdbiWBeqI1VVKZYxH8aw&s"
+                        alt="Tari Piring · Minangkabau"
+                        class="hero-strip-image"
+                    />
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOqlApZqamkNQq2qamDw9xfm28YlT8cmSXZA&s"
+                        alt="Tari Saman · Aceh"
+                        class="hero-strip-image"
+                    />
+                    <img
+                        src="https://bisniswisata.co.id/wp-content/uploads/2019/08/tari-topeng-betawi-1.jpg"
+                        alt="Tari Topeng Betawi"
+                        class="hero-strip-image"
+                    />
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/1/15/Gambyong_Langenkusuma_Pj_DSC_1322.JPG"
+                        alt="Tari Gambyong · Jawa Tengah"
+                        class="hero-strip-image"
+                    />
+                </div>
+            </div>            
             
         </section>
 
-        <!-- FITUR UTAMA -->
+        <!-- FEATURES: what Tria offers -->
         <section class="section">
-            <header class="section-header">
-                <h2 class="section-title">Kenapa belajar bersama Tria?</h2>
+            <header class="section-heading">
+                <h2 class="section-title">Semua yang Kamu Butuhkan untuk Belajar Tarian Tradisional</h2>
                 <p class="section-subtitle">
-                    Kami merancang Tria agar proses belajar tarian tradisional terasa modern,
-                    terstruktur, dan tetap menghargai akar budaya dari setiap gerakan.
+                    Dari video, langkah tertulis, hingga asesmen gerakan, Tria membantu kamu
+                    belajar tarian daerah secara terarah dan menyenangkan.
                 </p>
             </header>
 
             <div class="features-grid">
                 <article class="feature-card">
-                    <div class="feature-pill">Panduan terarah</div>
-                    <h3 class="feature-title">Belajar dari dasar, langkah demi langkah</h3>
+                    <div class="feature-label">Video Tutorial</div>
+                    <h3 class="feature-title">Belajar langsung dari visual</h3>
                     <p class="feature-text">
-                        Setiap tarian dipecah menjadi rangkaian gerak yang sederhana, sehingga
-                        pemula sekalipun dapat mengikuti tanpa merasa kewalahan. Kamu bisa
-                        mengulang bagian tertentu sampai benar-benar paham.
+                        Setiap tarian dilengkapi video tutorial yang memecah koreografi menjadi bagian-bagian sederhana.
+                        Kamu bisa berhenti, mengulang, dan fokus pada gerakan yang masih sulit.
                     </p>
                 </article>
 
                 <article class="feature-card">
-                    <div class="feature-pill">Konteks budaya</div>
-                    <h3 class="feature-title">Pahami makna di balik setiap gerakan</h3>
+                    <div class="feature-label">Langkah Gerak</div>
+                    <h3 class="feature-title">Panduan langkah demi langkah</h3>
                     <p class="feature-text">
-                        Tria tidak hanya menunjukkan “bagaimana” menari, tetapi juga
-                        menjelaskan latar belakang, nilai budaya, dan cerita yang terkandung
-                        dalam tarian tersebut, agar kamu menari dengan lebih bermakna.
+                        Gunakan deskripsi gerakan yang jelas sebagai “cheat sheet” saat latihan.
+                        Hitungan, arah gerak, dan ekspresi gerakan dijelaskan untuk membangun rasa percaya diri.
                     </p>
                 </article>
 
                 <article class="feature-card">
-                    <div class="feature-pill">Latihan fleksibel</div>
-                    <h3 class="feature-title">Belajar kapan saja, di mana saja</h3>
+                    <div class="feature-label">Asesmen Gerakan</div>
+                    <h3 class="feature-title">Uji dan lihat progresmu</h3>
                     <p class="feature-text">
-                        Akses materi tarian dari perangkat apa pun dan ulangi latihan sebanyak
-                        yang kamu mau. Cocok untuk persiapan lomba, kegiatan sekolah, ataupun
-                        sekadar hobi menjaga warisan budaya.
+                        Aktifkan kamera dan lakukan asesmen gerakan.
+                        Nilai dan umpan balik membantu kamu mengetahui seberapa jauh perkembangan tarianmu.
                     </p>
                 </article>
             </div>
         </section>
 
-        <!-- CARA KERJA -->
+        <!-- IMAGE FEATURE GRID (like big tiles on inspo) -->
         <section class="section">
-            <header class="section-header">
-                <h2 class="section-title">Bagaimana Tria membantu kamu belajar?</h2>
+            <header class="section-heading">
+                <h2 class="section-title">Rayakan Kekayaan Tarian dari Berbagai Daerah</h2>
                 <p class="section-subtitle">
-                    Dari memilih tarian sampai menguasai koreografi lengkap, Tria memandu kamu
-                    melalui tahapan yang jelas dan mudah diikuti.
+                    Kecak dari Bali, Saman dari Aceh, hingga Lenggang Nyai dari Betawi—semua hadir dalam satu platform
+                    yang mudah diakses.
                 </p>
             </header>
 
-            <div class="how-grid">
-                <ul class="how-steps">
-                    <li class="how-step">
-                        <div class="how-step-number">1</div>
-                        <div>
-                            <div class="how-step-title">Pilih tarian tradisional yang ingin dipelajari</div>
-                            <p class="how-step-text">
-                                Jelajahi daftar tarian dari berbagai daerah di Indonesia. Setiap
-                                tarian dilengkapi deskripsi singkat, tingkat kesulitan, dan durasi
-                                latihan yang direkomendasikan.
+            <div class="image-grid">
+                <!-- Row 1: big left, small right -->
+                <div class="image-grid-row">
+                    <article class="image-tile">
+                        <img src="https://momopururu.com/wp-content/uploads/2022/06/20211218171844_IMG_8553-01-01-scaled-1024x768.jpeg"
+                             alt="Latihan Tari Kecak" />
+                        <div class="image-tile-overlay"></div>
+                        <div class="image-tile-content">
+                            <div class="image-tile-title">Latihan kelompok yang terasa hidup</div>
+                            <p class="image-tile-text">
+                                Gunakan Tria untuk menyiapkan tarian bersama teman, komunitas sekolah,
+                                atau sanggar—mulai dari latihan dasar hingga gladi bersih.
                             </p>
                         </div>
-                    </li>
-                    <li class="how-step">
-                        <div class="how-step-number">2</div>
-                        <div>
-                            <div class="how-step-title">Ikuti panduan gerakan dan hitungan</div>
-                            <p class="how-step-text">
-                                Mulai dari pemanasan, pola kaki dasar, hingga kombinasi gerak yang
-                                lebih kompleks. Ikuti urutannya, jeda bila perlu, dan ulangi bagian
-                                yang masih terasa sulit.
-                            </p>
-                        </div>
-                    </li>
-                    <li class="how-step">
-                        <div class="how-step-number">3</div>
-                        <div>
-                            <div class="how-step-title">Bangun rasa percaya diri saat menari</div>
-                            <p class="how-step-text">
-                                Seiring latihan, kamu akan terbiasa dengan ritme dan ekspresi
-                                gerakan. Tujuan Tria bukan hanya hafal koreografi, tapi juga bisa
-                                menari dengan percaya diri dan bangga pada budaya sendiri.
-                            </p>
-                        </div>
-                    </li>
-                </ul>
+                    </article>
 
-                <aside class="how-card">
-                    <p>
-                        Dengan Tria, tarian tradisional tidak lagi terasa “jauh” atau sulit untuk
-                        dipelajari. Platform ini mencoba menjembatani warisan budaya Indonesia
-                        dengan cara belajar yang modern, ramah pelajar, dan mudah diakses.
+                    <article class="image-tile image-tile--plain">
+                        <div class="image-tile-content">
+                            <div class="image-tile-title">Tersusun rapi per tarian</div>
+                            <p class="image-tile-text">
+                                Setiap tarian memiliki halaman detail: deskripsi, video, urutan gerak,
+                                dan tombol langsung ke asesmen. Kamu tinggal pilih tarian dan mulai bergerak.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Row 2: small left, big right -->
+                <div class="image-grid-row">
+                    <article class="image-tile image-tile--plain">
+                        <div class="image-tile-content">
+                            <div class="image-tile-title">Cocok untuk tugas sekolah & lomba</div>
+                            <p class="image-tile-text">
+                                Tria membantu timmu menghafalkan koreografi dengan lebih cepat,
+                                sehingga latihan bisa fokus ke kekompakan dan ekspresi panggung.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="image-tile">
+                        <img src="https://bisniswisata.co.id/wp-content/uploads/2019/08/tari-topeng-betawi-1.jpg"
+                             alt="Tari Topeng Betawi" />
+                        <div class="image-tile-overlay"></div>
+                        <div class="image-tile-content">
+                            <div class="image-tile-title">Visual yang menghidupkan karakter</div>
+                            <p class="image-tile-text">
+                                Dari Topeng Betawi hingga Reog Ponorogo, visual kuat membantu kamu
+                                memahami karakter dan cerita di balik setiap gerakan.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFITS / PROOF -->
+        <section class="section">
+            <header class="section-heading">
+                <h2 class="section-title">Kenapa Tria Cocok untuk Kamu?</h2>
+                <p class="section-subtitle">
+                    Dirancang khusus untuk pelajar dan komunitas yang ingin belajar tarian tradisional
+                    secara serius, namun tetap santai dan menyenangkan.
+                </p>
+            </header>
+
+            <div class="benefits-grid">
+                <article class="benefit-card">
+                    <h3 class="benefit-title">Belajar mandiri dari rumah</h3>
+                    <p class="benefit-text">
+                        Akses materi kapan saja tanpa terikat tempat.
+                        Cocok untuk latihan sebelum tampil atau mengulang materi sanggar.
                     </p>
-                    <p>
-                        <strong>Visi kami</strong> adalah membuat generasi muda tetap dekat dengan
-                        tarian daerah, menjadikannya bagian dari identitas, bukan sekadar tontonan.
+                </article>
+
+                <article class="benefit-card">
+                    <h3 class="benefit-title">Mendukung pelestarian budaya</h3>
+                    <p class="benefit-text">
+                        Dengan mempelajari tarian daerah, kamu ikut menjaga
+                        warisan budaya Indonesia agar tetap hidup di generasi muda.
                     </p>
-                </aside>
+                </article>
+
+                <article class="benefit-card">
+                    <h3 class="benefit-title">Struktur yang jelas untuk pengajar</h3>
+                    <p class="benefit-text">
+                        Guru atau pelatih bisa menggunakan Tria sebagai pendamping
+                        materi: pilih tarian, tunjukkan video, lalu bahas langkah geraknya.
+                    </p>
+                </article>
             </div>
         </section>
 
@@ -716,16 +735,16 @@
                         Siap memulai perjalanan belajar tarian tradisionalmu?
                     </div>
                     <div class="cta-text-sub">
-                        Pilih satu tarian hari ini, luangkan beberapa menit untuk berlatih, dan
-                        rasakan sendiri pengalaman belajar bersama Tria.
+                        Pilih satu tarian hari ini, tonton tutorialnya, dan coba asesmen pertama
+                        kamu bersama Tria.
                     </div>
                 </div>
                 <div class="cta-actions">
-                    <a href="{% url 'authentication:login' %}" class="btn-cta-light">
-                        Lihat semua tarian
+                    <a href="{% url 'dances:dance_list' %}" class="btn-cta-light">
+                        Lihat daftar tarian
                     </a>
                     <a href="{% url 'about:about_page' %}" class="btn-cta-ghost">
-                        Kenali cerita di balik Tria
+                        Tentang Tria
                     </a>
                 </div>
             </div>
