@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dances List</title>
+
     <style>
         :root {
             --tria-red: #e53935;
@@ -14,21 +15,21 @@
             --tria-text: #222222;
             --tria-muted: #555555;
         }
-    
+
         * { box-sizing: border-box; }
-    
+
         body {
             background-color: var(--tria-soft-bg);
             color: var(--tria-text);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-                Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             margin: 0;
             padding: 0;
         }
-    
+
         a { text-decoration: none; color: inherit; }
-    
-        /* NAVBAR */
+
+        /* NAVBAR (shared class names with partial) */
         .navbar {
             background-color: #ffffff;
             border-bottom: 1px solid #f3eee7;
@@ -37,7 +38,7 @@
             z-index: 50;
             backdrop-filter: blur(10px);
         }
-    
+
         .nav-inner {
             max-width: 1100px;
             margin: 0 auto;
@@ -47,49 +48,48 @@
             justify-content: space-between;
             gap: 1rem;
         }
-    
+
         .nav-brand { display: flex; align-items: center; gap: 0.6rem; }
-    
         .nav-logo { height: 36px; width: 36px; object-fit: contain; }
-    
+
         .nav-title {
             font-weight: 700;
             letter-spacing: 0.03em;
             font-size: 1.1rem;
         }
-    
+
         .nav-links {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             font-size: 0.95rem;
         }
-    
+
         .nav-link {
             padding: 0.4rem 0.75rem;
             border-radius: 999px;
             transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
         }
-    
+
         .nav-link:hover {
             background-color: #fff1df;
             color: var(--tria-red);
             transform: translateY(-1px);
         }
-    
+
         .nav-cta {
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             color: #ffffff;
             font-weight: 600;
         }
-    
+
         .nav-cta:hover {
             background: linear-gradient(135deg, #c62828, #fb8c00);
             color: #ffffff;
         }
-    
+
         /* PAGE ------------------------------------------------------ */
-    
+
         .page {
             max-width: 1100px;
             margin: 2.5rem auto 3.5rem auto;
@@ -99,7 +99,7 @@
             border: 1px solid var(--tria-border);
             box-shadow: 0 18px 44px rgba(0, 0, 0, 0.06);
         }
-    
+
         .section-title {
             text-align: center;
             margin: 0 0 0.4rem 0;
@@ -107,7 +107,7 @@
             font-weight: 800;
             letter-spacing: -0.01em;
         }
-    
+
         .section-subtitle {
             text-align: center;
             font-size: 0.98rem;
@@ -117,7 +117,7 @@
             margin-inline: auto;
             line-height: 1.6;
         }
-    
+
         .dance-grid {
             list-style: none;
             padding: 0;
@@ -126,7 +126,7 @@
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 1.5rem;
         }
-    
+
         .dance-card {
             background-color: #ffffff;
             border-radius: 1.4rem;
@@ -138,12 +138,12 @@
             gap: 0.6rem;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-    
+
         .dance-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 18px 42px rgba(0, 0, 0, 0.08);
         }
-    
+
         .dance-image {
             width: 100%;
             height: 150px;
@@ -151,25 +151,25 @@
             border-radius: 0.9rem;
             margin-bottom: 0.6rem;
         }
-    
+
         .dance-link {
             color: var(--tria-text);
             font-weight: 700;
             font-size: 1.05rem;
             margin-bottom: 0.1rem;
         }
-    
+
         .dance-link:hover { color: var(--tria-red); }
-    
+
         .dance-description {
             font-size: 0.9rem;
             color: var(--tria-muted);
             min-height: 3rem;
             line-height: 1.5;
         }
-    
+
         .dance-actions { margin-top: 0.4rem; }
-    
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -181,35 +181,190 @@
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.2s ease, color 0.2s ease,
-                        box-shadow 0.2s ease, transform 0.1s ease,
-                        border-color 0.2s ease;
+            box-shadow 0.2s ease, transform 0.1s ease,
+            border-color 0.2s ease;
         }
-    
+
         .btn-primary {
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             color: #ffffff;
             box-shadow: 0 6px 16px rgba(229, 57, 53, 0.25);
         }
-    
+
         .btn-primary:hover {
             background: linear-gradient(135deg, #c62828, #fb8c00);
             transform: translateY(-1px);
             box-shadow: 0 8px 20px rgba(229, 57, 53, 0.3);
         }
-    
+
+        /* FEATURED LENGGANG NYAI ----------------------------------- */
+
+        .featured-dance {
+            max-width: 1100px;
+            margin: 2.5rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+            gap: 1.5rem;
+        }
+
+        .featured-media {
+            position: relative;
+            border-radius: 32px;
+            overflow: hidden;
+            min-height: 260px;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+        }
+
+        .featured-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .featured-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                    120deg,
+                    rgba(0,0,0,0.65),
+                    rgba(0,0,0,0.25),
+                    rgba(0,0,0,0.02)
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem 1.8rem;
+            color: #fff;
+        }
+
+        .featured-kicker {
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-bottom: 0.4rem;
+        }
+
+        .featured-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0 0 0.3rem 0;
+        }
+
+        .featured-text {
+            font-size: 0.95rem;
+            max-width: 32rem;
+        }
+
+        .featured-info-card {
+            border-radius: 32px;
+            background: white;
+            padding: 2rem 2.2rem;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-info-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+        }
+
+        .featured-info-body {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.4rem;
+        }
+
+        .featured-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.4rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg,var(--tria-red),var(--tria-orange));
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            text-decoration: none;
+            box-shadow: 0 14px 32px rgba(229,57,53,0.28);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .featured-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 40px rgba(229,57,53,0.33);
+        }
+
+        @media (max-width: 900px) {
+            .featured-dance { padding-inline: 1.5rem; }
+            .featured-grid {
+                grid-template-columns: minmax(0,1fr);
+            }
+            .featured-info-card {
+                padding: 1.6rem 1.6rem 1.7rem;
+            }
+        }
+
         @media (max-width: 600px) {
             .page {
                 padding-inline: 1.4rem;
                 padding-top: 2.3rem;
             }
-    
+
             .dance-grid { grid-template-columns: 1fr; }
         }
     </style>
-    
 </head>
+
 <body>
-    {% include "partials/navbar.html" %}
+{% load static %}
+{% include "partials/navbar.html" %}
+
+    <!-- FEATURED TARI LENGGANG NYAI -->
+    <section class="featured-dance">
+        <div class="featured-grid">
+            <!-- LEFT: image + overlay -->
+            <article class="featured-media">
+                <img
+                    src="https://travelinkmagz.com/wp-content/uploads/2020/04/JKT_Tari-topeng-betawi_1500x720px_1-1030x494.jpg"
+                    alt="Penari membawakan Tari Lenggang Nyai"
+                />
+                <div class="featured-overlay">
+                    <div class="featured-kicker">Featured Class</div>
+                    <h2 class="featured-title">Latihan Lenggang Nyai yang terasa hidup</h2>
+                    <p class="featured-text">
+                        Rasakan suasana Betawi yang ceria lewat gerak lenggang yang anggun dan ekspresif.
+                    </p>
+                </div>
+            </article>
+
+            <!-- RIGHT: description + button -->
+            <aside class="featured-info-card">
+                <h3 class="featured-info-title">Featured: Tari Lenggang Nyai</h3>
+                <p class="featured-info-body">
+                    Dalam Tria, Lenggang Nyai disusun per level sehingga pemula pun bisa mengikuti:
+                    mulai dari pengenalan pola langkah, penggunaan selendang, hingga dinamika ekspresi
+                    wajah yang kuat. Setiap sesi dilengkapi video, urutan gerak, dan tips guru sanggar
+                    agar latihanmu terasa seperti dibimbing langsung di studio.
+                </p>
+                <a href="{% url 'dances:dance_detail' 4 %}"
+                class="featured-cta">
+                    Belajar sekarang
+                </a>
+
+            </aside>
+        </div>
+    </section>
 
     <main class="page">
         <h1 class="section-title">Tarian Tradisional Indonesia</h1>
@@ -220,18 +375,20 @@
 
         <ul class="dance-grid">
             {% for dance in dances %}
-            <li class="dance-card">
-                {% if dance.image_url %}
-                <img src="{{ dance.image_url }}" alt="{{ dance.name }}" class="dance-image" />
-                {% endif %}
-                <a href="{% url 'dances:dance_detail' dance.id %}" class="dance-link">{{ dance.name }}</a>
-                <p class="dance-description">{{ dance.description }}</p>
-                <div class="dance-actions">
-                    <a href="{% url 'dances:dance_detail' dance.id %}" class="btn btn-primary">
-                        Belajar
+                <li class="dance-card">
+                    {% if dance.image_url %}
+                        <img src="{{ dance.image_url }}" alt="{{ dance.name }}" class="dance-image" />
+                    {% endif %}
+                    <a href="{% url 'dances:dance_detail' dance.id %}" class="dance-link">
+                        {{ dance.name }}
                     </a>
-                </div>
-            </li>
+                    <p class="dance-description">{{ dance.description }}</p>
+                    <div class="dance-actions">
+                        <a href="{% url 'dances:dance_detail' dance.id %}" class="btn btn-primary">
+                            Belajar
+                        </a>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
     </main>
