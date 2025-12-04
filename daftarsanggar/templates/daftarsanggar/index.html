@@ -15,24 +15,22 @@
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden group">
         
         <div class="h-48 bg-gray-200 overflow-hidden relative">
-            
             <img 
-                src="{% if '.png' in sanggar.image|lower %}
-                        {% static sanggar.image %}
+                src="{% if 'http' in sanggar.image %}
+                        {{ sanggar.image }}
                     {% else %}
-                        {{ sanggar.image }}&auto=format&fit=crop&q=80
+                        {% static sanggar.image %}
                     {% endif %}"
                 alt="{{ sanggar.nama_sanggar }}"
                 class="w-full h-full object-cover"
                 onerror="this.src='https://source.unsplash.com/random/400x300?dance';"
             >
-
             <div class="absolute inset-0 bg-black bg-opacity-10 group-hover:bg-opacity-0 transition"></div>
         </div>
         
         <div class="p-5 flex flex-col flex-grow">
             <h2 class="text-lg font-bold text-gray-900 mb-2 leading-tight">
-                {{ sanggar.name }}
+                {{ sanggar.nama_sanggar }}
             </h2>
             
             <p class="text-sm text-gray-500 mb-6 line-clamp-3 flex-grow">

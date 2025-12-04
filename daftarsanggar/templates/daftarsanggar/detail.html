@@ -183,7 +183,11 @@
 
     <div class="image-panel">
         <img
-            src="{% if '.png' in sanggar.image|lower %}{% static sanggar.image %}{% else %}{{ sanggar.image }}{% endif %}"
+            src="{% if 'http' in sanggar.image %}
+                    {{ sanggar.image }}
+                {% else %}
+                    {% static sanggar.image %}
+                {% endif %}"
             alt="{{ sanggar.nama_sanggar }}"
             onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'"
         />
