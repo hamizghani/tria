@@ -284,54 +284,104 @@
 
         /* SUB-GERAKAN DISPLAY */
         .subgerakan-display-container {
-            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .subgerakan-display {
-            background-color: #ffffff;
+            background: linear-gradient(135deg, #ffffff, #fffbf7);
             border-radius: 1.4rem;
-            border: 1px solid var(--tria-border);
-            padding: 1.8rem 2rem;
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.05);
+            border: 2px solid var(--tria-border);
+            padding: 2rem 2.2rem;
+            box-shadow: 0 8px 24px rgba(229, 57, 53, 0.12);
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
+        }
+
+        .subgerakan-display:hover {
+            box-shadow: 0 12px 32px rgba(229, 57, 53, 0.16);
+            transform: translateY(-2px);
+        }
+
+        .subgerakan-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--tria-red), var(--tria-orange));
         }
 
         .subgerakan-header-display {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
         }
 
         .subgerakan-badge {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--tria-red), var(--tria-orange));
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 800;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .subgerakan-title-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
         }
 
         .subgerakan-title-display {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 800;
             margin: 0;
             color: var(--tria-text);
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, var(--tria-red), #e65100);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .subgerakan-time-indicator {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--tria-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
         }
 
         .subgerakan-instruction {
-            font-size: 1rem;
-            color: var(--tria-muted);
-            line-height: 1.6;
+            font-size: 1.05rem;
+            color: var(--tria-text);
+            line-height: 1.7;
             margin: 0;
-            padding: 1rem 1.2rem;
-            background-color: var(--tria-orange-soft);
-            border-radius: 0.8rem;
-            border-left: 4px solid var(--tria-orange);
+            padding: 1.4rem 1.6rem;
+            background: linear-gradient(135deg, var(--tria-orange-soft), #ffffff);
+            border-radius: 1rem;
+            border-left: 5px solid var(--tria-orange);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .subgerakan-instruction:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
         }
 
         /* MODAL DIALOG */
@@ -414,9 +464,29 @@
                 padding: 1.5rem 2.5rem;
             }
 
+            .subgerakan-display {
+                padding: 1.5rem 1.6rem;
+            }
+
             .subgerakan-header-display {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 0.8rem;
+            }
+
+            .subgerakan-badge {
+                width: 48px;
+                height: 48px;
+                font-size: 1.2rem;
+            }
+
+            .subgerakan-title-display {
+                font-size: 1.3rem;
+            }
+
+            .subgerakan-instruction {
+                font-size: 0.98rem;
+                padding: 1.2rem 1.4rem;
             }
 
             .modal-dialog {
@@ -457,6 +527,22 @@
         <strong>{{ dance.name }}</strong>. Tria akan membantu mengevaluasi hasilnya.
     </p>
 
+    <!-- SUB-GERAKAN DISPLAY - Above video -->
+    <div class="subgerakan-display-container">
+        <div class="subgerakan-display">
+            <div class="subgerakan-header-display">
+                <span class="subgerakan-badge" id="subgerakanBadge">1</span>
+                <div class="subgerakan-title-wrapper">
+                    <h3 class="subgerakan-title-display" id="subgerakanTitle">Lakukan Sub Gerakan 1</h3>
+                    <span class="subgerakan-time-indicator" id="subgerakanTimeIndicator">0:00 - 0:17</span>
+                </div>
+            </div>
+            <p class="subgerakan-instruction" id="subgerakanInstruction">
+                Klik tombol Start untuk memulai asesmen. Setelah mulai, instruksi akan berubah sesuai dengan gerakan yang sedang dilakukan.
+            </p>
+        </div>
+    </div>
+
     <!-- VIDEO FULL WIDTH -->
     <div class="video-container">
         <video id="video" autoplay playsinline></video>
@@ -469,19 +555,6 @@
             <button id="finishBtn" class="btn btn-outline" disabled>Finish</button>
         </div>
         <div class="timer-display" id="timer">00:00</div>
-    </div>
-
-    <!-- SUB-GERAKAN DISPLAY -->
-    <div class="subgerakan-display-container">
-        <div class="subgerakan-display">
-            <div class="subgerakan-header-display">
-                <span class="subgerakan-badge" id="subgerakanBadge">-</span>
-                <h3 class="subgerakan-title-display" id="subgerakanTitle">Siap untuk memulai</h3>
-            </div>
-            <p class="subgerakan-instruction" id="subgerakanInstruction">
-                Klik tombol Start untuk memulai asesmen.
-            </p>
-        </div>
     </div>
 </main>
 
@@ -534,6 +607,7 @@
     const subgerakanBadge = document.getElementById('subgerakanBadge');
     const subgerakanTitle = document.getElementById('subgerakanTitle');
     const subgerakanInstruction = document.getElementById('subgerakanInstruction');
+    const subgerakanTimeIndicator = document.getElementById('subgerakanTimeIndicator');
     const modalOverlay = document.getElementById('modalOverlay');
     const modalCancel = document.getElementById('modalCancel');
     const modalConfirm = document.getElementById('modalConfirm');
@@ -544,6 +618,13 @@
     let currentSubGerakan = null;
     let stoppedAtGerakan = null;
 
+    // Helper function to format time (seconds to mm:ss)
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins.toString().padStart(1, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
     // Function to update sub-gerakan display based on elapsed time
     function updateSubGerakanDisplay(elapsedSeconds) {
         // Check if completed all
@@ -551,6 +632,7 @@
             subgerakanBadge.textContent = '15';
             subgerakanTitle.textContent = 'Selamat! Asesmen Selesai';
             subgerakanInstruction.textContent = 'Anda telah menyelesaikan semua sub-gerakan. Klik Finish untuk melihat hasil.';
+            subgerakanTimeIndicator.textContent = '4:06 - 4:24';
             return;
         }
 
@@ -568,6 +650,7 @@
                 subgerakanBadge.textContent = nextGerakan.num;
                 subgerakanTitle.textContent = `Lakukan ${nextGerakan.title}`;
                 subgerakanInstruction.textContent = nextGerakan.instruction;
+                subgerakanTimeIndicator.textContent = `${formatTime(nextGerakan.start)} - ${formatTime(nextGerakan.end)}`;
             }
             return;
         }
@@ -578,6 +661,7 @@
             subgerakanBadge.textContent = activeGerakan.num;
             subgerakanTitle.textContent = `Lakukan ${activeGerakan.title}`;
             subgerakanInstruction.textContent = activeGerakan.instruction;
+            subgerakanTimeIndicator.textContent = `${formatTime(activeGerakan.start)} - ${formatTime(activeGerakan.end)}`;
         }
     }
 
