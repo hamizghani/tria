@@ -531,10 +531,10 @@
     <div class="subgerakan-display-container">
         <div class="subgerakan-display">
             <div class="subgerakan-header-display">
-                <span class="subgerakan-badge" id="subgerakanBadge">1</span>
+                <span class="subgerakan-badge" id="subgerakanBadge">🚀</span>
                 <div class="subgerakan-title-wrapper">
-                    <h3 class="subgerakan-title-display" id="subgerakanTitle">Lakukan Sub Gerakan 1</h3>
-                    <span class="subgerakan-time-indicator" id="subgerakanTimeIndicator">0:00 - 0:17</span>
+                    <h3 class="subgerakan-title-display" id="subgerakanTitle">Mulai Asesmen anda</h3>
+                    <span class="subgerakan-time-indicator" id="subgerakanTimeIndicator">Click Start</span>
                 </div>
             </div>
             <p class="subgerakan-instruction" id="subgerakanInstruction">
@@ -764,15 +764,6 @@
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
         return `${mins.toString().padStart(1, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-    
-    // Initialize display with first sub-gerakan if available
-    if (subGerakanData.length > 0) {
-        const firstGerakan = subGerakanData[0];
-        subgerakanBadge.textContent = firstGerakan.num;
-        subgerakanTitle.textContent = `Lakukan ${firstGerakan.title}`;
-        subgerakanInstruction.textContent = firstGerakan.instruction;
-        subgerakanTimeIndicator.textContent = `${formatTime(firstGerakan.start)} - ${formatTime(firstGerakan.end)}`;
     }
 
     // Function to update sub-gerakan display based on elapsed time
