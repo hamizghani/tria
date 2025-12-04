@@ -255,7 +255,7 @@ HARDCODED_SANGGARS = [
         ]
     },
     {
-        "sanggar_id": "ST020",
+        "sanggar_id": "STO20",
         "nama_sanggar": "Sanggar Ratna Sari",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAQW7ssArfFoUVgUcUi2QOwaPwh-VPi6qWhA&s",
         "phone_number": "-",

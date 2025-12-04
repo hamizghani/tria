@@ -4,176 +4,197 @@
 {% block content %}
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
     :root {
-        --tria-red: #e53935;
-        --tria-orange: #ff9800;
-        --tria-orange-soft: #fff3e0;
-        --tria-border: #f0f0f0;
-        --tria-text: #222222;
-        --tria-muted: #555555;
+        --primary-orange: #FF8C00; /* Warna aksen utama */
+        --primary-red: #E53935;
+        --bg-color: #FAFAFA;
+        --surface-color: #FFFFFF;
+        --text-dark: #1F2937;
+        --text-muted: #6B7280;
+        --border-color: #E5E7EB;
     }
 
-    /* WRAPPER UTAMA: Mengunci tinggi layar agar tidak scroll body */
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-dark);
+        background-color: var(--bg-color);
+    }
+
+    /* --- LAYOUT UTAMA --- */
     .split-wrapper {
         display: flex;
         width: 100%;
-        /* Sesuaikan 70px dengan tinggi navbar kamu */
-        height: calc(100vh - 70px);
+        height: calc(100vh - 70px); /* Asumsi navbar 70px */
         overflow: hidden;
-        background: #fff;
+        background: var(--surface-color);
     }
 
-    /* --- KOLOM KIRI: GAMBAR (FIXED ORANGE BORDER & FILL) --- */
+    /* --- BAGIAN KIRI: GAMBAR (DESAIN BARU TANPA BADGE) --- */
     .image-panel {
-        flex: 1.3; /* Lebar porsi gambar */
+        flex: 1.3; /* Gambar sedikit lebih lebar */
         position: relative;
         overflow: hidden;
-
-        /* KUNCI 1: Border Orange Tetap */
-        border: 8px solid var(--tria-orange);
-        /* background cadangan saat gambar loading */
-        background-color: var(--tria-orange-soft);
+        background-color: #eee;
+        z-index: 10; /* Agar bayangan berada di atas panel kanan */
+        
+        /* --- KUNCI DESAIN BARU DI SINI --- */
+        /* 1. Bingkai Aksen Asimetris di kanan saja */
+        border-right: 8px solid var(--primary-orange);
+        
+        /* 2. Bayangan dalam yang "mengangkat" gambar dari halaman */
+        /* Offset horizontal, vertical, blur, spread, color */
+        box-shadow: 15px 0 35px -5px rgba(0, 0, 0, 0.2);
     }
 
     .image-panel img {
         width: 100%;
         height: 100%;
-        /* KUNCI 2: 'cover' memaksa gambar mengisi penuh container tanpa sisa ruang.
-           Catatan: Bagian pinggir gambar mungkin akan terpotong agar pas. */
         object-fit: cover;
-        display: block;
+        /* Efek zoom halus saat hover */
+        transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .image-panel:hover img {
+        transform: scale(1.04);
     }
 
-    /* --- KOLOM KANAN: KONTEN --- */
+    /* Overlay gradasi dihilangkan agar warna foto lebih 'pop' keluar
+       Jika ingin dipakai lagi, uncomment bagian di bawah ini: */
+    /* .image-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%);
+        pointer-events: none;
+    } 
+    */
+
+    /* --- BAGIAN KANAN: KONTEN --- */
     .content-panel {
-        flex: 1; /* Lebar porsi konten */
-        padding: 2.5rem;
-        overflow-y: auto; /* Hanya kolom ini yang scroll */
-        background: #fff;
+        flex: 1;
+        padding: 3.5rem 3rem; /* Padding sedikit disesuaikan */
+        overflow-y: auto;
+        background: var(--surface-color);
         display: flex;
         flex-direction: column;
-        /* Tambahkan border kiri tipis sebagai pemisah dengan border oranye */
-        border-left: 1px solid var(--tria-border);
+        position: relative;
+        z-index: 1;
     }
 
-    /* Styling Typography & Komponen */
-    .sanggar-title {
-        font-size: 2rem;
-        font-weight: 800;
-        margin: 0 0 0.5rem 0;
-        color: var(--tria-text);
-        line-height: 1.2;
-    }
+    /* Scrollbar Cantik */
+    .content-panel::-webkit-scrollbar { width: 6px; }
+    .content-panel::-webkit-scrollbar-track { background: transparent; }
+    .content-panel::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 20px; }
 
-    .sanggar-subtitle {
-        font-size: 0.95rem;
-        color: var(--tria-muted);
-        padding-bottom: 1rem;
-        margin-bottom: 1.5rem;
-        border-bottom: 1px solid var(--tria-border);
-    }
-
-    .sanggar-description {
-        font-size: 0.95rem;
-        line-height: 1.7;
-        color: var(--tria-text);
-        margin-bottom: 2rem;
-        white-space: pre-line;
-    }
-
-    /* Contact Card Compact */
-    .contact-card {
-        background: #f9f9f9;
-        border: 1px solid #eee;
-        padding: 1.2rem;
-        border-radius: 12px;
-        margin-bottom: 2rem;
-    }
-
-    .contact-row {
-        display: flex;
+    /* Breadcrumb */
+    .back-link {
+        display: inline-flex;
         align-items: center;
-        margin-bottom: 0.8rem;
-        font-size: 0.9rem;
-        color: var(--tria-text);
-    }
-
-    .contact-row i {
-        width: 24px;
-        color: var(--tria-orange);
-        margin-right: 8px;
-        text-align: center;
-    }
-
-    .wa-btn {
-        display: block;
-        background: #25D366;
-        color: white;
-        text-align: center;
-        padding: 0.8rem;
-        border-radius: 8px;
-        font-weight: 700;
         text-decoration: none;
-        margin-top: 1rem;
-        transition: 0.2s;
-        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        transition: color 0.2s;
     }
-    .wa-btn:hover { background: #1ebe59; color: #fff; transform: translateY(-2px); }
-    .wa-disabled { background: #ccc; cursor: default; }
-    .wa-disabled:hover { transform: none; background: #ccc; }
+    .back-link:hover { color: var(--primary-orange); }
+    .back-link i { margin-right: 8px; }
 
-    /* Reviews Compact */
-    .reviews-list {
-        display: grid;
-        gap: 1rem;
+    /* Typography */
+    .sanggar-title {
+        font-size: 2.5rem;
+        font-weight: 800; /* Lebih tebal */
+        margin: 0;
+        color: var(--text-dark);
+        line-height: 1.1;
+        letter-spacing: -0.5px;
     }
 
-    .review-item {
-        border: 1px solid var(--tria-border);
-        border-radius: 10px;
-        padding: 1rem;
-        background: #fff;
+    .sanggar-tagline {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        margin-top: 0.75rem;
+        margin-bottom: 2.5rem;
+        display: block;
+        font-weight: 400;
     }
-    .review-header {
+
+    /* Section Styles */
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        color: var(--text-dark);
         display: flex;
         align-items: center;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: 700;
     }
-    .review-avatar {
-        width: 28px; height: 28px;
-        background: var(--tria-orange);
-        color: #fff;
-        border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        margin-right: 8px;
-        font-size: 0.75rem;
-    }
-    .review-body {
-        font-size: 0.85rem;
-        color: var(--tria-muted);
-        font-style: italic;
+    
+    .sanggar-description {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #4B5563;
+        margin-bottom: 3rem;
+        text-align: justify;
     }
 
-    /* Responsive untuk Mobile */
-    @media (max-width: 768px) {
-        .split-wrapper {
-            flex-direction: column;
-            height: auto; /* Balik ke scroll biasa di HP */
-            overflow: visible;
-        }
+    /* Contact Card - Sedikit lebih minimalis */
+    .contact-card {
+        background: #fff;
+        border: 1px solid #F3F4F6;
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        padding: 2rem;
+        border-radius: 16px;
+        margin-bottom: 3.5rem;
+    }
+    .contact-item { display: flex; align-items: flex-start; margin-bottom: 1.2rem; }
+    .icon-box {
+        width: 40px; height: 40px;
+        background: #FFF3E0; color: var(--primary-orange);
+        border-radius: 10px; display: flex; align-items: center; justify-content: center;
+        font-size: 1.1rem; margin-right: 15px; flex-shrink: 0;
+    }
+    .contact-text { font-size: 0.95rem; color: var(--text-dark); margin-top: 8px; font-weight: 500; }
+
+    /* WhatsApp Button */
+    .wa-btn {
+        display: flex; align-items: center; justify-content: center; width: 100%;
+        background: #25D366; color: white; padding: 1rem; border-radius: 12px;
+        font-weight: 700; text-decoration: none; margin-top: 2rem;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25); transition: all 0.2s ease; font-size: 1rem;
+    }
+    .wa-btn:hover { background: #20BD5A; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35); color: white; }
+    .wa-disabled { background: #E5E7EB; color: #9CA3AF; cursor: not-allowed; box-shadow: none; }
+    .wa-disabled:hover { transform: none; background: #E5E7EB; color: #9CA3AF; }
+
+    /* Reviews */
+    .review-grid { display: grid; gap: 1rem; }
+    .review-card {
+        background: #F9FAFB; border-radius: 12px; padding: 1.5rem;
+        border: 1px solid #eee; transition: all 0.2s;
+    }
+    .review-card:hover { border-color: var(--primary-orange); background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+    .reviewer-info { display: flex; align-items: center; margin-bottom: 1rem; }
+    .avatar-circle {
+        width: 36px; height: 36px; background: var(--primary-orange);
+        color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: 1rem; margin-right: 12px;
+        box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+    }
+    .reviewer-name { font-size: 1rem; font-weight: 700; color: var(--text-dark); }
+    .review-comment { font-size: 0.95rem; color: var(--text-muted); font-style: italic; line-height: 1.6; }
+
+    /* --- RESPONSIVE MOBILE --- */
+    @media (max-width: 900px) {
+        .split-wrapper { flex-direction: column; height: auto; overflow: visible; }
         .image-panel {
-            height: 350px; /* Tinggi fix untuk gambar di HP */
-            flex: none;
-            /* Di HP border oranye mungkin terlalu tebal, bisa dikurangi kalau mau */
-            border-width: 4px; 
+            height: 350px; flex: none;
+            /* Di mobile, border pindah ke bawah */
+            border-right: none;
+            border-bottom: 8px solid var(--primary-orange);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
         }
-        .content-panel {
-            overflow: visible;
-            padding: 1.5rem;
-            border-left: none;
-        }
+        .content-panel { padding: 2.5rem 1.5rem; }
+        .sanggar-title { font-size: 2rem; }
     }
 </style>
 
@@ -191,59 +212,65 @@
             alt="{{ sanggar.nama_sanggar }}"
             onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'"
         />
-    </div>
+        </div>
 
     <div class="content-panel">
 
-        <div>
+        <a href="javascript:history.back()" class="back-link">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+
+        <header>
             <h1 class="sanggar-title">{{ sanggar.nama_sanggar }}</h1>
-            <p class="sanggar-subtitle">Profil Lengkap & Informasi Sewa</p>
-        </div>
+            <span class="sanggar-tagline">Profil Lengkap & Informasi Sewa Studio</span>
+        </header>
 
-        <div class="contact-card">
-            <div class="contact-row">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>{{ sanggar.location }}</span>
-            </div>
-            <div class="contact-row">
-                <i class="fas fa-phone"></i>
-                <span>{{ sanggar.phone_number }}</span>
-            </div>
-            <div class="contact-row">
-                <i class="fas fa-envelope"></i>
-                <span>{{ sanggar.email }}</span>
-            </div>
+        <section>
+            <h3 class="section-title">Tentang Sanggar</h3>
+            <p class="sanggar-description">{{ sanggar.description }}</p>
+        </section>
 
+        <section class="contact-card">
+            <h3 class="section-title" style="margin-bottom: 1.5rem;">Lokasi & Kontak</h3>
+            <div class="contact-item">
+                <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="contact-text">{{ sanggar.location }}</div>
+            </div>
+            <div class="contact-item">
+                <div class="icon-box"><i class="fas fa-phone"></i></div>
+                <div class="contact-text">{{ sanggar.phone_number }}</div>
+            </div>
+            <div class="contact-item">
+                <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                <div class="contact-text">{{ sanggar.email }}</div>
+            </div>
             {% if sanggar.wa_link %}
                 <a href="{{ sanggar.wa_link }}" target="_blank" class="wa-btn">
-                    <i class="fab fa-whatsapp"></i> Chat WhatsApp
+                    <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
                 </a>
             {% else %}
-                <div class="wa-btn wa-disabled">WhatsApp Tidak Tersedia</div>
+                <div class="wa-btn wa-disabled">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Tidak Tersedia
+                </div>
             {% endif %}
-        </div>
+        </section>
 
-        <div>
-            <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Tentang Sanggar</h3>
-            <p class="sanggar-description">{{ sanggar.description }}</p>
-        </div>
-
-        <div>
-            <h3 style="font-weight: 700; margin-bottom: 1rem;">Ulasan Pengunjung</h3>
-            <div class="reviews-list">
+        <section>
+            <h3 class="section-title">Ulasan Pengunjung</h3>
+            <div class="review-grid">
                 {% for review in sanggar.reviews %}
-                <div class="review-item">
-                    <div class="review-header">
-                        <div class="review-avatar">{{ review.user|slice:":1" }}</div>
-                        {{ review.user }}
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <div class="avatar-circle">{{ review.user|slice:":1" }}</div>
+                        <div class="reviewer-name">{{ review.user }}</div>
                     </div>
-                    <div class="review-body">“{{ review.comment }}”</div>
+                    <div class="review-comment">“{{ review.comment }}”</div>
                 </div>
                 {% empty %}
-                <p style="color: #999; font-size: 0.9rem;">Belum ada ulasan.</p>
+                <p style="color: #999; font-size: 0.95rem; font-style: italic; padding: 1rem;">Belum ada ulasan untuk sanggar ini.</p>
                 {% endfor %}
             </div>
-        </div>
+        </section>
 
     </div>
 </div>
