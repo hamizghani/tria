@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Sanggar # Import model
+import re
+
 
 # Hardcoded sanggar data instead of relying on import_data.py
 HARDCODED_SANGGARS = [
@@ -278,13 +280,50 @@ def index(request):
 
 @login_required
 def detail(request, sanggar_id):
-    sanggar = next((s for s in HARDCODED_SANGGARS if s["sanggar_id"] == sanggar_id), None)
-    if not sanggar:
-        # Basic 404 fallback
-        from django.http import Http404
+    # Cari sanggar berdasarkan ID
+    sanggar_data = next((s for s in HARDCODED_SANGGARS if s["sanggar_id"] == sanggar_id), None)
+    
+    if not sanggar_data:
         raise Http404("Sanggar not found")
     
+    # PENTING: Kita copy object-nya agar tidak mengubah data global asli secara permanen (best practice)
+    sanggar = sanggar_data.copy()
+    
+    # --- LOGIC PERBAIKAN WA ---
+    # Ambil nomor telepon dari data
+    raw_phone = sanggar.get('phone_number', '')
+    
+    # Bersihkan nomor menggunakan helper function di atas
+    clean_phone = format_whatsapp_number(raw_phone)
+    
+    if clean_phone:
+        # Generate URL WhatsApp yang benar secara dinamis
+        # Menggunakan format wa.me yang lebih ringkas atau api.whatsapp.com
+        text_msg = "Halo, saya melihat profil sanggar Anda di website dan ingin bertanya info lebih lanjut."
+        sanggar['wa_link'] = f"https://api.whatsapp.com/send/?phone={clean_phone}&text={text_msg}"
+    else:
+        # Jika nomor tidak valid (misal "-"), kosongkan wa_link agar tombol jadi disabled di HTML
+        sanggar['wa_link'] = None
+
     context = {
         'sanggar': sanggar,
     }
     return render(request, 'daftarsanggar/detail.html', context)
+    
+def format_whatsapp_number(phone_raw):
+    # 1. Jika data kosong atau "-", return None
+    if not phone_raw or phone_raw == "-":
+        return None
+    
+    # 2. Hapus semua karakter yang BUKAN angka (hapus spasi, -, (), +)
+    clean_number = re.sub(r'\D', '', phone_raw)
+    
+    # 3. Ubah format 0 di depan menjadi 62 (Kode Negara Indonesia)
+    if clean_number.startswith('0'):
+        clean_number = '62' + clean_number[1:]
+    
+    # 4. Validasi panjang nomor (nomor HP/Telp Indonesia minimal ~9-10 digit)
+    if len(clean_number) < 9:
+        return None
+        
+    return clean_number
