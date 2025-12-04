@@ -248,22 +248,52 @@
 
 <script>
     const data = JSON.parse(sessionStorage.getItem("dance_result_api"));
+    const completedGerakan = parseInt(sessionStorage.getItem("completed_gerakan") || "15");
+    const isEarlyFinish = sessionStorage.getItem("is_early_finish") === "true";
 
     if (data) {
-        document.getElementById("scoreDisplay").textContent = data.average_score + "%";
+        // Clone the scores array to avoid modifying the original
+        let scores = [...(data.score || [])];
+        
+        // Ensure we have exactly 15 scores
+        while (scores.length < 15) {
+            scores.push(0);
+        }
+        
+        // Trim to 15 if somehow more
+        scores = scores.slice(0, 15);
+
+        // If assessment was finished early, set incomplete gerakans to 0
+        if (isEarlyFinish && completedGerakan < 15) {
+            for (let i = completedGerakan; i < 15; i++) {
+                scores[i] = 0;
+            }
+        }
+
+        // Recalculate average score based on all 15 gerakans
+        const totalScore = scores.reduce((sum, score) => {
+            const numScore = parseFloat(score) || 0;
+            return sum + numScore;
+        }, 0);
+        const averageScore = Math.round((totalScore / 15) * 100) / 100;
+
+        document.getElementById("scoreDisplay").textContent = averageScore.toFixed(0) + "%";
 
         const tbody = document.querySelector("#scoreTable tbody");
         tbody.innerHTML = "";
 
         // Generate Sub Gerakan 1 - 15 dynamically
-        data.score.forEach((score, i) => {
+        scores.forEach((score, i) => {
             const row = document.createElement("tr");
+            const isIncomplete = isEarlyFinish && (i + 1) > completedGerakan;
+            
             row.innerHTML = `
                 <td style="padding: 10px; border-bottom: 1px solid var(--tria-border);">
                     Sub Gerakan ${i + 1}
+                    ${isIncomplete ? '<span style="color: var(--tria-muted); font-size: 0.85em;"> (Tidak diselesaikan)</span>' : ''}
                 </td>
                 <td style="padding: 10px; border-bottom: 1px solid var(--tria-border); text-align: right;">
-                    <strong>${score}</strong>
+                    <strong style="${isIncomplete ? 'color: var(--tria-muted);' : ''}">${score}</strong>
                 </td>
             `;
             tbody.appendChild(row);
@@ -272,16 +302,33 @@
         const feedbackContainer = document.getElementById("feedbackContainer");
         feedbackContainer.innerHTML = "";
 
-        data.feedback.forEach((text, i) => {
-            const box = document.createElement("li");
-            box.style.background = "var(--tria-orange-soft)";
-            box.style.borderLeft = "5px solid var(--tria-orange)";
-            box.style.padding = "12px 14px";
-            box.style.borderRadius = "12px";
-            box.style.marginBottom = "10px";
-            box.innerHTML = `<strong>${i + 1}.</strong> ${text}`;
-            feedbackContainer.appendChild(box);
-        });
+        // Only show feedback for completed gerakans
+        const feedbackToShow = data.feedback ? data.feedback.slice(0, completedGerakan) : [];
+        
+        if (feedbackToShow.length > 0) {
+            feedbackToShow.forEach((text, i) => {
+                const box = document.createElement("li");
+                box.style.background = "var(--tria-orange-soft)";
+                box.style.borderLeft = "5px solid var(--tria-orange)";
+                box.style.padding = "12px 14px";
+                box.style.borderRadius = "12px";
+                box.style.marginBottom = "10px";
+                box.innerHTML = `<strong>${i + 1}.</strong> ${text}`;
+                feedbackContainer.appendChild(box);
+            });
+        }
+
+        // Show warning if assessment was incomplete
+        if (isEarlyFinish && completedGerakan < 15) {
+            const warningBox = document.createElement("li");
+            warningBox.style.background = "#fff3cd";
+            warningBox.style.borderLeft = "5px solid #ffc107";
+            warningBox.style.padding = "12px 14px";
+            warningBox.style.borderRadius = "12px";
+            warningBox.style.marginBottom = "10px";
+            warningBox.innerHTML = `<strong>Catatan:</strong> Asesmen diakhiri sebelum selesai. Sub Gerakan ${completedGerakan + 1} hingga 15 mendapat nilai 0 karena tidak diselesaikan.`;
+            feedbackContainer.insertBefore(warningBox, feedbackContainer.firstChild);
+        }
     }
 </script>
 
