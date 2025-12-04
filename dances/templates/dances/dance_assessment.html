@@ -765,6 +765,15 @@
         const secs = seconds % 60;
         return `${mins.toString().padStart(1, '0')}:${secs.toString().padStart(2, '0')}`;
     }
+    
+    // Initialize display with first sub-gerakan if available
+    if (subGerakanData.length > 0) {
+        const firstGerakan = subGerakanData[0];
+        subgerakanBadge.textContent = firstGerakan.num;
+        subgerakanTitle.textContent = `Lakukan ${firstGerakan.title}`;
+        subgerakanInstruction.textContent = firstGerakan.instruction;
+        subgerakanTimeIndicator.textContent = `${formatTime(firstGerakan.start)} - ${formatTime(firstGerakan.end)}`;
+    }
 
     // Function to update sub-gerakan display based on elapsed time
     function updateSubGerakanDisplay(elapsedSeconds) {
