@@ -579,26 +579,167 @@
 </div>
 
 <script>
-    // Sub-gerakan data structure
-    const subGerakanData = [
-        { num: 1, start: 0, end: 17, title: "Sub Gerakan 1", instruction: "Berdiri tegak dengan kaki rapat, tangan di samping badan. Siapkan postur tubuh dan fokus sebelum memulai gerakan." },
-        { num: 2, start: 17, end: 34, title: "Sub Gerakan 2", instruction: "Angkat tangan kanan ke depan dengan telapak menghadap ke atas, gerakan lembut dan terkontrol." },
-        { num: 3, start: 34, end: 52, title: "Sub Gerakan 3", instruction: "Ikuti dengan tangan kiri, angkat ke samping dengan gerakan yang sama elegan dan terkontrol." },
-        { num: 4, start: 52, end: 69, title: "Sub Gerakan 4", instruction: "Melangkah ke kanan dengan kaki kanan, berat badan mengikuti dengan lembut. Jaga keseimbangan." },
-        { num: 5, start: 69, end: 87, title: "Sub Gerakan 5", instruction: "Putar badan 90 derajat ke kanan dengan gerakan halus, pandangan mengikuti arah putaran." },
-        { num: 6, start: 87, end: 105, title: "Sub Gerakan 6", instruction: "Kedua tangan bergerak secara sinkron membentuk pola melingkar di depan dada dengan irama yang konsisten." },
-        { num: 7, start: 105, end: 122, title: "Sub Gerakan 7", instruction: "Gerakan transisi yang menghubungkan bagian pertama dengan bagian kedua, tempo mulai meningkat." },
-        { num: 8, start: 122, end: 140, title: "Sub Gerakan 8", instruction: "Gerakan kaki yang lebih cepat dengan pola maju-mundur, koordinasi dengan tangan tetap terjaga." },
-        { num: 9, start: 140, end: 157, title: "Sub Gerakan 9", instruction: "Lakukan putaran 360 derajat dengan postur tegap, jaga keseimbangan dan fokus pada satu titik." },
-        { num: 10, start: 157, end: 175, title: "Sub Gerakan 10", instruction: "Ekspresikan emosi melalui gerakan tangan yang lebih bebas namun tetap mengikuti pola dasar tarian." },
-        { num: 11, start: 175, end: 192, title: "Sub Gerakan 11", instruction: "Bergerak diagonal ke kanan depan dengan langkah terukur, tangan mengiringi dengan gerakan anggun." },
-        { num: 12, start: 192, end: 210, title: "Sub Gerakan 12", instruction: "Bagian paling energik dari tarian, kombinasi semua elemen dengan tempo maksimal dan ekspresi penuh." },
-        { num: 13, start: 210, end: 228, title: "Sub Gerakan 13", instruction: "Tempo mulai melambat, gerakan menjadi lebih tenang sebagai persiapan menuju penutupan." },
-        { num: 14, start: 228, end: 246, title: "Sub Gerakan 14", instruction: "Kembali ke posisi tengah dengan gerakan lembut, mengumpulkan energi untuk pose akhir." },
-        { num: 15, start: 246, end: 264, title: "Sub Gerakan 15", instruction: "Tahan pose akhir dengan sempurna, kedua tangan di depan dada, postur tegap menunjukkan penyelesaian tarian." }
-    ];
-
-    const TOTAL_DURATION = 264; // 4:24 in seconds
+    // Get dance data from Django template
+    const TOTAL_DURATION = parseInt("{{ dance.durasi_video|default:264 }}") || 264; // Duration in seconds
+    const MAX_SUBGERAKAN = parseInt("{{ dance.max_subgerakan|default:15 }}") || 15;
+    const SUBGERAKAN_DURATION = 18; // Each sub-gerakan is 18 seconds
+    const DANCE_NAME = "{{ dance.name|default:'Tarian' }}";
+    
+    // Function to generate dance-specific instructions
+    function generateDanceInstructions(danceName, numSubgerakan) {
+        const instructions = [];
+        const danceLower = danceName.toLowerCase();
+        
+        // Base instructions pool
+        const baseInstructions = {
+            start: [
+                "Berdiri tegak dengan kaki rapat, tangan di samping badan. Siapkan postur tubuh dan fokus sebelum memulai gerakan.",
+                "Posisi awal dengan postur yang benar, kedua kaki sejajar dan tangan dalam posisi siap.",
+                "Mulai dengan posisi dasar, tubuh tegak dan seimbang, siap untuk memulai gerakan."
+            ],
+            hand: [
+                "Angkat tangan kanan ke depan dengan telapak menghadap ke atas, gerakan lembut dan terkontrol.",
+                "Gerakan tangan dengan pola melingkar, koordinasi antara tangan kanan dan kiri.",
+                "Kedua tangan bergerak secara sinkron membentuk pola yang harmonis.",
+                "Ayunkan tangan dengan irama yang konsisten, jaga kelenturan pergelangan tangan."
+            ],
+            foot: [
+                "Melangkah dengan langkah yang terukur, jaga keseimbangan dan koordinasi.",
+                "Gerakan kaki mengikuti pola dasar tarian, langkah maju, mundur, atau ke samping.",
+                "Pindahkan berat badan dengan lembut sambil melangkah, jaga stabilitas tubuh."
+            ],
+            body: [
+                "Putar badan dengan gerakan halus, pandangan mengikuti arah putaran.",
+                "Gerakan tubuh mengikuti irama, ayunkan pinggul dengan lembut dan terkontrol.",
+                "Koordinasi antara gerakan badan, tangan, dan kaki dengan harmonis."
+            ],
+            transition: [
+                "Gerakan transisi yang menghubungkan bagian pertama dengan bagian berikutnya.",
+                "Perubahan tempo dan intensitas gerakan, siapkan untuk bagian selanjutnya.",
+                "Transisi yang mulus antara gerakan, jaga kontinuitas dan alur tarian."
+            ],
+            energetic: [
+                "Bagian paling energik dari tarian, kombinasi semua elemen dengan tempo maksimal.",
+                "Ekspresikan energi dan semangat melalui gerakan yang lebih dinamis dan penuh ekspresi.",
+                "Tingkatkan intensitas gerakan, tunjukkan karakteristik khas tarian dengan penuh percaya diri."
+            ],
+            slow: [
+                "Tempo mulai melambat, gerakan menjadi lebih tenang sebagai persiapan menuju penutupan.",
+                "Redakan intensitas gerakan, fokus pada kelenturan dan keanggunan.",
+                "Gerakan menjadi lebih halus dan terkontrol, persiapkan untuk bagian akhir."
+            ],
+            end: [
+                "Kembali ke posisi tengah dengan gerakan lembut, mengumpulkan energi untuk pose akhir.",
+                "Tahan pose akhir dengan sempurna, kedua tangan di depan dada, postur tegap menunjukkan penyelesaian tarian.",
+                "Pose penutup yang elegan, tunjukkan penyelesaian tarian dengan percaya diri dan anggun."
+            ]
+        };
+        
+        // Dance-specific variations
+        if (danceLower.includes('kecak')) {
+            instructions.push("Berdiri dalam formasi, siapkan untuk gerakan khas Kecak dengan koordinasi kelompok.");
+            instructions.push("Gerakan tangan dengan pola khas Kecak, koordinasi dengan suara 'cak'.");
+            instructions.push("Langkah kaki mengikuti irama, jaga sinkronisasi dengan penari lain.");
+        } else if (danceLower.includes('janger')) {
+            instructions.push("Berdiri dengan postur yang ceria, siapkan untuk gerakan dinamis Janger.");
+            instructions.push("Gerakan tangan yang lincah dan ceria, ekspresikan kegembiraan.");
+            instructions.push("Langkah kaki yang energik, tunjukkan semangat muda dalam tarian.");
+        } else if (danceLower.includes('bungong') || danceLower.includes('jeumpa')) {
+            instructions.push("Berdiri dengan anggun, siapkan untuk gerakan yang melambangkan keindahan bunga.");
+            instructions.push("Gerakan tangan yang lembut seperti kelopak bunga, ekspresikan keindahan.");
+            instructions.push("Langkah kaki yang halus, jaga keanggunan dalam setiap gerakan.");
+        } else if (danceLower.includes('lenggang') || danceLower.includes('nyai')) {
+            instructions.push("Berdiri dengan postur anggun wanita, siapkan untuk gerakan lenggang yang khas.");
+            instructions.push("Gerakan lenggang pinggul dengan lembut, tunjukkan keanggunan khas Betawi.");
+            instructions.push("Langkah kaki dengan pola khas lenggang, koordinasi dengan ayunan pinggul.");
+        } else if (danceLower.includes('piring')) {
+            instructions.push("Berdiri dengan memegang piring, siapkan untuk gerakan khas Tari Piring.");
+            instructions.push("Gerakan tangan memutar piring dengan terampil, jaga keseimbangan piring.");
+            instructions.push("Langkah kaki yang dinamis sambil mempertahankan piring tetap stabil.");
+        } else if (danceLower.includes('serimpi')) {
+            instructions.push("Berdiri dengan postur klasik, siapkan untuk gerakan lemah gemulai Serimpi.");
+            instructions.push("Gerakan tangan yang sangat halus dan anggun, ekspresikan kelembutan.");
+            instructions.push("Langkah kaki yang sangat pelan dan terkontrol, jaga keanggunan klasik.");
+        } else if (danceLower.includes('saman')) {
+            instructions.push("Berdiri dalam formasi, siapkan untuk gerakan cepat dan kompak Saman.");
+            instructions.push("Gerakan tangan yang sangat cepat dan sinkron, koordinasi dengan penari lain.");
+            instructions.push("Langkah kaki yang dinamis, jaga tempo cepat dan kompak.");
+        } else if (danceLower.includes('reog')) {
+            instructions.push("Berdiri dengan postur kuat, siapkan untuk gerakan energik Reog Ponorogo.");
+            instructions.push("Gerakan tangan yang kuat dan dinamis, ekspresikan kekuatan karakter.");
+            instructions.push("Langkah kaki yang tegas, tunjukkan karakteristik khas Reog.");
+        } else if (danceLower.includes('topeng') || danceLower.includes('betawi')) {
+            instructions.push("Berdiri dengan postur ceria, siapkan untuk gerakan khas Topeng Betawi.");
+            instructions.push("Gerakan tangan yang lincah dan ekspresif, tunjukkan karakter topeng.");
+            instructions.push("Langkah kaki yang dinamis, ekspresikan keceriaan khas Betawi.");
+        } else if (danceLower.includes('gambyong')) {
+            instructions.push("Berdiri dengan postur klasik Jawa, siapkan untuk gerakan anggun Gambyong.");
+            instructions.push("Gerakan tangan yang sangat halus dan elegan, ekspresikan keanggunan klasik.");
+            instructions.push("Langkah kaki yang pelan dan terkontrol, jaga kelembutan khas Gambyong.");
+        } else {
+            // Generic fallback
+            instructions.push(...baseInstructions.start);
+            instructions.push(...baseInstructions.hand);
+            instructions.push(...baseInstructions.foot);
+        }
+        
+        // Fill remaining with base instructions, shuffled for variety
+        const allBase = [
+            ...baseInstructions.start,
+            ...baseInstructions.hand,
+            ...baseInstructions.foot,
+            ...baseInstructions.body,
+            ...baseInstructions.transition,
+            ...baseInstructions.energetic,
+            ...baseInstructions.slow,
+            ...baseInstructions.end
+        ];
+        
+        // Shuffle array function
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
+        // Add shuffled base instructions to fill remaining slots
+        const shuffledBase = shuffleArray(allBase);
+        while (instructions.length < numSubgerakan) {
+            instructions.push(...shuffledBase);
+        }
+        
+        // Ensure first is always a start instruction and last is always an end instruction
+        if (instructions.length > 0) {
+            instructions[0] = baseInstructions.start[0];
+        }
+        if (instructions.length > 1) {
+            instructions[instructions.length - 1] = baseInstructions.end[baseInstructions.end.length - 1];
+        }
+        
+        return instructions.slice(0, numSubgerakan);
+    }
+    
+    // Generate dance-specific instructions
+    const danceInstructions = generateDanceInstructions(DANCE_NAME, MAX_SUBGERAKAN);
+    
+    // Dynamically generate sub-gerakan data based on duration
+    const subGerakanData = [];
+    for (let i = 0; i < MAX_SUBGERAKAN; i++) {
+        const start = i * SUBGERAKAN_DURATION;
+        const end = Math.min(start + SUBGERAKAN_DURATION, TOTAL_DURATION);
+        if (start >= TOTAL_DURATION) break;
+        
+        subGerakanData.push({
+            num: i + 1,
+            start: start,
+            end: end,
+            title: `Sub Gerakan ${i + 1}`,
+            instruction: danceInstructions[i] || "Lanjutkan gerakan dengan irama yang konsisten, jaga koordinasi dan ekspresi."
+        });
+    }
 
     const video = document.getElementById('video');
     const startBtn = document.getElementById('startBtn');
@@ -629,10 +770,11 @@
     function updateSubGerakanDisplay(elapsedSeconds) {
         // Check if completed all
         if (elapsedSeconds >= TOTAL_DURATION) {
-            subgerakanBadge.textContent = '15';
+            const lastGerakan = subGerakanData[subGerakanData.length - 1];
+            subgerakanBadge.textContent = MAX_SUBGERAKAN.toString();
             subgerakanTitle.textContent = 'Selamat! Asesmen Selesai';
             subgerakanInstruction.textContent = 'Anda telah menyelesaikan semua sub-gerakan. Klik Finish untuk melihat hasil.';
-            subgerakanTimeIndicator.textContent = '4:06 - 4:24';
+            subgerakanTimeIndicator.textContent = `${formatTime(lastGerakan.start)} - ${formatTime(TOTAL_DURATION)}`;
             return;
         }
 
@@ -668,7 +810,7 @@
     // Function to get current sub-gerakan number based on elapsed time
     function getCurrentGerakanNumber(elapsedSeconds) {
         if (elapsedSeconds >= TOTAL_DURATION) {
-            return 15; // Completed
+            return MAX_SUBGERAKAN; // Completed
         }
         const activeGerakan = subGerakanData.find(gerakan => 
             elapsedSeconds >= gerakan.start && elapsedSeconds < gerakan.end
@@ -756,7 +898,7 @@
         }
 
         // Determine which gerakan was completed
-        let completedGerakan = 15; // Default to all completed
+        let completedGerakan = MAX_SUBGERAKAN; // Default to all completed
         if (isEarlyFinish && stoppedAtGerakan !== null) {
             completedGerakan = stoppedAtGerakan;
         } else if (isEarlyFinish) {
@@ -774,6 +916,7 @@
             sessionStorage.setItem("dance_result_api", JSON.stringify(result));
             sessionStorage.setItem("completed_gerakan", completedGerakan.toString());
             sessionStorage.setItem("is_early_finish", isEarlyFinish.toString());
+            sessionStorage.setItem("max_subgerakan", MAX_SUBGERAKAN.toString());
 
             window.location.href = "{% url 'dances:dance_result' dance.id %}";
         } catch (error) {

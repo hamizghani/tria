@@ -250,39 +250,40 @@
     const data = JSON.parse(sessionStorage.getItem("dance_result_api"));
     const completedGerakan = parseInt(sessionStorage.getItem("completed_gerakan") || "15");
     const isEarlyFinish = sessionStorage.getItem("is_early_finish") === "true";
+    const maxSubgerakan = parseInt(sessionStorage.getItem("max_subgerakan") || "15");
 
     if (data) {
         // Clone the scores array to avoid modifying the original
         let scores = [...(data.score || [])];
         
-        // Ensure we have exactly 15 scores
-        while (scores.length < 15) {
+        // Ensure we have exactly maxSubgerakan scores
+        while (scores.length < maxSubgerakan) {
             scores.push(0);
         }
         
-        // Trim to 15 if somehow more
-        scores = scores.slice(0, 15);
+        // Trim to maxSubgerakan if somehow more
+        scores = scores.slice(0, maxSubgerakan);
 
         // If assessment was finished early, set incomplete gerakans to 0
-        if (isEarlyFinish && completedGerakan < 15) {
-            for (let i = completedGerakan; i < 15; i++) {
+        if (isEarlyFinish && completedGerakan < maxSubgerakan) {
+            for (let i = completedGerakan; i < maxSubgerakan; i++) {
                 scores[i] = 0;
             }
         }
 
-        // Recalculate average score based on all 15 gerakans
+        // Recalculate average score based on all gerakans
         const totalScore = scores.reduce((sum, score) => {
             const numScore = parseFloat(score) || 0;
             return sum + numScore;
         }, 0);
-        const averageScore = Math.round((totalScore / 15) * 100) / 100;
+        const averageScore = Math.round((totalScore / maxSubgerakan) * 100) / 100;
 
         document.getElementById("scoreDisplay").textContent = averageScore.toFixed(0) + "%";
 
         const tbody = document.querySelector("#scoreTable tbody");
         tbody.innerHTML = "";
 
-        // Generate Sub Gerakan 1 - 15 dynamically
+        // Generate Sub Gerakan dynamically based on maxSubgerakan
         scores.forEach((score, i) => {
             const row = document.createElement("tr");
             const isIncomplete = isEarlyFinish && (i + 1) > completedGerakan;
@@ -319,14 +320,14 @@
         }
 
         // Show warning if assessment was incomplete
-        if (isEarlyFinish && completedGerakan < 15) {
+        if (isEarlyFinish && completedGerakan < maxSubgerakan) {
             const warningBox = document.createElement("li");
             warningBox.style.background = "#fff3cd";
             warningBox.style.borderLeft = "5px solid #ffc107";
             warningBox.style.padding = "12px 14px";
             warningBox.style.borderRadius = "12px";
             warningBox.style.marginBottom = "10px";
-            warningBox.innerHTML = `<strong>Catatan:</strong> Asesmen diakhiri sebelum selesai. Sub Gerakan ${completedGerakan + 1} hingga 15 mendapat nilai 0 karena tidak diselesaikan.`;
+            warningBox.innerHTML = `<strong>Catatan:</strong> Asesmen diakhiri sebelum selesai. Sub Gerakan ${completedGerakan + 1} hingga ${maxSubgerakan} mendapat nilai 0 karena tidak diselesaikan.`;
             feedbackContainer.insertBefore(warningBox, feedbackContainer.firstChild);
         }
     }

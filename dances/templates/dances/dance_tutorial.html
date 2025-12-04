@@ -417,14 +417,20 @@
             <!-- VIDEO SECTION -->
             <section class="video-section">
                 <div class="main-video-wrapper">
+                    {% if dance.youtube_id %}
                     <iframe 
-                        src="https://www.youtube.com/embed/U1ycqGXJ1fI?si=qpH0uzIS1VPT_5hb" 
+                        src="https://www.youtube.com/embed/{{ dance.youtube_id }}?si=qpH0uzIS1VPT_5hb" 
                         title="YouTube video player" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin" 
                         allowfullscreen>
                     </iframe>
+                    {% else %}
+                    <div style="display: flex; align-items: center; justify-content: center; height: 500px; background-color: #f5f5f5; border-radius: 12px; color: var(--tria-muted);">
+                        <p style="text-align: center; font-size: 1.1rem;">Video tutorial belum tersedia untuk tarian ini.</p>
+                    </div>
+                    {% endif %}
                 </div>
             </section>
 
@@ -433,11 +439,11 @@
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="info-label">Durasi Total</div>
-                        <div class="info-value">4:24</div>
+                        <div class="info-value">{{ dance.durasi_formatted|default:"0:00" }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Daerah Asal</div>
-                        <div class="info-value">{{ dance.origin|default:"Jawa Barat" }}</div>
+                        <div class="info-value">{{ dance.asal_daerah|default:"-" }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Tingkat Kesulitan</div>
@@ -449,414 +455,113 @@
             <!-- SUB-GERAKAN ACCORDION -->
             <section class="subgerakan-section">
                 <div class="subgerakan-header">
-                    <h2 class="subgerakan-title">15 Sub-Gerakan Detail</h2>
+                    <h2 class="subgerakan-title" id="subgerakanTitle">Sub-Gerakan Detail</h2>
                     <form action="{% url 'dances:dance_assessment' dance.id %}" method="get">
                         <button type="submit" class="btn btn-primary">Mulai Asesmen</button>
                     </form>
                 </div>
                 
-                <div class="subgerakan-list">
-                    <!-- Sub-Gerakan 1 -->
-                    <div class="accordion-card" data-start="0" data-end="17">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">1</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 1</div>
-                                    <div class="accordion-duration">0:00 - 0:17</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Berdiri tegak dengan kaki rapat, tangan di samping badan. Siapkan postur tubuh dan fokus sebelum memulai gerakan.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 2 -->
-                    <div class="accordion-card" data-start="17" data-end="34">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">2</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 2</div>
-                                    <div class="accordion-duration">0:17 - 0:34</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Angkat tangan kanan ke depan dengan telapak menghadap ke atas, gerakan lembut dan terkontrol.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 3 -->
-                    <div class="accordion-card" data-start="34" data-end="52">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">3</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 3</div>
-                                    <div class="accordion-duration">0:34 - 0:52</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Ikuti dengan tangan kiri, angkat ke samping dengan gerakan yang sama elegan dan terkontrol.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 4 -->
-                    <div class="accordion-card" data-start="52" data-end="69">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">4</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 4</div>
-                                    <div class="accordion-duration">0:52 - 1:09</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Melangkah ke kanan dengan kaki kanan, berat badan mengikuti dengan lembut. Jaga keseimbangan.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 5 -->
-                    <div class="accordion-card" data-start="69" data-end="87">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">5</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 5</div>
-                                    <div class="accordion-duration">1:09 - 1:27</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Putar badan 90 derajat ke kanan dengan gerakan halus, pandangan mengikuti arah putaran.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 6 -->
-                    <div class="accordion-card" data-start="87" data-end="105">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">6</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 6</div>
-                                    <div class="accordion-duration">1:27 - 1:45</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Kedua tangan bergerak secara sinkron membentuk pola melingkar di depan dada dengan irama yang konsisten.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 7 -->
-                    <div class="accordion-card" data-start="105" data-end="122">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">7</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 7</div>
-                                    <div class="accordion-duration">1:45 - 2:02</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Gerakan transisi yang menghubungkan bagian pertama dengan bagian kedua, tempo mulai meningkat.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 8 -->
-                    <div class="accordion-card" data-start="122" data-end="140">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">8</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 8</div>
-                                    <div class="accordion-duration">2:02 - 2:20</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Gerakan kaki yang lebih cepat dengan pola maju-mundur, koordinasi dengan tangan tetap terjaga.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 9 -->
-                    <div class="accordion-card" data-start="140" data-end="157">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">9</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 9</div>
-                                    <div class="accordion-duration">2:20 - 2:37</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Lakukan putaran 360 derajat dengan postur tegap, jaga keseimbangan dan fokus pada satu titik.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 10 -->
-                    <div class="accordion-card" data-start="157" data-end="175">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">10</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 10</div>
-                                    <div class="accordion-duration">2:37 - 2:55</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Ekspresikan emosi melalui gerakan tangan yang lebih bebas namun tetap mengikuti pola dasar tarian.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 11 -->
-                    <div class="accordion-card" data-start="175" data-end="192">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">11</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 11</div>
-                                    <div class="accordion-duration">2:55 - 3:12</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Bergerak diagonal ke kanan depan dengan langkah terukur, tangan mengiringi dengan gerakan anggun.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 12 -->
-                    <div class="accordion-card" data-start="192" data-end="210">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">12</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 12</div>
-                                    <div class="accordion-duration">3:12 - 3:30</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Bagian paling energik dari tarian, kombinasi semua elemen dengan tempo maksimal dan ekspresi penuh.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 13 -->
-                    <div class="accordion-card" data-start="210" data-end="228">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">13</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 13</div>
-                                    <div class="accordion-duration">3:30 - 3:48</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Tempo mulai melambat, gerakan menjadi lebih tenang sebagai persiapan menuju penutupan.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 14 -->
-                    <div class="accordion-card" data-start="228" data-end="246">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">14</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 14</div>
-                                    <div class="accordion-duration">3:48 - 4:06</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Kembali ke posisi tengah dengan gerakan lembut, mengumpulkan energi untuk pose akhir.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sub-Gerakan 15 -->
-                    <div class="accordion-card" data-start="246" data-end="264">
-                        <div class="accordion-header">
-                            <div class="accordion-left">
-                                <div class="step-badge">15</div>
-                                <div class="accordion-title-wrapper">
-                                    <div class="accordion-title">Sub Gerakan 15</div>
-                                    <div class="accordion-duration">4:06 - 4:24</div>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M7 10l5 5 5-5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-inner">
-                                <div class="accordion-description">
-                                    Tahan pose akhir dengan sempurna, kedua tangan di depan dada, postur tegap menunjukkan penyelesaian tarian.
-                                </div>
-                                <div class="accordion-video"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="subgerakan-list" id="subgerakanList">
+                    <!-- Sub-gerakan will be generated dynamically by JavaScript -->
                 </div>
             </section>
         </div>
     </main>
 
     <script>
-        // Ambil semua accordion cards
-        const accordionCards = document.querySelectorAll('.accordion-card');
-
-        accordionCards.forEach(card => {
+        // Get data from Django template
+        const youtubeId = "{{ dance.youtube_id|default:'' }}";
+        const totalDuration = parseInt("{{ dance.durasi_video|default:264 }}") || 264;
+        const maxSubgerakan = parseInt("{{ dance.max_subgerakan|default:15 }}") || 15;
+        const SUBGERAKAN_DURATION = 18; // Each sub-gerakan is 18 seconds
+        
+        // Generic descriptions that can be reused
+        const genericDescriptions = [
+            "Berdiri tegak dengan kaki rapat, tangan di samping badan. Siapkan postur tubuh dan fokus sebelum memulai gerakan.",
+            "Angkat tangan kanan ke depan dengan telapak menghadap ke atas, gerakan lembut dan terkontrol.",
+            "Ikuti dengan tangan kiri, angkat ke samping dengan gerakan yang sama elegan dan terkontrol.",
+            "Melangkah ke kanan dengan kaki kanan, berat badan mengikuti dengan lembut. Jaga keseimbangan.",
+            "Putar badan 90 derajat ke kanan dengan gerakan halus, pandangan mengikuti arah putaran.",
+            "Kedua tangan bergerak secara sinkron membentuk pola melingkar di depan dada dengan irama yang konsisten.",
+            "Gerakan transisi yang menghubungkan bagian pertama dengan bagian kedua, tempo mulai meningkat.",
+            "Gerakan kaki yang lebih cepat dengan pola maju-mundur, koordinasi dengan tangan tetap terjaga.",
+            "Lakukan putaran 360 derajat dengan postur tegap, jaga keseimbangan dan fokus pada satu titik.",
+            "Ekspresikan emosi melalui gerakan tangan yang lebih bebas namun tetap mengikuti pola dasar tarian.",
+            "Bergerak diagonal ke kanan depan dengan langkah terukur, tangan mengiringi dengan gerakan anggun.",
+            "Bagian paling energik dari tarian, kombinasi semua elemen dengan tempo maksimal dan ekspresi penuh.",
+            "Tempo mulai melambat, gerakan menjadi lebih tenang sebagai persiapan menuju penutupan.",
+            "Kembali ke posisi tengah dengan gerakan lembut, mengumpulkan energi untuk pose akhir.",
+            "Tahan pose akhir dengan sempurna, kedua tangan di depan dada, postur tegap menunjukkan penyelesaian tarian.",
+            "Lanjutkan gerakan dengan irama yang konsisten, jaga koordinasi antara tangan dan kaki.",
+            "Perkuat ekspresi wajah dan gerakan tubuh, tunjukkan karakteristik tarian dengan penuh percaya diri.",
+            "Pertahankan ritme dan tempo, sinkronkan gerakan dengan musik yang mengiringi.",
+            "Lakukan variasi gerakan dengan tetap mempertahankan pola dasar tarian yang telah dipelajari.",
+            "Fokus pada kelenturan tubuh dan kelancaran transisi antar gerakan."
+        ];
+        
+        // Helper function to format time (seconds to mm:ss)
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // Generate sub-gerakan list dynamically
+        function generateSubgerakanList() {
+            const subgerakanList = document.getElementById('subgerakanList');
+            const subgerakanTitle = document.getElementById('subgerakanTitle');
+            subgerakanTitle.textContent = `${maxSubgerakan} Sub-Gerakan Detail`;
+            
+            subgerakanList.innerHTML = '';
+            
+            for (let i = 0; i < maxSubgerakan; i++) {
+                const start = i * SUBGERAKAN_DURATION;
+                const end = Math.min(start + SUBGERAKAN_DURATION, totalDuration);
+                if (start >= totalDuration) break;
+                
+                const num = i + 1;
+                const description = genericDescriptions[i % genericDescriptions.length];
+                
+                const card = document.createElement('div');
+                card.className = 'accordion-card';
+                card.setAttribute('data-start', start);
+                card.setAttribute('data-end', end);
+                
+                card.innerHTML = `
+                        <div class="accordion-header">
+                            <div class="accordion-left">
+                            <div class="step-badge">${num}</div>
+                                <div class="accordion-title-wrapper">
+                                <div class="accordion-title">Sub Gerakan ${num}</div>
+                                <div class="accordion-duration">${formatTime(start)} - ${formatTime(end)}</div>
+                                </div>
+                            </div>
+                            <div class="accordion-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M7 10l5 5 5-5z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <div class="accordion-description">
+                                ${description}
+                                </div>
+                                <div class="accordion-video"></div>
+                        </div>
+                    </div>
+                `;
+                
+                subgerakanList.appendChild(card);
+            }
+        }
+        
+        // Function to setup accordion functionality
+        function setupAccordions() {
+            const accordionCards = document.querySelectorAll('.accordion-card');
+            
+            accordionCards.forEach(card => {
             const header = card.querySelector('.accordion-header');
-            const content = card.querySelector('.accordion-content');
             const videoWrapper = card.querySelector('.accordion-video');
             
             header.addEventListener('click', () => {
@@ -878,13 +583,15 @@
                 } else {
                     card.classList.add('active');
                 
-                    // Load video dengan start & end time
+                        // Load video dengan start & end time only if YouTube ID exists and is not empty
+                        const hasValidYoutubeId = youtubeId && youtubeId.trim() !== '';
+                        if (hasValidYoutubeId) {
                     const startTime = card.getAttribute('data-start');
                     const endTime = card.getAttribute('data-end');
                     
                     videoWrapper.innerHTML = `
                         <iframe 
-                            src="https://www.youtube.com/embed/U1ycqGXJ1fI?start=${startTime}&end=${endTime}&autoplay=1" 
+                                    src="https://www.youtube.com/embed/${youtubeId}?start=${startTime}&end=${endTime}&autoplay=1" 
                             title="YouTube video player" 
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -892,9 +599,21 @@
                             allowfullscreen>
                         </iframe>
                     `;
+                        } else {
+                            videoWrapper.innerHTML = `
+                                <div style="display: flex; align-items: center; justify-content: center; height: 320px; background-color: #f5f5f5; border-radius: 10px; color: var(--tria-muted);">
+                                    <p style="text-align: center;">Video tutorial belum tersedia untuk tarian ini.</p>
+                                </div>
+                            `;
+                        }
                 }
             });
         });
+        }
+        
+        // Generate sub-gerakan on page load, then setup accordions
+        generateSubgerakanList();
+        setupAccordions();
     </script>
 </body>
 </html>

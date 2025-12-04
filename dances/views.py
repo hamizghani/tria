@@ -2,6 +2,21 @@ from django.shortcuts import render
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 
+def calculate_difficulty(duration_seconds):
+    """Calculate difficulty level based on duration in seconds"""
+    if duration_seconds < 240:  # Under 4 minutes
+        return "Mudah"
+    elif duration_seconds <= 480:  # 4-8 minutes
+        return "Menengah"
+    else:  # Above 8 minutes
+        return "Susah"
+
+def format_duration(seconds):
+    """Format seconds to mm:ss format"""
+    mins = seconds // 60
+    secs = seconds % 60
+    return f"{mins}:{secs:02d}"
+
 # Updated list of 10 Indonesian dances with images and youtube placeholders
 DANCES = [
     {
@@ -15,8 +30,11 @@ DANCES = [
 "Dari posisi menghadap depan, lakukan langkah silang. Hitungan 1–4: kaki kanan menyilang di depan kaki kiri, lalu kaki kiri melangkah membuka ke samping kiri, tubuh sedikit condong mengikuti arah kaki. Tangan berayun silang di depan badan (seperti mengiris lembut udara) sambil memegang selendang. Hitungan 5–8: ganti, kaki kiri menyilang di depan kaki kanan lalu membuka ke samping kanan, tangan berayun kembali dengan pola yang sama. Ulangi 2 kali (16 hitungan) sambil jaga gerakan tetap halus dan lentur.",
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
-        "youtube_id": "sGX_XGdE7eo",  # YouTube video ID only
-        "image_url": "https://momopururu.com/wp-content/uploads/2022/06/20211218171844_IMG_8553-01-01-scaled-1024x768.jpeg"
+        "youtube_id": "sGX_XGdE7eo",
+        "image_url": "https://momopururu.com/wp-content/uploads/2022/06/20211218171844_IMG_8553-01-01-scaled-1024x768.jpeg",
+        "asal_daerah": "Bali",
+        "durasi_video": 475,  # 7:55 in seconds
+        "difficulty": "Menengah"
     },
     {
         "id": 2,
@@ -30,7 +48,10 @@ DANCES = [
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
         "youtube_id": "3ka7bd-ECsI",
-        "image_url": "https://img.antarafoto.com/cache/1200x800/2021/07/01/pagelaran-tari-janger-muda-mudi-bali-uq4u-dom.webp"
+        "image_url": "https://img.antarafoto.com/cache/1200x800/2021/07/01/pagelaran-tari-janger-muda-mudi-bali-uq4u-dom.webp",
+        "asal_daerah": "Bali",
+        "durasi_video": 173,  # 2:53 in seconds
+        "difficulty": "Mudah"
     },
     {
         "id": 3,
@@ -44,7 +65,10 @@ DANCES = [
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
         "youtube_id": "W3PRdCxocM0",
-        "image_url": "https://www.kelaspintar.id/_next/image?url=https%3A%2F%2Fblog2.kelaspintar.id%2Fblog%2Fwp-content%2Fuploads%2F2021%2F12%2Ftari-bungong-jeumpa.jpg&w=3840&q=75"
+        "image_url": "https://www.kelaspintar.id/_next/image?url=https%3A%2F%2Fblog2.kelaspintar.id%2Fblog%2Fwp-content%2Fuploads%2F2021%2F12%2Ftari-bungong-jeumpa.jpg&w=3840&q=75",
+        "asal_daerah": "Aceh",
+        "durasi_video": 210,  # 3:30 in seconds
+        "difficulty": "Mudah"
     },
     {
         "id": 4,
@@ -58,7 +82,10 @@ DANCES = [
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
         "youtube_id": "U1ycqGXJ1fI",
-        "image_url": "https://i.ibb.co.com/39BkHzbw/Screenshot-2025-11-27-at-00-23-13.png"
+        "image_url": "https://i.ibb.co.com/39BkHzbw/Screenshot-2025-11-27-at-00-23-13.png",
+        "asal_daerah": "Betawi",
+        "durasi_video": 264,  # 4:24 in seconds
+        "difficulty": "Menengah"
     },
     {
         "id": 5,
@@ -71,8 +98,11 @@ DANCES = [
 "Dari posisi menghadap depan, lakukan langkah silang. Hitungan 1–4: kaki kanan menyilang di depan kaki kiri, lalu kaki kiri melangkah membuka ke samping kiri, tubuh sedikit condong mengikuti arah kaki. Tangan berayun silang di depan badan (seperti mengiris lembut udara) sambil memegang selendang. Hitungan 5–8: ganti, kaki kiri menyilang di depan kaki kanan lalu membuka ke samping kanan, tangan berayun kembali dengan pola yang sama. Ulangi 2 kali (16 hitungan) sambil jaga gerakan tetap halus dan lentur.",
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
-        "youtube_id": "",
-        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe3dCdunJCq8gLwWCdbiWBeqI1VVKZYxH8aw&s"
+        "youtube_id": "QGlzRzC1ehY",
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe3dCdunJCq8gLwWCdbiWBeqI1VVKZYxH8aw&s",
+        "asal_daerah": "Sumatera Barat",
+        "durasi_video": 371,  # 6:11 in seconds
+        "difficulty": "Menengah"
     },
     {
         "id": 6,
@@ -85,8 +115,11 @@ DANCES = [
 "Dari posisi menghadap depan, lakukan langkah silang. Hitungan 1–4: kaki kanan menyilang di depan kaki kiri, lalu kaki kiri melangkah membuka ke samping kiri, tubuh sedikit condong mengikuti arah kaki. Tangan berayun silang di depan badan (seperti mengiris lembut udara) sambil memegang selendang. Hitungan 5–8: ganti, kaki kiri menyilang di depan kaki kanan lalu membuka ke samping kanan, tangan berayun kembali dengan pola yang sama. Ulangi 2 kali (16 hitungan) sambil jaga gerakan tetap halus dan lentur.",
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
-        "youtube_id": "",
-        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn-HmkUeHFdSytX9MQ4YMQ8Ggtee8TKTlQFg&s"
+        "youtube_id": "bv8vrrX4lYM",
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn-HmkUeHFdSytX9MQ4YMQ8Ggtee8TKTlQFg&s",
+        "asal_daerah": "Yogyakarta",
+        "durasi_video": 97,  # 1:37 in seconds
+        "difficulty": "Mudah"
     },
     {
         "id": 7,
@@ -99,8 +132,11 @@ DANCES = [
 "Dari posisi menghadap depan, lakukan langkah silang. Hitungan 1–4: kaki kanan menyilang di depan kaki kiri, lalu kaki kiri melangkah membuka ke samping kiri, tubuh sedikit condong mengikuti arah kaki. Tangan berayun silang di depan badan (seperti mengiris lembut udara) sambil memegang selendang. Hitungan 5–8: ganti, kaki kiri menyilang di depan kaki kanan lalu membuka ke samping kanan, tangan berayun kembali dengan pola yang sama. Ulangi 2 kali (16 hitungan) sambil jaga gerakan tetap halus dan lentur.",
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
-        "youtube_id": "",
-        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOqlApZqamkNQq2qamDw9xfm28YlT8cmSXZA&s"
+        "youtube_id": "F-mUU_19cMA",
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOqlApZqamkNQq2qamDw9xfm28YlT8cmSXZA&s",
+        "asal_daerah": "Aceh",
+        "durasi_video": 170,  # 2:50 in seconds
+        "difficulty": "Mudah"
     },
     {
         "id": 8,
@@ -113,8 +149,11 @@ DANCES = [
 "Dari posisi menghadap depan, lakukan langkah silang. Hitungan 1–4: kaki kanan menyilang di depan kaki kiri, lalu kaki kiri melangkah membuka ke samping kiri, tubuh sedikit condong mengikuti arah kaki. Tangan berayun silang di depan badan (seperti mengiris lembut udara) sambil memegang selendang. Hitungan 5–8: ganti, kaki kiri menyilang di depan kaki kanan lalu membuka ke samping kanan, tangan berayun kembali dengan pola yang sama. Ulangi 2 kali (16 hitungan) sambil jaga gerakan tetap halus dan lentur.",
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
-        "youtube_id": "",
-        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl7aU7RshzmXtYoXIhgmlyVEZ639AoaB8-CA&s"
+        "youtube_id": "hlScDXIafPY",
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl7aU7RshzmXtYoXIhgmlyVEZ639AoaB8-CA&s",
+        "asal_daerah": "Jawa Timur",
+        "durasi_video": 477,  # 7:57 in seconds
+        "difficulty": "Menengah"
     },
     {
         "id": 9,
@@ -127,8 +166,11 @@ DANCES = [
 "Dari posisi menghadap depan, lakukan langkah silang. Hitungan 1–4: kaki kanan menyilang di depan kaki kiri, lalu kaki kiri melangkah membuka ke samping kiri, tubuh sedikit condong mengikuti arah kaki. Tangan berayun silang di depan badan (seperti mengiris lembut udara) sambil memegang selendang. Hitungan 5–8: ganti, kaki kiri menyilang di depan kaki kanan lalu membuka ke samping kanan, tangan berayun kembali dengan pola yang sama. Ulangi 2 kali (16 hitungan) sambil jaga gerakan tetap halus dan lentur.",
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
-        "youtube_id": "",
-        "image_url": "https://bisniswisata.co.id/wp-content/uploads/2019/08/tari-topeng-betawi-1.jpg"
+        "youtube_id": "v8g-sf9mZSY",
+        "image_url": "https://bisniswisata.co.id/wp-content/uploads/2019/08/tari-topeng-betawi-1.jpg",
+        "asal_daerah": "Betawi",
+        "durasi_video": 716,  # 11:56 in seconds
+        "difficulty": "Susah"
     },
     {
         "id": 10,
@@ -141,8 +183,11 @@ DANCES = [
 "Dari posisi menghadap depan, lakukan langkah silang. Hitungan 1–4: kaki kanan menyilang di depan kaki kiri, lalu kaki kiri melangkah membuka ke samping kiri, tubuh sedikit condong mengikuti arah kaki. Tangan berayun silang di depan badan (seperti mengiris lembut udara) sambil memegang selendang. Hitungan 5–8: ganti, kaki kiri menyilang di depan kaki kanan lalu membuka ke samping kanan, tangan berayun kembali dengan pola yang sama. Ulangi 2 kali (16 hitungan) sambil jaga gerakan tetap halus dan lentur.",
 
 "Gerakan penutup: dari posisi terakhir, rapikan langkah hingga kedua kaki rapat menghadap penonton. Hitungan 1–4: kedua tangan membawa selendang ke depan dada, siku sedikit menekuk, kepala menunduk pelan sebagai salam. Hitungan 5–8: buka tangan ke samping dengan selendang terbentang lembut, dada dibuka, pandangan ke depan sambil tersenyum. Ulangi salam satu kali lagi jika perlu, lalu tahan pose akhir beberapa detik sebelum benar-benar selesai."],
-        "youtube_id": "",
-        "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Gambyong_Langenkusuma_Pj_DSC_1322.JPG"
+        "youtube_id": "gtA_e6GmaE4",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Gambyong_Langenkusuma_Pj_DSC_1322.JPG",
+        "asal_daerah": "Jawa Tengah",
+        "durasi_video": 369,  # 6:09 in seconds
+        "difficulty": "Menengah"
     }
 ]
 
@@ -176,12 +221,23 @@ def dance_tutorial(request, dance_id):
     dance = get_dance_by_id(dance_id)
     if dance is None:
         raise Http404(f"Dance with id {dance_id} not found")
+    # Add formatted duration and calculate max sub-gerakan
+    dance = dance.copy()
+    durasi = dance.get('durasi_video', 0)
+    dance['durasi_formatted'] = format_duration(durasi)
+    dance['max_subgerakan'] = (durasi + 17) // 18  # Round up, each sub-gerakan is 18 seconds
     return render(request, 'dances/dance_tutorial.html', {'dance': dance})
 
 def dance_assessment(request, dance_id):
     dance = get_dance_by_id(dance_id)
     if dance is None:
         raise Http404(f"Dance with id {dance_id} not found")
+    # Add formatted duration and calculate max sub-gerakan
+    dance = dance.copy()
+    durasi = dance.get('durasi_video', 0)
+    dance['durasi_formatted'] = format_duration(durasi)
+    # Calculate number of sub-gerakan (each is 18 seconds)
+    dance['max_subgerakan'] = (durasi + 17) // 18  # Round up
     return render(request, 'dances/dance_assessment.html', {'dance': dance})
 
 def dance_result(request, dance_id):

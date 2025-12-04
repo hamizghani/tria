@@ -382,6 +382,11 @@
                     <a href="{% url 'dances:dance_detail' dance.id %}" class="dance-link">
                         {{ dance.name }}
                     </a>
+                    {% if dance.difficulty %}
+                    <span class="dance-difficulty" style="display: inline-block; margin-top: 0.3rem; font-size: 0.75rem; font-weight: 600; color: var(--tria-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+                        Tingkat Kesulitan: {{ dance.difficulty }}
+                    </span>
+                    {% endif %}
                     <p class="dance-description">{{ dance.description }}</p>
                     <div class="dance-actions">
                         <a href="{% url 'dances:dance_detail' dance.id %}" class="btn btn-primary">
