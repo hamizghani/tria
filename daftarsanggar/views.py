@@ -14,7 +14,7 @@ HARDCODED_SANGGARS = [
         "phone_number": "(021) 8294777",
         "location": "Jl. Halimun No. 43, Guntur, Jakarta Selatan",
         "email": "info.namarina@gmail.com",
-        "description": "Institusi pendidikan tari tertua di Indonesia (sejak 1956) yang fokus pada Ballet, Jazz Dance, dan kebugaran.",
+        "description": "Institusi pendidikan tari tertua di Indonesia (sejak 1956) yang fokus pada Tarian Tradisional, Jazz Dance, dan kebugaran.",
         "wa_link": "https://api.whatsapp.com/send/?phone=62810&text&type=phone_number&app_absent=0",
         "reviews": [
             {"user": "Andi Pratama", "comment": "Pengajar sangat profesional."}
@@ -119,7 +119,7 @@ HARDCODED_SANGGARS = [
         "phone_number": "0812-9642-0360",
         "location": "Jl. Pulomas Timur 2, Jakarta Timur",
         "email": "ForeverDanceCenter@gmail.com",
-        "description": "Sekolah tari populer untuk anak-anak hingga dewasa dengan genre Ballet, K-Pop, dan Hip Hop.",
+        "description": "Sekolah tari populer untuk anak-anak hingga dewasa dengan genre Tarian Tradisional, K-Pop, dan Hip Hop.",
         "wa_link": "https://api.whatsapp.com/send/?phone=62810&text&type=phone_number&app_absent=0",
         "reviews": [
             {"user": "Cinta Laura", "comment": "Dance cover K-Pop nya update."}
@@ -166,7 +166,7 @@ HARDCODED_SANGGARS = [
     },
     {
         "sanggar_id": "ST013",
-        "nama_sanggar": "Ballet Sumber Cipta",
+        "nama_sanggar": "Sanggar Sumber Cipta",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqpuJP-yezqT3tgIRzA_--pDVl4YDKKsxVQQ&s",
         "phone_number": "(021) 7659876",
         "location": "Jl. Ciputat Raya No. 1, Pondok Pinang",
@@ -224,7 +224,7 @@ HARDCODED_SANGGARS = [
         "phone_number": "(021) 58302528",
         "location": "Jl. Meruya Ilir No. 88, Jakarta Barat",
         "email": "gdc@genecela.com",
-        "description": "Pusat pelatihan tari dengan kurikulum internasional untuk Jazz, Tap, dan Ballet.",
+        "description": "Pusat pelatihan tari dengan kurikulum internasional untuk Jazz, Tap, dan Tarian Tradisional.",
         "wa_link": "https://api.whatsapp.com/send/?phone=62810&text&type=phone_number&app_absent=0",
         "reviews": [
             {"user": "Raditya Dika", "comment": "Tap dance jarang ada di tempat lain."}

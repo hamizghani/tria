@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+import random
 
 def calculate_difficulty(duration_seconds):
     """Calculate difficulty level based on duration in seconds"""
@@ -200,9 +201,14 @@ def dance_result(request, dance_id):
     if dance is None:
         raise Http404(f"Dance with id {dance_id} not found")
 
+    # Import sanggar data and randomly select 2 recommendations
+    from daftarsanggar.views import HARDCODED_SANGGARS
+    recommended_sanggars = random.sample(HARDCODED_SANGGARS, min(2, len(HARDCODED_SANGGARS)))
+
     # Score now comes entirely from frontend API
     return render(request, 'dances/dance_result.html', {
-        'dance': dance
+        'dance': dance,
+        'recommended_sanggars': recommended_sanggars
     })
 
 def get_dance_by_id(dance_id):
@@ -239,15 +245,3 @@ def dance_assessment(request, dance_id):
     # Calculate number of sub-gerakan (each is 18 seconds)
     dance['max_subgerakan'] = (durasi + 17) // 18  # Round up
     return render(request, 'dances/dance_assessment.html', {'dance': dance})
-
-def dance_result(request, dance_id):
-    dance = get_dance_by_id(dance_id)
-    if dance is None:
-        raise Http404(f"Dance with id {dance_id} not found")
-    score = 85
-    improvement = "Menurutku, waktu kamu bawain Tari Lenggang Nyai, masalah yang paling sering kelihatan itu di keluwesan badan dan ekspresi wajah; gerak kaki dan pola lantainya sudah lumayan hafal, tapi ayunan tangan, bahu, dan pinggulmu masih cenderung kaku sehingga kesan lincah dan centil khas tari ini belum terlalu terasa, ditambah kadang tempo kamu suka sedikit kecepatan lalu tiba-tiba melambat sehingga nggak selalu “nempel” dengan iringan musik, jadi ke depan kamu bisa lebih fokus melenturkan badan, menguatkan mimik (senyum, tatapan mata yang hidup), dan sering latihan pakai musik supaya rasa dan ritmenya lebih rata dari awal sampai akhir."
-    return render(request, 'dances/dance_result.html', {
-        'dance': dance,
-        'score': score,
-        'improvement': improvement
-    })

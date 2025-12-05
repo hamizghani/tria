@@ -192,10 +192,83 @@
             transform: translateY(-1px);
         }
     
+        /* Sanggar Recommendations */
+        .sanggar-recommendations {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--tria-border);
+        }
+    
+        .sanggar-recommendations-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--tria-text);
+        }
+    
+        .sanggar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+    
+        .sanggar-card {
+            background-color: #ffffff;
+            border: 1px solid var(--tria-border);
+            border-radius: 1.2rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+    
+        .sanggar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+            border-color: var(--tria-red);
+        }
+    
+        .sanggar-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+        }
+    
+        .sanggar-info {
+            padding: 1.2rem;
+        }
+    
+        .sanggar-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--tria-text);
+        }
+    
+        .sanggar-description {
+            font-size: 0.88rem;
+            color: var(--tria-muted);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    
         @media (max-width: 600px) {
             .page {
                 padding-inline: 1.4rem;
                 padding-top: 2.3rem;
+            }
+    
+            .sanggar-grid {
+                grid-template-columns: minmax(0, 1fr);
             }
         }
     </style>
@@ -244,7 +317,26 @@
                 <button type="submit" class="btn btn-outline">Dances</button>
             </form>
         </div>
-    </section>    
+    </section>
+    
+    <!-- Sanggar Recommendations -->
+    {% if recommended_sanggars %}
+    <section class="sanggar-recommendations">
+        <h2 class="sanggar-recommendations-title">
+            Rekomendasi Sanggar untuk Mempelajari Tarian {{ dance.name }} lebih lanjut
+        </h2>
+        <div class="sanggar-grid">
+            {% for sanggar in recommended_sanggars %}
+            <a href="{% url 'daftarsanggar:detail' sanggar.sanggar_id %}" class="sanggar-card">
+                <img src="{{ sanggar.image }}" alt="{{ sanggar.nama_sanggar }}" class="sanggar-image" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                <div class="sanggar-info">
+                    <h3 class="sanggar-name">{{ sanggar.nama_sanggar }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
 </main>
 
 <script>
