@@ -529,7 +529,6 @@
         <strong>{{ dance.name }}</strong>. Tria akan membantu mengevaluasi hasilnya.
     </p>
 
-    <!-- SUB-GERAKAN DISPLAY - Above video -->
     <div class="subgerakan-display-container">
         <div class="subgerakan-display">
             <div class="subgerakan-header-display">
@@ -545,12 +544,10 @@
         </div>
     </div>
 
-    <!-- VIDEO FULL WIDTH -->
     <div class="video-container">
         <video id="video" autoplay playsinline></video>
     </div>
 
-    <!-- CONTROLS: START, FINISH, TIMER -->
     <div class="controls-container">
         <div class="controls-left">
             <button id="startBtn" class="btn btn-primary">Start</button>
@@ -560,13 +557,11 @@
     </div>
 </main>
 
-<!-- LOADING OVERLAY -->
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner"></div>
     <div class="loading-text">Menganalisis Gerakmu...</div>
 </div>
 
-<!-- MODAL DIALOG FOR EARLY FINISH -->
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal-dialog">
         <h3 class="modal-title">Konfirmasi Akhiri Asesmen</h3>
@@ -582,6 +577,7 @@
 
 <script>
     // Get dance data from Django template
+    const DANCE_ID = "{{ dance.id }}"; // Menangkap Dance ID
     const TOTAL_DURATION = parseInt("{{ dance.durasi_video|default:264 }}") || 264; // Duration in seconds
     const MAX_SUBGERAKAN = parseInt("{{ dance.max_subgerakan|default:15 }}") || 15;
     const SUBGERAKAN_DURATION = 18; // Each sub-gerakan is 18 seconds
@@ -652,7 +648,7 @@
             instructions.push("Langkah kaki yang halus, jaga keanggunan dalam setiap gerakan.");
         } else if (danceLower.includes('lenggang') || danceLower.includes('nyai')) {
             instructions.push("Berdiri dengan postur anggun wanita, siapkan untuk gerakan lenggang yang khas.");
-            instructions.push("Gerakan lenggang pinggul dengan lembut, tunjukkan keanggunan khas Betawi.");
+            instructions.push("Gerakan tangan yang lembut seperti kelopak bunga, ekspresikan keindahan.");
             instructions.push("Langkah kaki dengan pola khas lenggang, koordinasi dengan ayunan pinggul.");
         } else if (danceLower.includes('piring')) {
             instructions.push("Berdiri dengan memegang piring, siapkan untuk gerakan khas Tari Piring.");
@@ -911,7 +907,15 @@
         document.getElementById("loadingOverlay").style.display = "flex";
 
         try {
-            const response = await fetch("https://web-production-cd198.up.railway.app/api/givescore");
+            // LOGIC PERUBAHAN API URL DI SINI
+            let apiUrl = "https://web-production-cd198.up.railway.app/api/givescore";
+            
+            // Cek jika Dance ID adalah 3, ubah endpoint
+            if (DANCE_ID == "3") {
+                apiUrl = "https://web-production-46d4.up.railway.app/api/bungong";
+            }
+
+            const response = await fetch(apiUrl);
             const result = await response.json();
 
             // Store result and completion info
